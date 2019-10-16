@@ -1,0 +1,228 @@
+set nocompatible              " required
+filetype off                  " required
+
+"============================================================================
+"=                            BASIC SETTING                                 =
+"============================================================================
+
+" UTF-8 support
+set encoding=utf-8
+
+" YouCompleteMe does not work with fish
+set shell=/bin/bash
+
+" show line numbers
+set number
+set relativenumber
+
+" show the matching part of the pair for [] {} and ()
+set showmatch
+
+" Use same clipboard in Vim and in the system
+" Note: MacOS X specific setting
+set clipboard=unnamed
+
+" Set Leader key
+let mapleader = " "
+
+" Where to put new tab when doing screen split
+set splitright
+
+" Fixing 'Press ENTER or type command' promt issue
+set shortmess=a
+
+" enable syntax highlighting
+syntax enable
+
+" highlight cursorline
+set cursorline
+
+" Useful settings
+set history=700
+set undolevels=700
+
+" 
+" Disable creation of a swapfile
+set noswapfile
+
+" Don't use TABs but spaces
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set shiftround
+set expandtab
+
+" Search configuration
+set ignorecase                    " ignore case when searching
+set smartcase                     " turn on smartcase
+set hlsearch
+set incsearch
+
+"============================================================================
+"=                            KEYS REMAPPING                                =
+"============================================================================
+
+" Disable Arrow keys in Escape mode
+map <up> <nop>
+map <down> <nop>
+map <left> <nop>
+map <right> <nop>
+
+" Disable Arrow keys in Insert mode
+imap <up> <nop>
+imap <down> <nop>
+imap <left> <nop>
+imap <right> <nop>
+
+"split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" Better copy and paste
+set pastetoggle=<F2>
+
+"============================================================================
+"=                          PLUGIN INITIALIZATION                           =
+"============================================================================
+
+" set the runtime path to include Vundle and initialize
+" alternatively, pass a path where Vundle should install plugins
+" call vundle#begin('~/some/path/here')
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" Let vundle handle Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+" Better defaults
+Plugin 'tpope/vim-unimpaired'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-commentary'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
+" Deoplete completion engine for NeoVIM
+if has('nvim')
+  Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plugin 'Shougo/deoplete.nvim'
+  Plugin 'roxma/nvim-yarp'
+  Plugin 'roxma/vim-hug-neovim-rpc'
+endif
+
+" Deoplete Plugins
+Plugin 'deoplete-plugins/deoplete-jedi'
+Plugin 'deoplete-plugins/deoplete-clang'
+
+" ALE (Asynchronous Lint Engine)
+Plugin 'w0rp/ale'
+
+" Jedi for Python navigation and more...
+Plugin 'davidhalter/jedi-vim'
+
+" Git support
+Plugin 'tpope/vim-fugitive'
+
+" Git
+Plugin 'airblade/vim-gitgutter'
+
+" Directory and file tree <leader>t
+Plugin 'scrooloose/nerdtree'
+
+" Quick search plugin
+Plugin 'ctrlpvim/ctrlp.vim'
+
+" " Extensive syntax support for better highlighting
+" Plugin 'vim-python/python-syntax'
+" Plugin 'pangloss/vim-javascript'
+" Plugin 'godlygeek/tabular'
+" Plugin 'plasticboy/vim-markdown'
+Plugin 'pboettch/vim-cmake-syntax'
+
+" UI
+Plugin 'NLKNguyen/papercolor-theme'
+
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+"============================================================================
+"=                          PLUGIN CUSTOMIZATION                            =
+"============================================================================
+
+colorscheme PaperColor
+set background=dark
+let g:airline_theme = "papercolor"
+
+"*********************** CLANG ****************************
+"
+autocmd FileType c,cpp setlocal equalprg=clang-format
+
+"*********************** YAPF *****************************
+"
+autocmd FileType python nnoremap <leader>= :0,$!yapf<CR>
+
+"*********************** AIRLINE **************************
+" Airline customization
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_tabs = 1
+let g:airline#extensions#tabline#show_tab_nr = 1
+let g:airline#extensions#tabline#tab_nr_type = 1
+let g:airline_powerline_fonts = 1
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+let g:airline_symbols.space = "\ua0"
+
+"*********************** NERDTree *************************
+map <leader>t :NERDTreeToggle<CR>
+" Don't show hidden files
+let NERDTreeShowHidden=0
+let NERDTreeIgnore=['\.o$', '\~$', '\.swp$', '\.git$', '\.pyc$']
+
+"*********************** ALE ******************************
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%] [%...code...%]'
+let g:ale_linters = { 'python': ['flake8'], }
+let b:ale_fixers = { '*': ['remove_trailing_lines', 'trim_whitespace'], 'python': ['autopep8', 'yapf'], 'javascript': ['prettier', 'eslint']}
+" let g:ale_set_highlights = 0
+let g:ale_sign_column_always = 1
+let b:ale_warn_about_trailing_whitespace = 1
+let g:ale_python_flake8_options = '--max-line-length=120'
+let g:ale_python_auto_pipenv = 1
+let g:ale_cpp_clang_executable = 'clang++'
+let g:ale_cpp_clang_options = '-std=c++14 -Wall'
+
+"*********************** DEOPLETE *************************
+let g:deoplete#enable_at_startup = 1
+
+let g:deoplete#sources#clang#sort_algo = 'priority'
+if system('uname -s') == "Darwin\n"
+    let g:deoplete#sources#clang#libclang_path = '/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
+elseif system('uname -s') == "Linux\n"
+    if system('uname -m') == "aarch64\n"
+        let g:deoplete#sources#clang#libclang_path = '/usr/lib/aarch64-linux-gnu/libclang-6.0.so.1'
+        let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-6.0'
+    elseif system('uname -m') == "x86_64\n"
+        let g:deoplete#sources#clang#libclang_path = '/usr/lib/x86_64-linux-gnu/libclang-6.0.so.1'
+        let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-6.0'
+    endif
+endif
+
+
+"============================================================================
+"=                            PYTHON CUSTOMIZATION                          =
+"============================================================================
+
+let g:python_highlight_all = 1
+
+" Set debug brakepoint
+au FileType python map <silent> <leader>b oimport pdb; pdb.set_trace()<esc>
+au FileType python map <silent> <leader>B Oimport pdb; pdb.set_trace()<esc>
+
+"*********************** JEDI *************************
+" disable autocompletion, cause we use deoplete for completion
+let g:jedi#completions_enabled = 0
