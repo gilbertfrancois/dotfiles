@@ -33,7 +33,7 @@ PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv install 3.7.4
 pyenv global 3.7.4 
 pip install pipenv
 
-rm .python-version
+rm -f .python-version
 
 echo '--- Please add the following lines to .bashrc'
 echo
