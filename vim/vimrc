@@ -58,6 +58,7 @@ set smartcase                     " turn on smartcase
 set hlsearch
 set incsearch
 
+set guicursor=
 "============================================================================
 "=                            KEYS REMAPPING                                =
 "============================================================================
@@ -100,6 +101,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-fugitive'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 
@@ -121,9 +123,6 @@ Plugin 'w0rp/ale'
 
 " Jedi for Python navigation and more...
 Plugin 'davidhalter/jedi-vim'
-
-" Git support
-Plugin 'tpope/vim-fugitive'
 
 " Git
 Plugin 'airblade/vim-gitgutter'

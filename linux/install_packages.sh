@@ -10,6 +10,8 @@ sudo apt install -y \
     clang \
     libclang-dev \
     clang-format \
+    cmake \
+    cmake-qt-gui \
     bear \
     firefox \
     cryptsetup \
