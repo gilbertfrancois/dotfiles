@@ -28,6 +28,11 @@ elif [[ `uname -s` == "Linux" ]]; then
     source ${HOME}/.bashrc
     ./linux/install_packages.sh
     ./python/install_python_linux.sh
+    if [[ `uname -m` == "aarch64" ]]; then
+        sudo cp skuld/skuld_linux_amd64 /usr/local/bin/skuld
+    elif [[ `uname -m` == "x86_64" ]]; then
+        sudo cp skuld/skuld_linux_aarch64 /usr/local/bin/skuld
+    fi
 fi
 
 ./vim/install_vim.sh
