@@ -139,3 +139,6 @@ export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib:/usr/local/cuda/lib64:/
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 export PATH=/opt/node/bin:$PATH
+export GENESIS_DB_URL="postgres://ww4r2tvhy7z9:9g5sjcrhazgz@127.0.0.1:5432/genesis?sslmode=disable"
+export IMAGE_CLASSIFIER_ENABLED=0
+export OBJECT_DETECTOR_ENABLED=0
