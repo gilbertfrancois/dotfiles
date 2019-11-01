@@ -15,4 +15,6 @@ sudo apt install -y \
     bear \
     firefox \
     cryptsetup \
-    cryptsetup-bin
+    cryptsetup-bin \
+    valgrind \
+    gnome-session
