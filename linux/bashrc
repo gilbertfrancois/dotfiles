@@ -142,3 +142,40 @@ export PATH=/opt/node/bin:$PATH
 export GENESIS_DB_URL="postgres://ww4r2tvhy7z9:9g5sjcrhazgz@127.0.0.1:5432/genesis?sslmode=disable"
 export IMAGE_CLASSIFIER_ENABLED=0
 export OBJECT_DETECTOR_ENABLED=0
+
+# AWS S3
+function apup() {
+   aws --profile ava-x-skuld s3 sync --sse AES256 $1 s3://apothecary.smbh.ch/$2
+}
+
+function apdown() {
+   aws --profile ava-x-skuld s3 sync --sse AES256 s3://apothecary.smbh.ch/$1 $2
+}
+
+# dataup copy myfile.tar data/data/
+function dataup() {
+   aws --profile ava-x-skuld s3 $1 --sse AES256 $2 s3://data-gilbert.eu-west-1.ava-x.ch/$3
+}
+
+function datadown() {
+   aws --profile ava-x-skuld s3 $1 --sse AES256 s3://data-gilbert.eu-west-1.ava-x.ch/$2 $3
+}
+
+function datals() {
+   aws --profile ava-x-skuld s3 ls s3://data-gilbert.eu-west-1.ava-x.ch/$1
+}
+
+# Setup fzf
+# ---------
+if [[ ! "$PATH" == *${HOME}/.fzf/bin* ]]; then
+  export PATH="${PATH:+${PATH}:}${HOME}/.fzf/bin"
+fi
+
+# Auto-completion
+# ---------------
+[[ $- == *i* ]] && source "${HOME}/.fzf/shell/completion.bash" 2> /dev/null
+
+# Key bindings
+# ------------
+source "${HOME}/.fzf/shell/key-bindings.bash"
+export PATH="/usr/local/sbin:$PATH"
