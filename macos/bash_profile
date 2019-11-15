@@ -82,8 +82,6 @@ esac
 alias axion="mosh ubuntu@axion-c5.paracausal.ch"
 alias awsbb="mosh ubuntu@dev.blitzblit.com"
 alias ss="ssh gilbert@192.168.1.83"
-alias nano2="mosh ubuntu@192.168.20.97"
-alias rpi3="ssh pi@192.168.20.68"
 alias lab-gilbert="mosh --ssh='ssh -i ~/.ssh/gilbert-dev-machine.pem' ubuntu@lab-gilbert.instance.ava-x.ch"
 alias lab-gilbert-x="ssh -i ~/.ssh/gilbert-dev-machine.pem -Y ubuntu@lab-gilbert.instance.ava-x.ch"
 function ml-gpu() {
