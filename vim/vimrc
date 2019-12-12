@@ -134,14 +134,15 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'ctrlpvim/ctrlp.vim'
 
 " " Extensive syntax support for better highlighting
-" Plugin 'vim-python/python-syntax'
+Plugin 'vim-python/python-syntax'
+Plugin 'pboettch/vim-cmake-syntax'
 " Plugin 'pangloss/vim-javascript'
 " Plugin 'godlygeek/tabular'
 " Plugin 'plasticboy/vim-markdown'
-Plugin 'pboettch/vim-cmake-syntax'
 
 " UI
 Plugin 'NLKNguyen/papercolor-theme'
+Plugin 'joshdick/onedark.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -150,9 +151,13 @@ filetype plugin indent on    " required
 "=                          PLUGIN CUSTOMIZATION                            =
 "============================================================================
 
-colorscheme PaperColor
-set background=dark
-let g:airline_theme = "papercolor"
+" colorscheme PaperColor
+" set background=dark
+" let g:airline_theme = "papercolor"
+
+colorscheme onedark
+let g:airline_theme = "onedark"
+
 
 "*********************** CLANG ****************************
 "
