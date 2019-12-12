@@ -17,4 +17,7 @@ sudo apt install -y \
     cryptsetup \
     cryptsetup-bin \
     valgrind \
-    gnome-session
+    gnome-session \
+    zsh \
+    zsh-common \
+    zsh-doc
