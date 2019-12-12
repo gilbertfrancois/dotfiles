@@ -37,3 +37,4 @@ fi
 
 ./vim/install_vim.sh
 ./nvim/install_nvim.sh
+./sh/install.sh

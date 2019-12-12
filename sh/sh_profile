@@ -6,6 +6,7 @@ export GEMINI_LICENSE_KEY='/Hb9Q1qKp87yk9S4IeBuAwoPoDKzqBrmT6qhxpZzz2A='
 
 # Sentinel
 export GENESIS_DB_URL="postgres://ww4r2tvhy7z9:9g5sjcrhazgz@127.0.0.1:5432/genesis?sslmode=disable"
+export SENTINEL_NODE_ID="main"
 export IMAGE_CLASSIFIER_ENABLED=0
 export OBJECT_DETECTOR_ENABLED=0
 
@@ -27,9 +28,6 @@ export PATH="/Library/Frameworks/GStreamer.framework/Commands":$PATH
 export QT_LIBRARY_PATH=${HOME}/Development/lib/Qt5.12.0/5.12.0/clang_64
 export PATH=${QT_LIBRARY_PATH}/bin:${PATH}
 export CODE_SIGN_IDENTITY="Developer ID Application: Gilbert Francois Duivesteijn (2XF68W467D)"
-
-# Matlab
-export PATH=/Applications/MATLAB_R2017a.app/bin:${PATH}
 
 # Python
 export PYENV_ROOT="$HOME/.pyenv"
@@ -57,7 +55,6 @@ alias axion="mosh ubuntu@axion-c5.paracausal.ch"
 alias awsbb="mosh ubuntu@dev.blitzblit.com"
 alias lab-gilbert="mosh --ssh='ssh -i ~/.ssh/gilbert-dev-machine.pem' ubuntu@lab-gilbert.instance.ava-x.ch"
 alias lab-gilbert-x="ssh -i ~/.ssh/gilbert-dev-machine.pem -Y ubuntu@lab-gilbert.instance.ava-x.ch"
-alias blackbox="mosh -p 42001 --ssh='ssh -p 4201' ubuntu@85.195.220.234"
 function mosh_aws() {
     mosh --ssh='ssh -i ~/.ssh/gilbert-dev-machine.pem' ubuntu@$1
 }
