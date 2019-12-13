@@ -17,7 +17,7 @@ if [ -f ${HOME}/.zshrc ]; then
     then
         echo "... [ OK ]"
     else
-        echo "... [ WARNING ] Please install dotfiles_secret first."
+        echo "... [ WARNING ] Not all expected env variables found. Resuming without crashing..."
     fi
 fi
 
@@ -31,13 +31,19 @@ if [[ `uname -s` == "Darwin" ]]; then
     source ${HOME}/.zshrc
     ./macos/install_packages.sh
     ./python/install_python_macos.sh
+    echo "--- Installing skuld"
+    sudo git config --system --unset credential.helper
+    brew tap DEEP-IMPACT-AG/hyperdrive
+    brew install skuld
 elif [[ `uname -s` == "Linux" ]]; then
     source ${HOME}/.zshrc
     ./linux/install_packages.sh
     ./python/install_python_linux.sh
     if [[ `uname -m` == "aarch64" ]]; then
+        echo "--- Installing skuld"
         sudo cp skuld/skuld_linux_aarch64 /usr/local/bin/skuld
     elif [[ `uname -m` == "x86_64" ]]; then
+        echo "--- Installing skuld"
         sudo cp skuld/skuld_linux_amd64 /usr/local/bin/skuld
     fi
 fi
