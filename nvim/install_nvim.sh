@@ -52,7 +52,7 @@ fi
 
 echo "--- Install necessary python packages."
 # Install necessary python packages
-pip3 install --upgrade jedi rope ropevim flake8 pynvim
+pip3 install --upgrade jedi rope ropevim flake8 pynvim yapf isort
 
 echo "--- Setup NeoVim."
 # Setup NeoVim
