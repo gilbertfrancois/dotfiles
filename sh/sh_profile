@@ -48,7 +48,7 @@ export LANG="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
 
 # for tmux
-export TERM=xterm-256color
+# export TERM=xterm-256color
 
 # AWS EC2
 alias axion="mosh ubuntu@axion-c5.paracausal.ch"
@@ -69,6 +69,10 @@ function apup() {
 
 function apdown() {
    aws --profile ava-x-skuld s3 sync --sse AES256 s3://apothecary.smbh.ch/$1 $2
+}
+
+function apls() {
+   aws --profile ava-x-skuld s3 ls s3://apothecary.smbh.ch/$1 
 }
 
 # dataup copy myfile.tar data/data/
