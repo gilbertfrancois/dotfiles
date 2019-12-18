@@ -23,12 +23,11 @@ link tmux.conf tmux
 echo "--- Installing packages."
 if [[ `uname -s` == "Darwin" ]]; then
     ./macos/install_packages.sh
-    ./python/install_python_macos.sh
 elif [[ `uname -s` == "Linux" ]]; then
     ./linux/install_packages.sh
-    ./python/install_python_linux.sh
 fi
 
+./python/install.sh
 ./vim/install_vim.sh
 ./nvim/install_nvim.sh
 ./skuld/install.sh
