@@ -47,12 +47,17 @@ elif [[ `uname -s` == "Darwin" ]]; then
     # NODE_ARCH="x64"
     # NODE_EXTENSION="tar.gz"
     brew update
-    brew install npm node
+    brew install npm node yarn
 fi
+yarn global add neovim
 
 echo "--- Install necessary python packages."
 # Install necessary python packages
-pip3 install --upgrade jedi rope ropevim flake8 pynvim yapf isort
+CWD = `pwd`
+cd ${HOME}/.dotfiles/vim
+pipenv --python 3.7
+pipenv install --upgrade jedi rope ropevim flake8 pynvim yapf isort pylint
+cd ${CWD}
 
 echo "--- Setup NeoVim."
 # Setup NeoVim

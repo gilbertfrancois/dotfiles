@@ -105,24 +105,27 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 
+" COC
+Plugin 'neoclide/coc.nvim', {'branch': 'release'}
+
 " Deoplete completion engine for NeoVIM
-if has('nvim')
-  Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plugin 'Shougo/deoplete.nvim'
-  Plugin 'roxma/nvim-yarp'
-  Plugin 'roxma/vim-hug-neovim-rpc'
-endif
+" if has('nvim')
+"   Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" else
+"   Plugin 'Shougo/deoplete.nvim'
+"   Plugin 'roxma/nvim-yarp'
+"   Plugin 'roxma/vim-hug-neovim-rpc'
+" endif
 
 " Deoplete Plugins
-Plugin 'deoplete-plugins/deoplete-jedi'
-Plugin 'deoplete-plugins/deoplete-clang'
+" Plugin 'deoplete-plugins/deoplete-jedi'
+" Plugin 'deoplete-plugins/deoplete-clang'
 
 " ALE (Asynchronous Lint Engine)
-Plugin 'w0rp/ale'
+" Plugin 'w0rp/ale'
 
 " Jedi for Python navigation and more...
-Plugin 'davidhalter/jedi-vim'
+" Plugin 'davidhalter/jedi-vim'
 
 " Git
 Plugin 'airblade/vim-gitgutter'
@@ -186,19 +189,20 @@ map <leader>t :NERDTreeToggle<CR>
 let NERDTreeShowHidden=0
 let NERDTreeIgnore=['\.o$', '\~$', '\.swp$', '\.git$', '\.pyc$']
 
-"*********************** ALE ******************************
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%] [%...code...%]'
-let g:ale_linters = { 'python': ['flake8'], }
-let b:ale_fixers = { '*': ['remove_trailing_lines', 'trim_whitespace'], 'python': ['autopep8', 'yapf'], 'javascript': ['prettier', 'eslint']}
-" let g:ale_set_highlights = 0
-let g:ale_sign_column_always = 1
-let b:ale_warn_about_trailing_whitespace = 1
-let g:ale_python_flake8_options = '--max-line-length=120'
-let g:ale_python_auto_pipenv = 1
-let g:ale_cpp_clang_executable = 'clang++'
-let g:ale_cpp_clang_options = '-std=c++14 -Wall'
+""*********************** ALE ******************************
+"let g:ale_disable_lsp = 1
+"let g:ale_echo_msg_error_str = 'E'
+"let g:ale_echo_msg_warning_str = 'W'
+"let g:ale_echo_msg_format = '[%linter%] %s [%severity%] [%...code...%]'
+"let g:ale_linters = { 'python': ['flake8'], }
+"let b:ale_fixers = { '*': ['remove_trailing_lines', 'trim_whitespace'], 'python': ['autopep8', 'yapf'], 'javascript': ['prettier', 'eslint']}
+"" let g:ale_set_highlights = 0
+"let g:ale_sign_column_always = 1
+"let b:ale_warn_about_trailing_whitespace = 1
+"let g:ale_python_flake8_options = '--max-line-length=120'
+"let g:ale_python_auto_pipenv = 0
+"let g:ale_cpp_clang_executable = 'clang++'
+"let g:ale_cpp_clang_options = '-std=c++14 -Wall'
 
 "*********************** DEOPLETE *************************
 let g:deoplete#enable_at_startup = 1
