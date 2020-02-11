@@ -20,9 +20,10 @@ fi
 ln -s ${HOME}/.dotfiles/nvim ${HOME}/.config
 
 echo "--- Install python environment for NeoVim."
-rm -rf ${HOME}/.config/nvim_python
-mkdir -p ${HOME}/.config/nvim_python
-cd ${HOME}/.config/nvim_python
+VENV_PATH=".dotfiles/vim"
+rm -rf ${HOME}/${VENV_PATH}
+mkdir -p ${HOME}/${VENV_PATH}
+cd ${HOME}/${VENV_PATH}
 pyenv local 3.7.5
 pipenv --python 3.7.5
 pipenv install jedi rope ropevim pylint flake8 pynvim yapf isort autopep8
