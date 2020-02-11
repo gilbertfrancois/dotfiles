@@ -187,6 +187,7 @@ let NERDTreeShowHidden=0
 let NERDTreeIgnore=['\.o$', '\~$', '\.swp$', '\.git$', '\.pyc$']
 
 "*********************** ALE ******************************
+let g:ale_disable_lsp = 1
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%] [%...code...%]'
@@ -196,7 +197,7 @@ let b:ale_fixers = { '*': ['remove_trailing_lines', 'trim_whitespace'], 'python'
 let g:ale_sign_column_always = 1
 let b:ale_warn_about_trailing_whitespace = 1
 let g:ale_python_flake8_options = '--max-line-length=120'
-let g:ale_python_auto_pipenv = 1
+let g:ale_python_auto_pipenv = 0
 let g:ale_cpp_clang_executable = 'clang++'
 let g:ale_cpp_clang_options = '-std=c++14 -Wall'
 
@@ -220,7 +221,7 @@ endif
 "============================================================================
 "=                            PYTHON CUSTOMIZATION                          =
 "============================================================================
-
+let g:python3_host_prog = "/Users/gilbert/.dotfiles/vim/.venv/bin/python3"
 let g:python_highlight_all = 1
 
 " Set debug brakepoint
