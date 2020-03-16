@@ -19,9 +19,16 @@ if [ -d ${HOME}/.config/nvim ]; then
 fi
 ln -s ${HOME}/.dotfiles/nvim ${HOME}/.config
 
+echo "--- Install python environment for NeoVim."
+VENV_PATH=".dotfiles/vim"
+rm -rf ${HOME}/${VENV_PATH}
+mkdir -p ${HOME}/${VENV_PATH}
+cd ${HOME}/${VENV_PATH}
+pyenv local 3.7.5
+pipenv --python 3.7.5
+pipenv install jedi rope ropevim pylint flake8 pynvim yapf isort autopep8
+
 echo "--- Install nodejs for coc completer"
-
-
 NODE_VERSION="10.16.3"
 if [[ `uname -s` == "Linux" ]]; then
     if [[ `uname -m` == "aarch64" ]]; then
@@ -50,9 +57,6 @@ elif [[ `uname -s` == "Darwin" ]]; then
     brew install npm node
 fi
 
-echo "--- Install necessary python packages."
-# Install necessary python packages
-pip3 install --upgrade jedi rope ropevim flake8 pynvim
 
 echo "--- Setup NeoVim."
 # Setup NeoVim

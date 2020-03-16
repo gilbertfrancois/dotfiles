@@ -1,39 +1,36 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -e
 
-function backup_and_link {
-    # if [[ -f ${HOME}/.$1 ]]; then
-    #     if [[ -f ${HOME}/.$1_bu ]]; then
-    #         echo "Skipping backup of $1, already exists."
-    #     elif
-    #         mv ${HOME}/.$1 ${HOME}/.$1_bu
-    #     fi
-    # fi
+function link {
     rm -rf ${HOME}/.$1
     ln -s ${HOME}/.dotfiles/$2/$1 ${HOME}/.$1 
 }
 
-echo "--- Setting symlinks to the dotfiles."
-backup_and_link vimrc vim
-backup_and_link tmux.conf tmux
-
-if [[ `uname -s` == "Darwin" ]]; then
-    backup_and_link bash_profile macos
-    backup_and_link profile macos
-    source ${HOME}/.bash_profile
-    ./macos/install_packages.sh
-    # ./python/install_python_macos.sh
-elif [[ `uname -s` == "Linux" ]]; then
-    backup_and_link bashrc linux
-    backup_and_link profile linux
-    source ${HOME}/.bashrc
-    ./linux/install_packages.sh
-    ./python/install_python_linux.sh
-    if [[ `uname -m` == "aarch64" ]]; then
-        sudo cp skuld/skuld_linux_amd64 /usr/local/bin/skuld
-    elif [[ `uname -m` == "x86_64" ]]; then
-        sudo cp skuld/skuld_linux_aarch64 /usr/local/bin/skuld
-    fi
+echo "--- Checking shell environment..."
+if [ -f ${HOME}/.dotfiles_secret/sh/sh_profile ]; then
+    source ${HOME}/.dotfiles_secret/sh/sh_profile
+    echo "... [ OK ]"
+else
+    echo "... [ WARNING ] Not all expected env variables found. Resuming without crashing..."
+    echo "    Usually this is not a problem, except for pyenv. Add the environment variables"
+    echo "    given at the end of the installation yourself to your shell profile."
 fi
 
+echo "--- Setting symlinks to the dotfiles."
+link vimrc vim
+link tmux.conf tmux
+
+echo "--- Installing packages."
+if [[ `uname -s` == "Darwin" ]]; then
+    ./macos/install_packages.sh
+elif [[ `uname -s` == "Linux" ]]; then
+    ./linux/install_packages.sh
+fi
+
+./python/install.sh
 ./vim/install_vim.sh
 ./nvim/install_nvim.sh
+./skuld/install.sh
+./fonts/install.sh
+
+echo "--- Done."
