@@ -15,10 +15,10 @@ cd ${CURRENT_DIR}
 
 if [[ `uname -s` == "Darwin" ]]; then
     ${HOME}/.dotfiles/python/build_python_macos.sh 3.6.8
-    ${HOME}/.dotfiles/python/build_python_macos.sh 3.7.6
+    ${HOME}/.dotfiles/python/build_python_macos.sh 3.7.7
 elif [[ `uname -s` == "Linux" ]]; then
     ${HOME}/.dotfiles/python/build_python_linux.sh 3.6.8
-    ${HOME}/.dotfiles/python/build_python_linux.sh 3.7.6
+    ${HOME}/.dotfiles/python/build_python_linux.sh 3.7.7
 fi
     
 echo '--- Please add the following lines to your shell profile.'
