@@ -24,7 +24,3 @@ sudo apt install -y make \
 
 echo "--- Building Python ${1}"
 PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv install ${1}
-pyenv global ${1}
-pip install pipenv
-
-rm -f .python-version
