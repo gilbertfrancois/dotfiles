@@ -42,3 +42,7 @@ elif [[ `uname -s` == "Linux" ]]; then
     ${HOME}/.dotfiles/python/build_python_linux.sh 3.6.8
     ${HOME}/.dotfiles/python/build_python_linux.sh 3.7.7
 fi
+
+
+${HOME}/.dotfiles/python/install_poetry.sh
+
