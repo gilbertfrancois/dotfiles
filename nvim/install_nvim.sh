@@ -20,13 +20,13 @@ fi
 ln -s ${HOME}/.dotfiles/nvim ${HOME}/.config
 
 echo "--- Install python environment for NeoVim."
-VENV_PATH=".dotfiles/vim"
-rm -rf ${HOME}/${VENV_PATH}
-mkdir -p ${HOME}/${VENV_PATH}
-cd ${HOME}/${VENV_PATH}
-pyenv local 3.7.5
-pipenv --python 3.7.5
-pipenv install jedi rope ropevim pylint flake8 pynvim yapf isort autopep8
+VENV_ROOT_PATH="${HOME}/.dotfiles/vim"
+VENV_PATH="${VENV_ROOT_PATH}/.venv"
+rm -rf ${VENV_PATH}
+cd ${VENV_ROOT_PATH}
+python3 -m venv ${VENV_PATH}
+source ${VENV_PATH}/bin/activate
+pip install jedi rope ropevim pylint flake8 pynvim yapf isort autopep8
 
 echo "--- Install nodejs for coc completer"
 NODE_VERSION="10.16.3"
