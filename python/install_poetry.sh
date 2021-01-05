@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+if [[ `uname -s` == "Darwin" ]]; then
+    brew update
+    brew install curl
+elif [[ `uname -s` == "Linux" ]]; then
+    sudo apt update
+    sudo apt install curl
+fi
+
 set -e
 function update_sh {
     case `grep -sqF "poetry/bin" ${HOME}/$1 > /dev/null; echo $?` in
@@ -18,7 +26,7 @@ function update_sh {
 }
 
 echo "--- Installing Poetry..."
-#curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
 
 update_sh .bashrc
 update_sh .profile
