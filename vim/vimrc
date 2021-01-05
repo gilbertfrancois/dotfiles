@@ -197,7 +197,7 @@ let b:ale_fixers = { '*': ['remove_trailing_lines', 'trim_whitespace'], 'python'
 let g:ale_sign_column_always = 1
 let b:ale_warn_about_trailing_whitespace = 1
 let g:ale_python_flake8_options = '--max-line-length=120'
-let g:ale_python_auto_pipenv = 0
+" let g:ale_python_auto_pipenv = 0
 let g:ale_cpp_clang_executable = 'clang++'
 let g:ale_cpp_clang_options = '-std=c++14 -Wall'
 
