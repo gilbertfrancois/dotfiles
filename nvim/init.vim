@@ -150,8 +150,6 @@ let g:airline_theme = "papercolor"
 " colorscheme onedark
 " let g:airline_theme = "onedark"
 
-
-
 "*********************** AIRLINE **************************
 " Airline customization
 let g:airline_powerline_fonts = 1
@@ -174,7 +172,7 @@ let NERDTreeIgnore=['\.o$', '\~$', '\.swp$', '\.git$', '\.pyc$']
 "============================================================================
 "=                            PYTHON CUSTOMIZATION                          =
 "============================================================================
-let g:python3_host_prog = join([$HOME, "/.dotfiles/vim/.venv/bin/python3"], "")
+let g:python3_host_prog = join([$HOME, "/.config/nvim/lib/python/bin/python3"], "")
 let g:python_highlight_all = 1
 let g:python_highlight_operators = 0
 
@@ -187,9 +185,9 @@ au FileType python map <silent> <leader>B Oimport pdb; pdb.set_trace()<esc>
 "============================================================================
 
 " Custom node version, since Ubuntu 18.04 ships with an ancient version.
-if system('uname -s') == "Linux\n"
-    let g:coc_node_path = "/opt/node/bin/node"
-endif
+let g:coc_node_path = join([$HOME, "/.config/nvim/lib/node/bin/node"], "")
+
+let g:coc_global_extensions = ['coc-pyright', 'coc-html', 'coc-css', 'coc-tsserver', 'coc-json'] 
 
 " Set internal encoding of vim, not needed on neovim, since coc.nvim using some
 " unicode characters in the file autoload/float.vim

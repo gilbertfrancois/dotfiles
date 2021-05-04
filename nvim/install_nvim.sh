@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-set -e
+set -xe
 
-NODE_VERSION="14.16.1"
+NODE_VERSION="14.16.1"    # NodeJS LTS
 FZF_VERSION="0.27.0"
 
 NVIM_CONFIG_DIR=${HOME}/.config/nvim
@@ -22,7 +22,7 @@ function reset_config_dir {
 
 function install_deps {
     echo "--- Installing ctags, ripgrep"
-    " TODO: Install version for ARMv8
+    # TODO: Install version for ARMv8
     if [[ `uname -s` == "Linux" ]]; then
         sudo apt install -y exuberant-ctags
         if [[ `uname -m` == "x86_64" ]]; then
@@ -54,6 +54,9 @@ function install_python {
     cd ${NVIM_LIB_DIR}
     python3 -m venv ${VENV_PATH}
     source ${VENV_PATH}/bin/activate
+    # Avoid problems due to outdated pip.
+    pip install --upgrade pip
+    # Install neovim extension, python liners, formatters, import sorters and more...
     pip install jedi rope ropevim pylint flake8 pynvim yapf isort autopep8
 }
 
@@ -74,16 +77,15 @@ function install_node {
         NODE_EXTENSION="tar.gz"
     fi
     cd /tmp
-    rm -rf node*
+    sudo rm -rf node*
     rm -rf ${NVIM_LIB_DIR}/node*
-    mkdir -p ${NVIM_LIB_DIR}/node
     wget https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-${NODE_OS}-${NODE_ARCH}.${NODE_EXTENSION}
     echo "node-v${NODE_VERSION}-${NODE_OS}-${NODE_ARCH}.${NODE_EXTENSION}"
     # TODO: Make it work for macOS, with gzip compression
     tar -xvf node-v${NODE_VERSION}-${NODE_OS}-${NODE_ARCH}.${NODE_EXTENSION}
     mv node-v${NODE_VERSION}-${NODE_OS}-${NODE_ARCH} ${NVIM_LIB_DIR}
     ln -s ${NVIM_LIB_DIR}/node-v${NODE_VERSION}-${NODE_OS}-${NODE_ARCH} ${NVIM_LIB_DIR}/node
-    ${NVIM_LIB_DIR}/node/bin/npm i -g neovim
+    ${NVIM_LIB_DIR}/node/bin/npm i --prefix ${NVIM_LIB_DIR}/node/lib neovim
 }
 
 function install_fzf {
@@ -104,15 +106,23 @@ function install_fzf {
     fi
 }
 
-reset_config_dir
-install_neovim
-install_deps
-install_python
-install_node
-install_fzf
+function install_vundle {
+    rm -rf ${NVIM_CONFIG_DIR}/bundle
+    git clone https://github.com/gmarik/Vundle.vim.git ${NVIM_CONFIG_DIR}/bundle/Vundle.vim
+}
 
 function post_install {
     echo "--- Setup and install NeoVim plugins."
     nvim +PluginInstall +qall
     nvim +UpdateRemotePlugins +qall
+    nvim +CocInstall coc-pyright coc-tsserver coc-json coc-html coc-css +qall
 }
+
+#reset_config_dir
+#install_neovim
+#install_deps
+#install_python
+#install_node
+#install_fzf
+#install_vundle
+post_install
