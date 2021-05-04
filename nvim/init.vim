@@ -97,7 +97,7 @@ set pastetoggle=<F2>
 " set the runtime path to include Vundle and initialize
 " alternatively, pass a path where Vundle should install plugins
 " call vundle#begin('~/some/path/here')
-set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=~/.config/nvim/bundle/Vundle.vim
 call vundle#begin()
 
 " Let vundle handle Vundle, required
@@ -107,7 +107,6 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-fugitive'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 
@@ -116,6 +115,7 @@ Plugin 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Git
 Plugin 'airblade/vim-gitgutter'
+Plugin 'tpope/vim-fugitive'
 
 " Directory and file tree <leader>t
 Plugin 'scrooloose/nerdtree'
@@ -125,7 +125,9 @@ Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
 " Plugin 'yuki-ycino/fzf-preview.vim', { 'branch': 'release', 'do': ':UpdateRemotePlugins' }
 Plugin 'junegunn/fzf.vim'
 
+" Better syntax highlighting
 Plugin 'vim-python/python-syntax'
+
 " UI
 Plugin 'gilbertfrancois/intellij-light.vim'
 Plugin 'NLKNguyen/papercolor-theme'
@@ -311,7 +313,7 @@ omap ac <Plug>(coc-classobj-a)
 " Remap <C-f> and <C-b> for scroll float windows/popups.
 if has('nvim-0.4.0') || has('patch-8.2.0750')
   nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  nnoremap <silent><noait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
   inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
   inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
   vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
