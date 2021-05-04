@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+if [[ `uname -s` == "Darwin" ]]; then
+    brew update
+    brew install curl
+elif [[ `uname -s` == "Linux" ]]; then
+    sudo apt update
+    sudo apt install curl
+fi
+
 set -e
 function update_sh {
     case `grep -sqF "poetry/bin" ${HOME}/$1 > /dev/null; echo $?` in

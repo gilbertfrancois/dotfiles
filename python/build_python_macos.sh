@@ -18,7 +18,3 @@ export CPPFLAGS="-I/usr/local/opt/tcl-tk/include ${CPPFLAGS}"
 export CFLAGS="-O2"
 
 PYTHON_CONFIGURE_OPTS="--enable-framework" pyenv install ${1}
-pyenv local ${1}
-pip install pipenv
-
-rm .python-version
