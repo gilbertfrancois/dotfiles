@@ -128,6 +128,8 @@ Plugin 'junegunn/fzf.vim'
 " Better syntax highlighting
 Plugin 'vim-python/python-syntax'
 
+Plugin 'lifepillar/vim-colortemplate'
+
 " UI
 Plugin 'gilbertfrancois/intellij-light.vim'
 Plugin 'NLKNguyen/papercolor-theme'
@@ -144,8 +146,8 @@ filetype plugin indent on    " required
 " set background=light
 " let g:airline_theme = "papercolor"
 
-colorscheme intellij-light
-let g:airline_theme = "papercolor"
+colorscheme intellij-light-ref
+let g:airline_theme = "sol"
 
 " colorscheme onedark
 " let g:airline_theme = "onedark"

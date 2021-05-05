@@ -115,14 +115,13 @@ function post_install {
     echo "--- Setup and install NeoVim plugins."
     nvim +PluginInstall +qall
     nvim +UpdateRemotePlugins +qall
-    nvim +CocInstall coc-pyright coc-tsserver coc-json coc-html coc-css +qall
 }
 
-#reset_config_dir
-#install_neovim
-#install_deps
-#install_python
-#install_node
-#install_fzf
-#install_vundle
+reset_config_dir
+install_neovim
+install_deps
+install_python
+install_node
+install_fzf
+install_vundle
 post_install
