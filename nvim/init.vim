@@ -114,7 +114,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Git
-Plugin 'airblade/vim-gitgutter'
+" Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-fugitive'
 
 " Directory and file tree <leader>t
@@ -146,7 +146,7 @@ filetype plugin indent on    " required
 " set background=light
 " let g:airline_theme = "papercolor"
 
-colorscheme intellij-light-ref
+colorscheme intellij_light
 let g:airline_theme = "sol"
 
 " colorscheme onedark
@@ -181,6 +181,8 @@ let g:python_highlight_operators = 0
 " Set debug brakepoint
 au FileType python map <silent> <leader>b oimport pdb; pdb.set_trace()<esc>
 au FileType python map <silent> <leader>B Oimport pdb; pdb.set_trace()<esc>
+
+" let g:gitgutter_signs = 0
 
 "============================================================================
 "=                                COC                                       =
@@ -217,7 +219,7 @@ set shortmess+=c
 if has("patch-8.1.1564")
   " Recently vim can merge signcolumn and number column into one
   set signcolumn=number
-else
+" else
   set signcolumn=yes
 endif
 
