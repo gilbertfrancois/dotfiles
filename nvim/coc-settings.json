@@ -48,17 +48,17 @@
     // list
     "list.indicator": ">",
     "list.selectedSignText": " ",
-    "coc.preferences.formatOnSaveFiletypes": [
-        "css",
-        "markdown",
-        "javascript",
-        "graphql",
-        "html",
-        "yaml",
-        "json",
-        "python",
-        "java"
-    ],
+    //"coc.preferences.formatOnSaveFiletypes": [
+    //    "css",
+    //    "markdown",
+    //    "javascript",
+    //    "graphql",
+    //    "html",
+    //    "yaml",
+    //    "json",
+    //    "python",
+    //    "java"
+    //],
     //"coc.preferences.hoverTarget": "float",
     "python.analysis.autoImportCompletions": true,
     "python.analysis.autoSearchPaths": true,
