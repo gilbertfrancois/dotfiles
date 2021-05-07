@@ -19,5 +19,12 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" TAB in general mode will move to text buffer
+nnoremap <silent> <C-TAB> :bnext<CR>
+nnoremap <silent> <C-S-TAB> :bprevious<CR>
+
+
 " Better copy and paste
 set pastetoggle=<F2>
+
+

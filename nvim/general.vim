@@ -9,7 +9,7 @@ set hidden                              " Required to keep multiple buffers open
 set nowrap                              " Display long lines as just one line
 set whichwrap+=<,>,[,],h,l
 set encoding=utf-8                      " The encoding displayed
-set pumheight=10                        " Makes popup menu smaller
+set pumheight=14                        " Makes popup menu smaller
 set fileencoding=utf-8                  " The encoding written to file
 set ruler              			        " Show the cursor position all the time
 set cmdheight=2                         " More space for displaying messages
