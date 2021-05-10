@@ -11,25 +11,25 @@ NVIM_LIB_DIR=${NVIM_CONFIG_DIR}/lib
 function reset_config_dir {
     echo "--- (Re)setting Neovim config folder."
     mkdir -p ${HOME}/.config
-    if [ -d ${HOME}/.config/nvim ]; then
-        rm -rf ${HOME}/.config/nvim
-        mkdir -p ${HOME}/.config/nvim
-        mkdir -p ${NVIM_LIB_DIR}
-    fi
-    ln -s ${HOME}/.dotfiles/nvim/init.vim ${HOME}/.config/nvim
-    ln -s ${HOME}/.dotfiles/nvim/coc-settings.json ${HOME}/.config/nvim
+    #if [ -d ${HOME}/.config/nvim ]; then
+    rm -rf ${HOME}/.config/nvim
+    mkdir -p ${NVIM_CONFIG_DIR}
+    mkdir -p ${NVIM_LIB_DIR}
+    #fi
+    ln -s ${HOME}/.dotfiles/nvim/init.vim ${NVIM_CONFIG_DIR}
+    ln -s ${HOME}/.dotfiles/nvim/coc-settings.json ${NVIM_CONFIG_DIR}
 }
 
 function install_deps {
     echo "--- Installing ctags, ripgrep"
     # TODO: Install version for ARMv8
     if [[ `uname -s` == "Linux" ]]; then
-        sudo apt install -y exuberant-ctags
+        sudo apt install -y exuberant-ctags wget
         if [[ `uname -m` == "x86_64" ]]; then
             sudo snap install ripgrep --classic
         fi
     elif [[ `uname -s` == "Darwin" ]]; then
-        brew install ctags the_silver_searcher fd ripgrep fzf
+        brew install ctags the_silver_searcher fd ripgrep fzf wget
     fi
 }
 
@@ -38,10 +38,10 @@ function install_neovim {
     if [[ `uname -s` == "Linux" ]]; then
         sudo add-apt-repository -y ppa:neovim-ppa/stable
         sudo apt update
-        sudo apt install -y neovim 
+        sudo apt install -y neovim
     elif [[ `uname -s` == "Darwin" ]]; then
         brew update
-        brew install neovim
+        brew install neovim wget
     else
         echo "Unsupported OS."
     fi 
