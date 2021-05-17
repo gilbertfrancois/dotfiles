@@ -10,64 +10,33 @@ filetype off                  " required
 "============================================================================
 
 set noshowmode                          " We don't need to see things like -- INSERT -- anymore
-
-" UTF-8 support
 set encoding=utf-8
-
-" Swipe and mouse scroll
 set mouse=a
-
-" YouCompleteMe does not work with fish
 set shell=/bin/bash
-
-" show line numbers
 set number
 set relativenumber
-
-" show the matching part of the pair for [] {} and ()
 set showmatch
-
-" Use same clipboard in Vim and in the system
-" Note: MacOS X specific setting
 set clipboard=unnamed
-
-" Set Leader key
 let mapleader = " "
-
-" Where to put new tab when doing screen split
 set splitright
-
-" Fixing 'Press ENTER or type command' prompt issue
 set shortmess=a
-
-" enable syntax highlighting
 syntax enable
-
-" highlight cursorline
 set cursorline
-
-" Useful settings
+set colorcolumn=120
 set history=700
 set undolevels=700
-
-" 
-" Disable creation of a swapfile
 set noswapfile
-
-" Don't use TABs but spaces
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set shiftround
 set expandtab
-
-" Search configuration
 set ignorecase                    " ignore case when searching
 set smartcase                     " turn on smartcase
 set hlsearch
 set incsearch
-
 set guicursor=
+
 "============================================================================
 "=                            KEYS REMAPPING                                =
 "============================================================================
@@ -194,6 +163,12 @@ let NERDTreeIgnore=['\.o$', '\~$', '\.swp$', '\.git$', '\.pyc$']
 let g:python3_host_prog = join([$HOME, "/.config/nvim/lib/python/bin/python3"], "")
 let g:python_highlight_all = 1
 let g:python_highlight_operators = 0
+
+"============================================================================
+"=                            NODE CUSTOMIZATION                          =
+"============================================================================
+" let g:node_host_prog = join([$HOME, "/.config/nvim/lib/node/bin/node"], "")
+" let g:node_host_prog = expand("~/.config/nvim/lib/node-v14.16.1-linux-x64/bin/node")
 
 " Set debug brakepoint
 au FileType python map <silent> <leader>b oimport pdb; pdb.set_trace()<esc>

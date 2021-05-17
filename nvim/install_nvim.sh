@@ -77,7 +77,7 @@ function install_node {
         NODE_EXTENSION="tar.gz"
     fi
     cd /tmp
-    sudo rm -rf node*
+    rm -rf node*
     rm -rf ${NVIM_LIB_DIR}/node*
     wget https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-${NODE_OS}-${NODE_ARCH}.${NODE_EXTENSION}
     echo "node-v${NODE_VERSION}-${NODE_OS}-${NODE_ARCH}.${NODE_EXTENSION}"
@@ -117,11 +117,11 @@ function post_install {
     nvim +UpdateRemotePlugins +qall
 }
 
-reset_config_dir
-install_neovim
-install_deps
-install_python
+# reset_config_dir
+# install_neovim
+# install_deps
+# install_python
 install_node
-install_fzf
-install_vundle
-post_install
+# install_fzf
+# install_vundle
+# post_install
