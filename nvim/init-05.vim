@@ -165,11 +165,11 @@ filetype plugin indent on    " required
 " set background=light
 " let g:airline_theme = "papercolor"
 
-" colorscheme intellij_light
-" let g:airline_theme = "papercolor"
+colorscheme intellij_light
+let g:airline_theme = "papercolor"
 
-colorscheme onedark
-let g:airline_theme = "onedark"
+" colorscheme onedark
+" let g:airline_theme = "onedark"
 
 " colorscheme gruvbox
 " set background=dark
@@ -211,5 +211,20 @@ au FileType python map <silent> <leader>b oimport pdb; pdb.set_trace()<esc>
 au FileType python map <silent> <leader>B Oimport pdb; pdb.set_trace()<esc>
 
 
+"============================================================================
+"=                            LSP and autocomplete                          =
+"============================================================================
+
+set completeopt=menuone,noinsert,noselect
+let g:completion_matching_strategy_list=['exact', 'substring', 'fuzzy']
 
 lua require'lspconfig'.pyright.setup{on_attach=require'completion'.on_attach}
+
+nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> [g <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+nnoremap <silent> ]g <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
