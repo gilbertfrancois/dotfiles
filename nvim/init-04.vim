@@ -104,8 +104,10 @@ Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plugin 'junegunn/fzf.vim'
 
 Plugin 'vim-python/python-syntax'
+Plugin 'tikhomirov/vim-glsl'
 
 Plugin 'lifepillar/vim-colortemplate'
+Plugin 'superevilmegaco/AutoRemoteSync.nvim'
 
 " UI
 Plugin 'gilbertfrancois/intellij-light.vim'
@@ -165,7 +167,7 @@ let g:python_highlight_all = 1
 let g:python_highlight_operators = 0
 
 "============================================================================
-"=                            NODE CUSTOMIZATION                          =
+"=                            NODE CUSTOMIZATION                            =
 "============================================================================
 " let g:node_host_prog = join([$HOME, "/.config/nvim/lib/node/bin/node"], "")
 " let g:node_host_prog = expand("~/.config/nvim/lib/node-v14.16.1-linux-x64/bin/node")
@@ -173,6 +175,11 @@ let g:python_highlight_operators = 0
 " Set debug brakepoint
 au FileType python map <silent> <leader>b oimport pdb; pdb.set_trace()<esc>
 au FileType python map <silent> <leader>B Oimport pdb; pdb.set_trace()<esc>
+
+"============================================================================
+"=                            GLSL                                          =
+"============================================================================
+autocmd BufNewFile,BufRead *.vert,*.tesc,*.tese,*.glsl,*.geom,*.frag,*.comp set filetype=glsl
 
 "============================================================================
 "=                                COC                                       =
