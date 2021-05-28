@@ -48,18 +48,18 @@
     // list
     "list.indicator": ">",
     "list.selectedSignText": " ",
-    //"coc.preferences.formatOnSaveFiletypes": [
-    //    "css",
-    //    "markdown",
-    //    "javascript",
+    "coc.preferences.formatOnSaveFiletypes": [
+        "css",
+        "markdown",
+        "javascript",
+        "html",
+        "json"
+    ],
     //    "graphql",
-    //    "html",
     //    "yaml",
-    //    "json",
     //    "python",
     //    "java"
-    //],
-    //"coc.preferences.hoverTarget": "float",
+    "coc.preferences.hoverTarget": "float",
     "python.analysis.autoImportCompletions": true,
     "python.analysis.autoSearchPaths": true,
     "python.analysis.diagnosticMode": "openFilesOnly",
