@@ -118,6 +118,8 @@ Plugin 'neovim/nvim-lspconfig'
 Plugin 'nvim-lua/completion-nvim'
 Plugin 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 
+" Sync on buffer save.
+Plugin 'superevilmegaco/AutoRemoteSync.nvim'
 
 " Better defaults
 Plugin 'tpope/vim-unimpaired'
@@ -135,17 +137,15 @@ Plugin 'scrooloose/nerdtree'
 
 " FZF
 Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
-" Plugin 'yuki-ycino/fzf-preview.vim', { 'branch': 'release', 'do': ':UpdateRemotePlugins' }
 Plugin 'junegunn/fzf.vim'
-
-Plugin 'vim-python/python-syntax'
-
-Plugin 'lifepillar/vim-colortemplate'
+" Plugin 'yuki-ycino/fzf-preview.vim', { 'branch': 'release', 'do': ':UpdateRemotePlugins' }
 
 " UI
 Plugin 'gilbertfrancois/intellij-light.vim'
 Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'joshdick/onedark.vim'
+Plugin 'vim-python/python-syntax'
+Plugin 'lifepillar/vim-colortemplate'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
