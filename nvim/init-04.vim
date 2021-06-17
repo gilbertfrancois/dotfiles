@@ -10,16 +10,20 @@ filetype off                  " required
 "============================================================================
 
 set noshowmode                          " We don't need to see things like -- INSERT -- anymore
-set encoding=utf-8
+set iskeyword+=-                      	" treat dash separated words as a word text object"
+set encoding=utf-8                      " The encoding displayed
+set pumheight=14                        " Makes popup menu smaller
+set ruler              			        " Show the cursor position all the time
+set cmdheight=2                         " More space for displaying messages
+set nowrap                              " Display long lines as just one line
 set mouse=a
 set shell=/bin/bash
 set number
 set relativenumber
 set showmatch
-set clipboard=unnamed
 let mapleader = " "
 set splitright
-set shortmess=a
+" set shortmess=a
 syntax enable
 set cursorline
 set colorcolumn=120
@@ -29,13 +33,17 @@ set noswapfile
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
+set smarttab                            " Makes tabbing smarter will realize you have 2 vs 4
+set expandtab                           " Converts tabs to spaces
+set smartindent                         " Makes indenting smart
+set autoindent                          " Good auto indent
 set shiftround
-set expandtab
 set ignorecase                    " ignore case when searching
 set smartcase                     " turn on smartcase
 set hlsearch
-set incsearch
 set guicursor=
+set clipboard=unnamedplus               " Copy paste between vim and everything else
+set incsearch
 
 "============================================================================
 "=                            KEYS REMAPPING                                =
@@ -139,6 +147,8 @@ let g:airline_theme = "papercolor"
 " let g:airline_theme = "onedark"
 
 
+set completeopt=menuone,noinsert,noselect
+let g:completion_matching_strategy_list=['exact', 'substring', 'fuzzy']
 
 "*********************** AIRLINE **************************
 " Airline customization
@@ -180,13 +190,13 @@ au FileType python map <silent> <leader>B Oimport pdb; pdb.set_trace()<esc>
 "=                            GLSL                                          =
 "============================================================================
 autocmd BufNewFile,BufRead *.vert,*.tesc,*.tese,*.glsl,*.geom,*.frag,*.comp set filetype=glsl
-
+autocmd BufNew,BufRead *.asm set ft=nasm
 "============================================================================
 "=                                COC                                       =
 "============================================================================
 
 let g:coc_node_path = join([$HOME, "/.config/nvim/lib/node/bin/node"], "")
-let g:coc_global_extensions = ['coc-pyright', 'coc-html', 'coc-css', 'coc-tsserver', 'coc-json'] 
+let g:coc_global_extensions = ['coc-sh', 'coc-prettier', 'coc-pyright', 'coc-html', 'coc-css', 'coc-tsserver', 'coc-json', 'coc-clangd'] 
 " TextEdit might fail if hidden is not set.
 set hidden
 
@@ -194,8 +204,6 @@ set hidden
 set nobackup
 set nowritebackup
 
-" Give more space for displaying messages.
-set cmdheight=2
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
