@@ -10,7 +10,7 @@ function update_sh {
             echo "--- Adding pyenv environment variables to ~/$1."
             echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/$1
             echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/$1
-            echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/$1
+            echo 'eval "$(pyenv init --path)"' >> ~/$1
             source ${HOME}/$1
             ;;
         *)
