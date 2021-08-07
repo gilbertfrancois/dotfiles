@@ -9,66 +9,54 @@ filetype off                  " required
 "=                            BASIC SETTING                                 =
 "============================================================================
 
-
 set noshowmode                          " We don't need to see things like -- INSERT -- anymore
-
-" UTF-8 support
 set encoding=utf-8
-
-" Swipe and mouse scroll
 set mouse=a
-
-" YouCompleteMe does not work with fish
 set shell=/bin/bash
-
-" show line numbers
 set number
 set relativenumber
-
-" show the matching part of the pair for [] {} and ()
 set showmatch
-
-" Use same clipboard in Vim and in the system
-" Note: MacOS X specific setting
 set clipboard=unnamed
-
-" Set Leader key
 let mapleader = " "
-
-" Where to put new tab when doing screen split
 set splitright
-
-" Fixing 'Press ENTER or type command' prompt issue
 set shortmess=a
-
-" enable syntax highlighting
 syntax enable
-
-" highlight cursorline
 set cursorline
-
-" Useful settings
+set colorcolumn=120
 set history=700
 set undolevels=700
-
-" 
-" Disable creation of a swapfile
 set noswapfile
-
-" Don't use TABs but spaces
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set shiftround
 set expandtab
-
-" Search configuration
 set ignorecase                    " ignore case when searching
 set smartcase                     " turn on smartcase
 set hlsearch
 set incsearch
-
 set guicursor=
+" TextEdit might fail if hidden is not set.
+set hidden
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
+" Give more space for displaying messages.
+set cmdheight=2
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
 "============================================================================
 "=                            KEYS REMAPPING                                =
 "============================================================================
@@ -104,75 +92,77 @@ set pastetoggle=<F2>
 "=                          PLUGIN INITIALIZATION                           =
 "============================================================================
 
-" set the runtime path to include Vundle and initialize
-" alternatively, pass a path where Vundle should install plugins
-" call vundle#begin('~/some/path/here')
-set rtp+=~/.config/nvim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin(stdpath('data') . 'vimplug')
+    Plug 'tpope/vim-unimpaired'
+    Plug 'tpope/vim-surround'
+    Plug 'tpope/vim-commentary'
+    Plug 'tpope/vim-ragtag'
 
-" Let vundle handle Vundle, required
-Plugin 'gmarik/Vundle.vim'
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
 
-" LSP
-Plugin 'neovim/nvim-lspconfig'
-Plugin 'nvim-lua/completion-nvim'
-Plugin 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-lua/popup.nvim'
+    Plug 'nvim-telescope/telescope.nvim'
+    Plug 'neovim/nvim-lspconfig'
+    Plug 'kabouzeid/nvim-lspinstall'
+    Plug 'glepnir/lspsaga.nvim'
+    Plug 'hrsh7th/nvim-compe'
 
-" Sync on buffer save.
-Plugin 'superevilmegaco/AutoRemoteSync.nvim'
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
-" Better defaults
-Plugin 'tpope/vim-unimpaired'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-commentary'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+    " Plug 'glepnir/galaxyline.nvim', { 'branch': 'main' }
+    Plug 'kyazdani42/nvim-web-devicons'  " needed for galaxyline icons
 
-" Git
-Plugin 'airblade/vim-gitgutter'
-Plugin 'tpope/vim-fugitive'
+    Plug 'nikvdp/neomux'
 
-" Directory and file tree <leader>t
-Plugin 'scrooloose/nerdtree'
+    Plug 'tpope/vim-eunuch'
+    Plug 'tpope/vim-fugitive'
 
-" FZF
-Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plugin 'junegunn/fzf.vim'
-" Plugin 'yuki-ycino/fzf-preview.vim', { 'branch': 'release', 'do': ':UpdateRemotePlugins' }
+    Plug 'joshdick/onedark.vim'
+    Plug 'NLKNguyen/papercolor-theme'
+    Plug 'lifepillar/vim-colortemplate'
+    Plug 'superevilmegaco/AutoRemoteSync.nvim'
+    Plug 'scrooloose/nerdtree'
 
-" UI
-Plugin 'gilbertfrancois/intellij-light.vim'
-Plugin 'NLKNguyen/papercolor-theme'
-Plugin 'joshdick/onedark.vim'
-Plugin 'vim-python/python-syntax'
-Plugin 'lifepillar/vim-colortemplate'
+call plug#end()
 
-call vundle#end()            " required
-filetype plugin indent on    " required
 
 "============================================================================
 "=                          PLUGIN CUSTOMIZATION                            =
 "============================================================================
 
-" let g:PaperColor_Theme_Options = {
-"   \   'theme': {
-"   \     'default': {
-"   \       'transparent_background': 1
-"   \     }
-"   \   }
-"   \ }
+" " let g:PaperColor_Theme_Options = {
+" "   \   'theme': {
+" "   \     'default': {
+" "   \       'transparent_background': 1
+" "   \     }
+" "   \   }
+" "   \ }
 " colorscheme PaperColor
 " set background=light
 " let g:airline_theme = "papercolor"
 
-colorscheme intellij_light
-let g:airline_theme = "papercolor"
+" colorscheme intellij_light
+" let g:airline_theme = "papercolor"
 
-" colorscheme onedark
-" let g:airline_theme = "onedark"
+" " onedark.vim override: Don't set a background color when running in a terminal;
+" " just use the terminal's background color
+" " `gui` is the hex color code used in GUI mode/nvim true-color mode
+" " `cterm` is the color code used in 256-color mode
+" " `cterm16` is the color code used in 16-color mode
+" if (has("autocmd") && !has("gui_running"))
+"   augroup colorset
+"     autocmd!
+"     let s:white = { "gui": "#ABB2BF", "cterm": "145", "cterm16" : "7" }
+"     autocmd ColorScheme * call onedark#set_highlight("Normal", { "fg": s:white }) " `bg` will not be styled since there is no `bg` setting
+"   augroup END
+" endif
+colorscheme onedark
+let g:airline_theme = "onedark"
+let g:onedark_termcolors=256
 
-" colorscheme gruvbox
-" set background=dark
 
 
 "*********************** AIRLINE **************************
@@ -191,7 +181,7 @@ let g:airline_symbols.space = "\ua0"
 "*********************** NERDTree *************************
 map <leader>t :NERDTreeToggle<CR>
 " Don't show hidden files
-let NERDTreeShowHidden=0
+let NERDTreeShowHidden=1
 let NERDTreeIgnore=['\.o$', '\~$', '\.swp$', '\.git$', '\.pyc$']
 
 "============================================================================
@@ -202,29 +192,75 @@ let g:python_highlight_all = 1
 let g:python_highlight_operators = 0
 
 "============================================================================
-"=                            NODE CUSTOMIZATION                          =
+"=                            NODE CUSTOMIZATION                            =
 "============================================================================
 " let g:node_host_prog = join([$HOME, "/.config/nvim/lib/node/bin/node"], "")
+" let g:node_host_prog = expand("~/.config/nvim/lib/node-v14.16.1-linux-x64/bin/node")
 
 " Set debug brakepoint
 au FileType python map <silent> <leader>b oimport pdb; pdb.set_trace()<esc>
 au FileType python map <silent> <leader>B Oimport pdb; pdb.set_trace()<esc>
 
-
 "============================================================================
-"=                            LSP and autocomplete                          =
+"=                            GLSL                                          =
 "============================================================================
+autocmd BufNewFile,BufRead *.vert,*.tesc,*.tese,*.glsl,*.geom,*.frag,*.comp set filetype=glsl
 
-set completeopt=menuone,noinsert,noselect
-let g:completion_matching_strategy_list=['exact', 'substring', 'fuzzy']
 
-lua require'lspconfig'.pyright.setup{on_attach=require'completion'.on_attach}
+" >> Telescope bindings
+nnoremap <Leader>pp :lua require'telescope.builtin'.builtin{}<CR>
 
-nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
+" most recentuly used files
+nnoremap <Leader>m :lua require'telescope.builtin'.oldfiles{}<CR>
+
+" find buffer
+nnoremap ; :lua require'telescope.builtin'.buffers{}<CR>
+
+" find in current buffer
+nnoremap <Leader>/ :lua require'telescope.builtin'.current_buffer_fuzzy_find{}<CR>
+
+" bookmarks
+nnoremap <Leader>' :lua require'telescope.builtin'.marks{}<CR>
+
+" git files
+nnoremap <Leader>f :lua require'telescope.builtin'.git_files{}<CR>
+
+" all files
+nnoremap <Leader>bfs :lua require'telescope.builtin'.find_files{}<CR>
+
+" ripgrep like grep through dir
+nnoremap <Leader>rg :lua require'telescope.builtin'.live_grep{}<CR>
+
+" pick color scheme
+nnoremap <Leader>cs :lua require'telescope.builtin'.colorscheme{}<CR>
+
+
+" >> setup nerdcomment key bindings
+let g:NERDCreateDefaultMappings = 0
+let g:NERDSpaceDelims = 1
+
+xnoremap <Leader>ci :call NERDComment('n', 'toggle')<CR>
+nnoremap <Leader>ci :call NERDComment('n', 'toggle')<CR>
+
+
+" >> Lsp key bindings
+nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> <C-]> <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gD    <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> gi    <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> K     <cmd>Lspsaga hover_doc<CR>
 nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> [g <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
-nnoremap <silent> ]g <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+nnoremap <silent> <C-p> <cmd>Lspsaga diagnostic_jump_prev<CR>
+nnoremap <silent> <C-n> <cmd>Lspsaga diagnostic_jump_next<CR>
+nnoremap <silent> gf    <cmd>lua vim.lsp.buf.formatting()<CR>
+nnoremap <silent> gn    <cmd>lua vim.lsp.buf.rename()<CR>
+nnoremap <silent> ga    <cmd>Lspsaga code_action<CR>
+xnoremap <silent> ga    <cmd>Lspsaga range_code_action<CR>
+nnoremap <silent> gs    <cmd>Lspsaga signature_help<CR>
+
+lua <<EOF
+require("lsp")
+require("treesitter")
+require("completion")
+EOF
