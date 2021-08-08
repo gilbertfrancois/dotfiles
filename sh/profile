@@ -1,0 +1,109 @@
+# Nvidia libraries
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib:/usr/local/cuda/lib64:/usr/local/trt/lib
+
+# GStreamer
+# export PATH="/Library/Frameworks/GStreamer.framework/Commands":$PATH
+
+# Qt
+# export QT_LIBRARY_PATH=${HOME}/Development/lib/Qt5.12.0/5.12.0/clang_64
+# export PATH=${QT_LIBRARY_PATH}/bin:${PATH}
+
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
+
+# Python Poetry
+source $HOME/.poetry/env
+
+# PlatformIO (Set the path at the end so that it does not interfere with pyenv.)
+export PATH=${PATH}:${HOME}/.platformio/penv/bin
+
+# Rust and cargo
+export PATH=${HOME}/.cargo/bin:${PATH}
+
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+alias nvim='PATH=${HOME}/.local/share/nvim/lib/node/bin:${PATH} nvim'
+
+# Preferred editor for local and remote sessions
+if [[ -n $SSH_CONNECTION ]]; then
+    export EDITOR='nvim'
+else
+    export EDITOR='nvim'
+fi
+
+# for mosh
+export LANG="en_US.UTF-8"
+export LANGUAGE="en_US.UTF-8"
+export LC_CTYPE="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+
+# for tmux
+# export TERM=xterm-256color
+
+# AWS S3
+# Uploads newer apothecary files from local disk to S3.
+function apup() {
+    echo "Uploading ${HOME}/ava-x/apothecary/ -> s3://apothecary.smbh.ch/"
+    aws --profile ava-x-skuld s3 sync --sse AES256 ${HOME}/ava-x/apothecary/ s3://apothecary.smbh.ch/
+}
+
+# Downloads apothecary files from S3 to local disk.
+function apdown() {
+    echo "Downloading $s3://apothecary.smbh.ch/ -> {HOME}/ava-x/apothecary/"
+    aws --profile ava-x-skuld s3 sync --sse AES256 s3://apothecary.smbh.ch/ ${HOME}/ava-x/apothecary/
+}
+
+# example: apls data/unittest/
+function apls() {
+    aws --profile ava-x-skuld s3 ls s3://apothecary.smbh.ch/$1 
+}
+
+# example: dataup copy myfile.tar data/data/
+#          dataup sync myfolder/ data/data/myfolder/
+function dataup() {
+    if [ $# -eq 0 ]; then
+        echo "example: "
+        echo "   dataup sync myfolder/ data/data/myfolder/"
+        echo "   dataup cp myfile.tar data/data/"
+    else
+        aws --profile ava-x-skuld s3 $1 --sse AES256 $2 s3://data-gilbert.ava-x.ch/$3
+    fi
+}
+
+function datadown() {
+   aws --profile ava-x-skuld s3 $1 --sse AES256 s3://data-gilbert.ava-x.ch/$2 $3
+}
+
+function datals() {
+   aws --profile ava-x-skuld s3 ls s3://data-gilbert.ava-x.ch/$1
+}
+
+function enc() {
+    if [ $# -eq 0 ]; then
+        echo "example: "
+        echo "   enc myfile.tar.gz"
+    else
+        openssl enc -aes-256-cbc -e -in ${1} -out ${1}.enc 
+    fi
+}
+
+function dec() {
+    if [ $# -eq 0 ]; then
+        echo "example: "
+        echo "   dec myfile.tar.gz.enc"
+    else
+        filename=${1}
+        filename_noext=${filename%.*}
+        extension=${filename##*.}
+        openssl enc -aes-256-cbc -d -in ${1} -out ${filename_noext}
+    fi
+}
+
+# RipGrep FZF and more...
+source ${HOME}/.dotfiles/sh/rg.bash
+source ${HOME}/.dotfiles/sh/completion.zsh
+source ${HOME}/.dotfiles/sh/key-bindings.zsh
