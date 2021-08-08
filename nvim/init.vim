@@ -91,8 +91,7 @@ let g:airline_theme = "papercolor"
 "=                            PYTHON CUSTOMIZATION                          =
 "============================================================================
 let g:python3_host_prog = join([$HOME, "/.local/share/nvim/lib/python/bin/python3"], "")
-" let g:node_host_prog = join([$HOME, "/.local/share/nvim/lib/node/bin/node", " --prefix=", $HOME, "/.local/share/nvim/lib/node"], "")
-                                    " .local/share/nvim/lib/node/bin
+" let g:node_host_prog = join([$HOME, "/.local/share/nvim/lib/node/bin/node"], "")
 
 "============================================================================
 "=                            EXTRA
