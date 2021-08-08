@@ -1,3 +1,6 @@
+" DEPRECATED
+" --- OLD CONFIG, NOT USED ANYMORE, KEPT FOR REFERENCE ONLY.
+"
 " Inspiration
 " https://github.com/rstacruz/vim-coc-settings
 " https://github.com/ChristianChiarulli/LunarVim/tree/stable-snapshot-CoC
