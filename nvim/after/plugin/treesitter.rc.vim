@@ -30,7 +30,6 @@ require'nvim-treesitter.configs'.setup {
     "php",
     "python",
     "scss",
-    "swift",
     "toml",
     "tsx",
     "typescript",

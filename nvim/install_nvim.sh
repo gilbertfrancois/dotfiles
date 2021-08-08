@@ -2,6 +2,7 @@
 
 set -xe
 
+NVIM_VERSION="0.5.0"
 NODE_VERSION="14.16.1"    # NodeJS LTS
 FZF_VERSION="0.27.0"
 
@@ -33,9 +34,12 @@ function install_deps {
 function install_neovim {
     echo "--- Installing Neovim."
     if [[ `uname -s` == "Linux" ]]; then
-        sudo add-apt-repository -y ppa:neovim-ppa/stable
-        sudo apt update
-        sudo apt install -y neovim
+	sudo rm -rf /usr/local/bin/nvim.appimage /usr/local/bin/nvim
+	cd /tmp
+	wget https://github.com/neovim/neovim/releases/download/v${NVIM_VERSION}/nvim.appimage
+	sudo mv nvim.appimage /usr/local/bin
+	sudo chmod 755 /usr/local/bin/nvim.appimage
+	sudo ln -s /usr/local/bin/nvim.appimage /usr/local/bin/nvim
     elif [[ `uname -s` == "Darwin" ]]; then
         brew update
         brew install neovim wget
@@ -101,7 +105,7 @@ function install_fzf {
             FZF_ARCH="arm64"
         fi
         cd /tmp
-        wget https://github.com/junegunn/fzf/releases/download/${FZF_VERSION}/fz-${FZF_VERSION}-${FZF_OS}_${FZF_ARCH}.tar.gz
+        wget https://github.com/junegunn/fzf/releases/download/${FZF_VERSION}/fzf-${FZF_VERSION}-${FZF_OS}_${FZF_ARCH}.tar.gz
         tar zxvf fzf-${FZF_VERSION}-${FZF_OS}_${FZF_ARCH}.tar.gz
         sudo cp fzf /usr/local/bin
     elif [[ `uname -s` == "Darwin" ]]; then
@@ -121,10 +125,10 @@ function post_install {
 }
 
 reset_config_dir
-# install_neovim
-# install_deps
-# install_python
+install_neovim
+install_deps
+install_python
 install_node
-# install_fzf
-# install_vim_plug
-# post_install
+install_fzf
+install_vim_plug
+post_install
