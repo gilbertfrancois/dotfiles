@@ -13,6 +13,7 @@ set fileencodings=utf-8,sjis,euc-jp,latin
 set title
 set nobackup
 set showcmd
+set clipboard+=unnamedplus
 " set laststatus=2
 " set scrolloff=10
 " let loaded_matchparen = 1
@@ -74,12 +75,6 @@ set formatoptions+=r
 "============================================================================
 runtime ./plug.vim
 runtime ./maps.vim
-if has("unix")
-  let s:uname = system("uname -s")
-  if s:uname == "Darwin\n"
-    runtime ./macos.vim
-  endif
-endif
 
 "============================================================================
 "=                            THEME
