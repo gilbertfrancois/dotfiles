@@ -17,7 +17,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter'
 
 if has("nvim")
-  Plug 'hoob3rt/lualine.nvim'
+  " Plug 'hoob3rt/lualine.nvim'
   " Plug 'kristijanhusak/defx-git'
   " Plug 'kristijanhusak/defx-icons'
   " Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }

@@ -1,29 +1,17 @@
-" Fundamentals 
-" ---------------------------------------------------------------------
-
-" init autocmd
-autocmd!
-" set script encoding
+filetype plugin indent on
 scriptencoding utf-8
-" stop loading config if it's on tiny or small
-if !1 | finish | endif
+
+"============================================================================
+"=                            BASIC SETTING                                 =
+"============================================================================
 
 set nocompatible
-set fileencodings=utf-8,sjis,euc-jp,latin
-set title
-set nobackup
-set showcmd
-set clipboard+=unnamedplus
-" set laststatus=2
-" set scrolloff=10
-" let loaded_matchparen = 1
-" set backupskip=/tmp/*,/private/tmp/*
 set noshowmode                          " We don't need to see things like -- INSERT -- anymore
 set iskeyword+=-                      	" treat dash separated words as a word text object"
 set encoding=utf-8                      " The encoding displayed
 set pumheight=14                        " Makes popup menu smaller
 set ruler              			        " Show the cursor position all the time
-set cmdheight=2                         " More space for displaying messages
+set cmdheight=1                         " More space for displaying messages
 set nowrap                              " Display long lines as just one line
 set mouse=a
 set shell=/bin/bash
@@ -51,10 +39,25 @@ set ignorecase                          " Ignore case when searching
 set smartcase                           " Turn on smartcase
 set hlsearch
 set guicursor=
+set clipboard+=unnamedplus
 set incsearch
+set noshowcmd                           " Show (partial) command in the last line of the screen. 
+set scrolloff=2
+
+autocmd!
+" set script encoding
+" stop loading config if it's on tiny or small
+if !1 | finish | endif
+
+" set fileencodings=utf-8,sjis,euc-jp,latin
+" set title
+set nobackup
+set nowritebackup
+" set laststatus=2
+" let loaded_matchparen = 1
+" set backupskip=/tmp/*,/private/tmp/*
 set lazyredraw                          " Don't redraw while executing macros
 set t_BE=                               " Suppress appending <PasteStart> and <PasteEnd> when pasting
-set noshowcmd                           " Show (partial) command in the last line of the screen. 
 " set noshowmatch
 " set backspace=start,eol,indent
 " set path+=**
@@ -62,7 +65,6 @@ set noshowcmd                           " Show (partial) command in the last lin
 " if has('nvim')
   " set inccommand=split
 " endif
-filetype plugin indent on
 
 " Turn off paste mode when leaving insert
 autocmd InsertLeave * set nopaste
