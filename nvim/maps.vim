@@ -2,6 +2,8 @@
 "=                            KEYS REMAPPING                                =
 "============================================================================
 
+map <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>
+
 " Disable Arrow keys in Escape mode
 map <up> <nop>
 map <down> <nop>

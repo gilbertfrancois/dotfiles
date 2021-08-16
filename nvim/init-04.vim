@@ -12,7 +12,7 @@ filetype off                  " required
 "=                            BASIC SETTING                                 =
 "============================================================================
 
-set noshowmode                          " We don't need to see things like -- INSERT -- anymore
+" set noshowmode                          " We don't need to see things like -- INSERT -- anymore
 set iskeyword+=-                      	" treat dash separated words as a word text object"
 set encoding=utf-8                      " The encoding displayed
 set pumheight=14                        " Makes popup menu smaller
@@ -168,16 +168,16 @@ let g:completion_matching_strategy_list=['exact', 'substring', 'fuzzy']
 
 "*********************** AIRLINE **************************
 " Airline customization
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#show_tabs = 1
-let g:airline#extensions#tabline#show_tab_nr = 1
-let g:airline#extensions#tabline#tab_nr_type = 1
-let g:airline_powerline_fonts = 1
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-let g:airline_symbols.space = "\ua0"
+" let g:airline_powerline_fonts = 1
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#show_tabs = 1
+" let g:airline#extensions#tabline#show_tab_nr = 1
+" let g:airline#extensions#tabline#tab_nr_type = 1
+" let g:airline_powerline_fonts = 1
+" if !exists('g:airline_symbols')
+"     let g:airline_symbols = {}
+" endif
+" let g:airline_symbols.space = "\ua0"
 
 "*********************** NERDTree *************************
 map <leader>t :NERDTreeToggle<CR>
