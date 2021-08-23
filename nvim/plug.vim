@@ -5,12 +5,12 @@ endif
 call plug#begin()
 
 Plug 'tpope/vim-fugitive'
-" Plug 'tpope/vim-rhubarb'
+Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 " Plug 'cohama/lexima.vim'
-" Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 
 " Color schemes
 Plug 'joshdick/onedark.vim'
