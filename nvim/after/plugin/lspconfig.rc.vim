@@ -99,6 +99,14 @@ nvim_lsp.tsserver.setup {
   filetypes = { "typescript", "typescriptreact", "typescript.tsx" }
 }
 
+nvim_lsp.clangd.setup {
+  on_attach = on_attach,
+  cmd = { "clangd", "--background-index", "--suggest-missing-includes" },
+  filetypes = {"c", "cpp", "objc", "objcpp"},
+  root_dir = dirname
+}
+  -- root_dir = root_pattern("compile_commands.json", "compile_flags.txt", ".git") or dirname
+
 nvim_lsp.diagnosticls.setup {
   on_attach = on_attach,
   filetypes = { 'python', 'javascript', 'javascriptreact', 'json', 'typescript', 'typescriptreact', 'css', 'less', 'scss', 'markdown', 'pandoc' },

@@ -57,6 +57,7 @@ function install_python {
     source ${VENV_PATH}/bin/activate
     # Avoid problems due to outdated pip.
     pip install --upgrade pip
+    pip install wheel
     # Install neovim extension, python liners, formatters, import sorters and more...
     pip install neovim jedi rope ropevim pylint flake8 pynvim yapf isort autopep8 black
 }
@@ -85,6 +86,8 @@ function install_node {
     tar -xvf node-v${NODE_VERSION}-${NODE_OS}-${NODE_ARCH}.${NODE_EXTENSION}
     mv node-v${NODE_VERSION}-${NODE_OS}-${NODE_ARCH} ${NVIM_LIB_DIR}
     ln -s ${NVIM_LIB_DIR}/node-v${NODE_VERSION}-${NODE_OS}-${NODE_ARCH} ${NVIM_LIB_DIR}/node
+
+    export PATH=${NVIM_LIB_DIR}/node/bin:$PATH
 
     ${NVIM_LIB_DIR}/node/bin/npm install -g --prefix ${NVIM_LIB_DIR}/node neovim
     ${NVIM_LIB_DIR}/node/bin/npm install -g --prefix ${NVIM_LIB_DIR}/node pyright
@@ -124,11 +127,11 @@ function post_install {
     nvim +UpdateRemotePlugins +qall
 }
 
-reset_config_dir
-install_neovim
-install_deps
-install_python
+# reset_config_dir
+# install_neovim
+# install_deps
+# install_python
 install_node
-install_fzf
-install_vim_plug
-post_install
+# install_fzf
+# install_vim_plug
+# post_install
