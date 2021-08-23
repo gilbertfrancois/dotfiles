@@ -6,8 +6,6 @@
 autocmd!
 " set script encoding
 scriptencoding utf-8
-" stop loading config if it's on tiny or small
-if !1 | finish | endif
 
 set nocompatible
 set fileencodings=utf-8,sjis,euc-jp,latin
@@ -16,10 +14,6 @@ set nobackup
 set nowritebackup
 set showcmd
 set clipboard+=unnamedplus
-" set laststatus=2
-" set scrolloff=10
-" let loaded_matchparen = 1
-" set backupskip=/tmp/*,/private/tmp/*
 " set noshowmode                          " We don't need to see things like -- INSERT -- anymore
 set iskeyword+=-                      	" treat dash separated words as a word text object"
 set encoding=utf-8                      " The encoding displayed
@@ -28,7 +22,7 @@ set ruler              			        " Show the cursor position all the time
 set cmdheight=2                         " More space for displaying messages
 set nowrap                              " Display long lines as just one line
 set mouse=a
-set shell=/bin/bash
+" set shell=/bin/bash
 set number
 " set relativenumber
 set showmatch
@@ -56,14 +50,7 @@ set incsearch
 set guicursor=
 set lazyredraw                          " Don't redraw while executing macros
 set t_BE=                               " Suppress appending <PasteStart> and <PasteEnd> when pasting
-set noshowcmd                           " Show (partial) command in the last line of the screen. 
-" set noshowmatch
-" set backspace=start,eol,indent
-" set path+=**
-" set wildignore+=*/node_modules/*
-" if has('nvim')
-  " set inccommand=split
-" endif
+" set noshowcmd                           " Show (partial) command in the last line of the screen. 
 filetype plugin indent on
 
 " Turn off paste mode when leaving insert
@@ -83,8 +70,7 @@ runtime ./maps.vim
 "============================================================================
 
 colorscheme intellij_light
-let g:airline_theme = "sol"
-
+" let g:airline_theme = "sol"
 
 " colorscheme onedark
 " let g:airline_theme = "onedark"
@@ -96,14 +82,14 @@ let g:airline_theme = "sol"
 
 " let g:airline_disable_statusline = 1
 " let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#enabled = 1
 " let g:airline#extensions#tabline#show_tabs = 1
 " let g:airline#extensions#tabline#show_tab_nr = 1
 " let g:airline#extensions#tabline#tab_nr_type = 1
-let g:airline_powerline_fonts = 1
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
+" let g:airline_powerline_fonts = 1
+" if !exists('g:airline_symbols')
+"     let g:airline_symbols = {}
+" endif
 " let g:airline_symbols.space = "\ua0"
 
 "============================================================================
@@ -122,4 +108,7 @@ set exrc
 autocmd FileType c,cpp setlocal equalprg=clang-format
 autocmd FileType python nnoremap <leader>= :0,$!yapf<CR>
 
+"============================================================================
+"=                            Statusline
+"============================================================================
 set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%)\ %P
