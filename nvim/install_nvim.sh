@@ -98,7 +98,7 @@ function install_fzf {
             FZF_ARCH="arm64"
         fi
         cd /tmp
-        wget https://github.com/junegunn/fzf/releases/download/${FZF_VERSION}/fz-${FZF_VERSION}-${FZF_OS}_${FZF_ARCH}.tar.gz
+        wget https://github.com/junegunn/fzf/releases/download/${FZF_VERSION}/fzf-${FZF_VERSION}-${FZF_OS}_${FZF_ARCH}.tar.gz
         tar zxvf fzf-${FZF_VERSION}-${FZF_OS}_${FZF_ARCH}.tar.gz
         sudo cp fzf /usr/local/bin
     elif [[ `uname -s` == "Darwin" ]]; then
