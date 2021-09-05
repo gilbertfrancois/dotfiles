@@ -2,43 +2,44 @@
 
 set -xe
 
+NVIM_VERSION="0.5.0"
 NODE_VERSION="14.16.1"    # NodeJS LTS
 FZF_VERSION="0.27.0"
 
 NVIM_CONFIG_DIR=${HOME}/.config/nvim
-NVIM_LIB_DIR=${NVIM_CONFIG_DIR}/lib
+NVIM_SHARE_DIR=${HOME}/.local/share/nvim
+NVIM_LIB_DIR=${NVIM_SHARE_DIR}/lib
 
 function reset_config_dir {
     echo "--- (Re)setting Neovim config folder."
     mkdir -p ${HOME}/.config
-    #if [ -d ${HOME}/.config/nvim ]; then
-    rm -rf ${HOME}/.config/nvim
-    mkdir -p ${NVIM_CONFIG_DIR}
+    rm -rf ${NVIM_CONFIG_DIR}
+    ln -s ${HOME}/.dotfiles/nvim ${NVIM_CONFIG_DIR}
     mkdir -p ${NVIM_LIB_DIR}
-    #fi
-    ln -s ${HOME}/.dotfiles/nvim/init.vim ${NVIM_CONFIG_DIR}
-    ln -s ${HOME}/.dotfiles/nvim/coc-settings.json ${NVIM_CONFIG_DIR}
 }
 
 function install_deps {
     echo "--- Installing ctags, ripgrep"
     # TODO: Install version for ARMv8
     if [[ `uname -s` == "Linux" ]]; then
-        sudo apt install -y exuberant-ctags wget
+        sudo apt install -y curl exuberant-ctags wget
         if [[ `uname -m` == "x86_64" ]]; then
             sudo snap install ripgrep --classic
         fi
     elif [[ `uname -s` == "Darwin" ]]; then
-        brew install ctags the_silver_searcher fd ripgrep fzf wget
+        brew install curl tree-sitter ctags the_silver_searcher fd ripgrep fzf wget
     fi
 }
 
 function install_neovim {
     echo "--- Installing Neovim."
     if [[ `uname -s` == "Linux" ]]; then
-        sudo add-apt-repository -y ppa:neovim-ppa/stable
-        sudo apt update
-        sudo apt install -y neovim
+	sudo rm -rf /usr/local/bin/nvim.appimage /usr/local/bin/nvim
+	cd /tmp
+	wget https://github.com/neovim/neovim/releases/download/v${NVIM_VERSION}/nvim.appimage
+	sudo mv nvim.appimage /usr/local/bin
+	sudo chmod 755 /usr/local/bin/nvim.appimage
+	sudo ln -s /usr/local/bin/nvim.appimage /usr/local/bin/nvim
     elif [[ `uname -s` == "Darwin" ]]; then
         brew update
         brew install neovim wget
@@ -56,8 +57,9 @@ function install_python {
     source ${VENV_PATH}/bin/activate
     # Avoid problems due to outdated pip.
     pip install --upgrade pip
+    pip install wheel
     # Install neovim extension, python liners, formatters, import sorters and more...
-    pip install jedi rope ropevim pylint flake8 pynvim yapf isort autopep8
+    pip install neovim jedi rope ropevim pylint flake8 pynvim yapf isort autopep8 black
 }
 
 function install_node {
@@ -77,15 +79,23 @@ function install_node {
         NODE_EXTENSION="tar.gz"
     fi
     cd /tmp
-    sudo rm -rf node*
+    rm -rf node*
     rm -rf ${NVIM_LIB_DIR}/node*
     wget https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-${NODE_OS}-${NODE_ARCH}.${NODE_EXTENSION}
     echo "node-v${NODE_VERSION}-${NODE_OS}-${NODE_ARCH}.${NODE_EXTENSION}"
-    # TODO: Make it work for macOS, with gzip compression
     tar -xvf node-v${NODE_VERSION}-${NODE_OS}-${NODE_ARCH}.${NODE_EXTENSION}
     mv node-v${NODE_VERSION}-${NODE_OS}-${NODE_ARCH} ${NVIM_LIB_DIR}
     ln -s ${NVIM_LIB_DIR}/node-v${NODE_VERSION}-${NODE_OS}-${NODE_ARCH} ${NVIM_LIB_DIR}/node
-    ${NVIM_LIB_DIR}/node/bin/npm i --prefix ${NVIM_LIB_DIR}/node/lib neovim
+
+    export PATH=${NVIM_LIB_DIR}/node/bin:$PATH
+
+    ${NVIM_LIB_DIR}/node/bin/npm install -g --prefix ${NVIM_LIB_DIR}/node neovim
+    ${NVIM_LIB_DIR}/node/bin/npm install -g --prefix ${NVIM_LIB_DIR}/node pyright
+    ${NVIM_LIB_DIR}/node/bin/npm install -g --prefix ${NVIM_LIB_DIR}/node typescript typescript-language-server
+    ${NVIM_LIB_DIR}/node/bin/npm install -g --prefix ${NVIM_LIB_DIR}/node diagnostic-languageserver
+    if [[ `uname -s` == "Linux" ]]; then
+        ${NVIM_LIB_DIR}/node/bin/npm install -g --prefix ${NVIM_LIB_DIR}/node tree-sitter-cli
+    fi
 }
 
 function install_fzf {
@@ -106,22 +116,22 @@ function install_fzf {
     fi
 }
 
-function install_vundle {
-    rm -rf ${NVIM_CONFIG_DIR}/bundle
-    git clone https://github.com/gmarik/Vundle.vim.git ${NVIM_CONFIG_DIR}/bundle/Vundle.vim
+function install_vim_plug {
+    sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 }
 
 function post_install {
     echo "--- Setup and install NeoVim plugins."
-    nvim +PluginInstall +qall
+    nvim +PlugInstall +qall
     nvim +UpdateRemotePlugins +qall
 }
 
-reset_config_dir
-install_neovim
-install_deps
-install_python
+# reset_config_dir
+# install_neovim
+# install_deps
+# install_python
 install_node
-install_fzf
-install_vundle
-post_install
+# install_fzf
+# install_vim_plug
+# post_install
