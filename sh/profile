@@ -26,7 +26,7 @@ export PATH=${HOME}/.cargo/bin:${PATH}
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-alias nvim='PATH=${HOME}/.local/share/nvim/lib/node/bin:${PATH} nvim'
+alias nvim='PATH=${HOME}/.local/share/nvim/lib/node/bin:/usr/local/opt/llvm/bin:${PATH} nvim'
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -107,3 +107,26 @@ function dec() {
 source ${HOME}/.dotfiles/sh/rg.bash
 source ${HOME}/.dotfiles/sh/completion.zsh
 source ${HOME}/.dotfiles/sh/key-bindings.zsh
+
+function setup_disk_enc() {
+    # $1 device, e.g. /dev/sda1
+    # $2 mount point, e.g. mydata (will be converted to /mnt/mydata)
+    sudo cryptsetup luksFormat --type luks2 $1
+    sudo cryptsetup open --type luks2 $1
+    sudo mkfs.ext4 /dev/mapper/$2
+    mkdir -p /mnt/$2
+    sudo mount /dev/mapper/$2 /mnt/$2
+}
+
+function mount_enc() {
+    # $1 device:      /dev/sda1
+    # $2 mount point: mydata (will be converted to /mnt/mydata)
+    if [[ $2 == */* ]]; then
+        echo "Mount point should only contain the folder name, not the whole path."
+	exit(1)
+    else
+        sudo cryptsetup open --type luks2 $1 $2
+        sudo mount /dev/mapper/$2 /mnt/$2
+    fi
+}
+    

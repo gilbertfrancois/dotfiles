@@ -25,7 +25,7 @@ function add_env {
 
 function install_oh_my_zsh {
     if [[ `uname -s` == "Linux" ]]; then
-        sudo apt install curl
+        sudo apt install curl zsh
     elif [[ `uname -s` == "Darwin" ]]; then
         brew install curl
     fi
