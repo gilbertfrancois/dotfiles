@@ -49,6 +49,8 @@ function install_neovim {
 }
 
 function install_python {
+    sudo apt update
+    sudo apt install python3-venv
     echo "--- Installing python environment for NeoVim."
     VENV_PATH="${NVIM_LIB_DIR}/python"
     rm -rf ${VENV_PATH}
@@ -127,11 +129,11 @@ function post_install {
     nvim +UpdateRemotePlugins +qall
 }
 
-# reset_config_dir
-# install_neovim
-# install_deps
-# install_python
+reset_config_dir
+install_neovim
+install_deps
+install_python
 install_node
-# install_fzf
-# install_vim_plug
-# post_install
+install_fzf
+install_vim_plug
+post_install
