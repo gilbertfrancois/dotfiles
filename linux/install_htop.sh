@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 sudo apt update
-sudo apt install -y build-essential autoconf autotools-dev libncursusw5-dev
+sudo apt install -y build-essential autoconf autotools-dev libncursusw5-dev gettext libtool libtool-bin dh-autoreconf
 sudo apt remove htop
 
 cd /tmp
