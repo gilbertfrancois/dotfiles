@@ -10,11 +10,12 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 " Plug 'cohama/lexima.vim'
-Plug 'airblade/vim-gitgutter'
+Plug 'lewis6991/gitsigns.nvim'
 
 " Color schemes
 Plug 'joshdick/onedark.vim'
 Plug 'gilbertfrancois/intellij-light.vim'
+Plug 'mcchrish/zenbones.nvim'
 
 if has("nvim")
   " Plug 'hoob3rt/lualine.nvim'
@@ -29,11 +30,6 @@ if has("nvim")
   Plug 'glepnir/lspsaga.nvim'
   Plug 'nvim-lua/plenary.nvim'
 endif
-
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
-
-" Plug 'groenewege/vim-less', { 'for': 'less' }
 
 call plug#end()
 
