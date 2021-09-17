@@ -1,5 +1,6 @@
 # Nvidia libraries
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib:/usr/local/cuda/lib64:/usr/local/trt/lib:/usr/local/tensorrt/lib
+export PATH=$PATH:/usr/local/cuda/bin
 
 # GStreamer
 # export PATH="/Library/Frameworks/GStreamer.framework/Commands":$PATH
