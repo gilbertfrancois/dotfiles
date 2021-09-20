@@ -7,9 +7,9 @@ if [[ `uname -s` == "Darwin" ]]; then
     brew install skuld
 elif [[ `uname -s` == "Linux" ]]; then
     if [[ `uname -m` == "aarch64" ]]; then
-        sudo cp skuld/skuld_linux_aarch64 /usr/local/bin/skuld
+        sudo cp skuld_linux_aarch64 /usr/local/bin/skuld
     elif [[ `uname -m` == "x86_64" ]]; then
-        sudo cp skuld/skuld_linux_amd64 /usr/local/bin/skuld
+        sudo cp skuld_linux_amd64 /usr/local/bin/skuld
     fi
 fi
 
