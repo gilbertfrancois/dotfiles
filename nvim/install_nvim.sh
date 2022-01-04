@@ -2,7 +2,7 @@
 
 set -xe
 
-NVIM_VERSION="0.5.0"
+NVIM_VERSION="0.6.1"
 NODE_VERSION="14.16.1"    # NodeJS LTS
 FZF_VERSION="0.27.0"
 
