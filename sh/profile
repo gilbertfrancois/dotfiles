@@ -39,6 +39,7 @@ else
     export EDITOR='nvim'
 fi
 
+
 # for mosh
 export LANG="en_US.UTF-8"
 export LANGUAGE="en_US.UTF-8"
@@ -47,6 +48,9 @@ export LC_ALL="en_US.UTF-8"
 
 # for tmux
 # export TERM=xterm-256color
+
+# For CDE
+[ "$TERM" = dtterm ] && [ -z "$SSH_CLIENT" ] && reset
 
 # AWS S3
 # Uploads newer apothecary files from local disk to S3.
