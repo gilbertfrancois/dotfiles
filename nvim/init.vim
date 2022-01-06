@@ -119,7 +119,7 @@ set exrc
 "============================================================================
 "=                            FORMATTERS
 "============================================================================
-autocmd FileType c,cpp setlocal equalprg=clang-format
+" autocmd FileType c,cpp setlocal equalprg=clang-format
 autocmd FileType python nnoremap <leader>= :0,$!yapf<CR>
 
 "============================================================================

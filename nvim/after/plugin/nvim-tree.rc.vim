@@ -1,3 +1,12 @@
+<<<<<<< HEAD
+=======
+" let g:nvim_tree_show_icons = {
+"     \ 'git': 0,
+"     \ 'folders': 1,
+"     \ 'files': 0,
+"     \ 'folder_arrows': 1,
+"     \ }
+>>>>>>> 0a288ef740acc9616a60645cac96b1efe21310b5
 
 lua << EOF
 -- following options are the default
@@ -37,6 +46,14 @@ require'nvim-tree'.setup {
     dotfiles = false,
     custom = {}
   },
+<<<<<<< HEAD
+=======
+  git = {
+    enable = true,
+    ignore = true,
+    timeout = 500,
+  },
+>>>>>>> 0a288ef740acc9616a60645cac96b1efe21310b5
   view = {
     width = 30,
     height = 30,
@@ -46,7 +63,18 @@ require'nvim-tree'.setup {
     mappings = {
       custom_only = false,
       list = {}
+<<<<<<< HEAD
     }
+=======
+    },
+    number = false,
+    relativenumber = false,
+    signcolumn = "yes"
+  },
+  trash = {
+    cmd = "trash",
+    require_confirm = true
+>>>>>>> 0a288ef740acc9616a60645cac96b1efe21310b5
   }
 }
 EOF
@@ -90,12 +118,6 @@ EOF
 " indicates to the window picker that the buffer's window should not be
 " selectable.
 " let g:nvim_tree_special_files = { 'README.md': 1, 'Makefile': 1, 'MAKEFILE': 1 } " List of filenames that gets highlighted with NvimTreeSpecialFile
-let g:nvim_tree_show_icons = {
-    \ 'git': 0,
-    \ 'folders': 1,
-    \ 'files': 0,
-    \ 'folder_arrows': 1,
-    \ }
 "If 0, do not show the icons for one of 'git' 'folder' and 'files'
 "1 by default, notice that if 'files' is 1, it will only display
 "if nvim-web-devicons is installed and on your runtimepath.
