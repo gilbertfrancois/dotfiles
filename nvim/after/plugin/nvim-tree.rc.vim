@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-=======
-" let g:nvim_tree_show_icons = {
-"     \ 'git': 0,
-"     \ 'folders': 1,
-"     \ 'files': 0,
-"     \ 'folder_arrows': 1,
-"     \ }
->>>>>>> 0a288ef740acc9616a60645cac96b1efe21310b5
-
 lua << EOF
 -- following options are the default
 -- each of these are documented in `:help nvim-tree.OPTION_NAME`
@@ -46,14 +36,6 @@ require'nvim-tree'.setup {
     dotfiles = false,
     custom = {}
   },
-<<<<<<< HEAD
-=======
-  git = {
-    enable = true,
-    ignore = true,
-    timeout = 500,
-  },
->>>>>>> 0a288ef740acc9616a60645cac96b1efe21310b5
   view = {
     width = 30,
     height = 30,
@@ -63,9 +45,6 @@ require'nvim-tree'.setup {
     mappings = {
       custom_only = false,
       list = {}
-<<<<<<< HEAD
-    }
-=======
     },
     number = false,
     relativenumber = false,
@@ -74,7 +53,6 @@ require'nvim-tree'.setup {
   trash = {
     cmd = "trash",
     require_confirm = true
->>>>>>> 0a288ef740acc9616a60645cac96b1efe21310b5
   }
 }
 EOF
