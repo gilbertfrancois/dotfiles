@@ -27,7 +27,7 @@ function install_deps {
             sudo snap install ripgrep --classic
         fi
     elif [[ `uname -s` == "Darwin" ]]; then
-        brew install curl tree-sitter ctags the_silver_searcher fd ripgrep fzf wget
+        brew install curl tree-sitter ctags the_silver_searcher fd ripgrep fzf wget pandoc pandoc-citeproc
     fi
 }
 
