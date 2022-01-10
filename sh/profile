@@ -131,7 +131,7 @@ function mount_enc() {
     # $2 mount point: mydata (will be converted to /mnt/mydata)
     if [[ $2 == */* ]]; then
         echo "Mount point should only contain the folder name, not the whole path."
-	exit(1)
+	exit
     else
         sudo cryptsetup open --type luks2 $1 $2
         sudo mount /dev/mapper/$2 /mnt/$2
