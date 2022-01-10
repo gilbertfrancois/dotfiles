@@ -50,7 +50,7 @@ function install_neovim {
 
 function install_python {
     sudo apt update
-    sudo apt install python3-venv
+    sudo apt install -y python3-venv
     echo "--- Installing python environment for NeoVim."
     VENV_PATH="${NVIM_LIB_DIR}/python"
     rm -rf ${VENV_PATH}
