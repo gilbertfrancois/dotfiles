@@ -11,3 +11,4 @@ brew install skuld
 brew tap homebrew/cask-fonts
 brew install font-iosevka-nerd-font
 brew install font-terminess-ttf-nerd-font
+brew install font-hack-nerd-font
