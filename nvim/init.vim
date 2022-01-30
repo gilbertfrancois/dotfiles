@@ -38,10 +38,10 @@ set noswapfile
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
-set smarttab                            " Makes tabbing smarter will realize you have 2 vs 4
-set expandtab                           " Converts tabs to spaces
-set smartindent                         " Makes indenting smart
-set autoindent                          " Good auto indent
+" set smarttab                            " Makes tabbing smarter will realize you have 2 vs 4
+" set expandtab                           " Converts tabs to spaces
+" set smartindent                         " Makes indenting smart
+" set autoindent                          " Good auto indent
 set shiftround
 set ignorecase                          " Ignore case when searching
 set smartcase                           " Turn on smartcase
@@ -120,8 +120,10 @@ set exrc
 "=                            FORMATTERS
 "============================================================================
 " autocmd FileType c,cpp setlocal equalprg=clang-format
-autocmd FileType python nnoremap <leader>= :0,$!yapf<CR>
+" autocmd FileType python nnoremap <leader>= :0,$!yapf<CR>
 
+" autocmd FileType tex    set wrap
+" autocmd FileType tex    set textwidth=119
 "============================================================================
 "=                            Statusline
 "============================================================================
