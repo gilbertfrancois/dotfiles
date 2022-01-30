@@ -2,7 +2,7 @@
 
 set -xe
 
-NVIM_VERSION="0.5.0"
+NVIM_VERSION="0.6.1"
 NODE_VERSION="14.16.1"    # NodeJS LTS
 FZF_VERSION="0.27.0"
 
@@ -34,12 +34,12 @@ function install_deps {
 function install_neovim {
     echo "--- Installing Neovim."
     if [[ `uname -s` == "Linux" ]]; then
-	sudo rm -rf /usr/local/bin/nvim.appimage /usr/local/bin/nvim
-	cd /tmp
-	wget https://github.com/neovim/neovim/releases/download/v${NVIM_VERSION}/nvim.appimage
-	sudo mv nvim.appimage /usr/local/bin
-	sudo chmod 755 /usr/local/bin/nvim.appimage
-	sudo ln -s /usr/local/bin/nvim.appimage /usr/local/bin/nvim
+	    sudo rm -rf /usr/local/bin/nvim.appimage /usr/local/bin/nvim
+	    cd /tmp
+	    wget https://github.com/neovim/neovim/releases/download/v${NVIM_VERSION}/nvim.appimage
+	    sudo mv nvim.appimage /usr/local/bin
+	    sudo chmod 755 /usr/local/bin/nvim.appimage
+	    sudo ln -s /usr/local/bin/nvim.appimage /usr/local/bin/nvim
     elif [[ `uname -s` == "Darwin" ]]; then
         brew update
         brew install neovim wget
@@ -50,7 +50,7 @@ function install_neovim {
 
 function install_python {
     sudo apt update
-    sudo apt install python3-venv
+    sudo apt install -y python3-venv
     echo "--- Installing python environment for NeoVim."
     VENV_PATH="${NVIM_LIB_DIR}/python"
     rm -rf ${VENV_PATH}
@@ -70,10 +70,12 @@ function install_node {
     if [[ `uname -s` == "Linux" ]]; then
         NODE_OS="linux"
         NODE_EXTENSION="tar.xz"
-        if [[ `uname -m` == "aarch64" ]]; then
-            NODE_ARCH="arm64"
-        elif [[ `uname -m` == "x86_64" ]]; then
+        if [[ `uname -m` == "x86_64" ]]; then
             NODE_ARCH="x64"
+        elif [[ `uname -m` == "aarch64" ]]; then
+            NODE_ARCH="arm64"
+        elif [[ `uname -m` == "armv7l" ]]; then
+            FZF_ARCH="armv7l"
         fi
     elif [[ `uname -s` == "Darwin" ]]; then
         NODE_OS="darwin"
@@ -104,13 +106,16 @@ function install_fzf {
     echo "--- Installing FZF."
     if [[ `uname -s` == "Linux" ]]; then
         FZF_OS="linux"
+        FZF_EXTENSION="tar.xz"
         if [[ `uname -m` == "x86_64" ]]; then
             FZF_ARCH="amd64"
         elif [[ `uname -m` == "aarch64" ]]; then
             FZF_ARCH="arm64"
+        elif [[ `uname -m` == "armv7l" ]]; then
+            FZF_ARCH="armv7"
         fi
         cd /tmp
-        wget https://github.com/junegunn/fzf/releases/download/${FZF_VERSION}/fzf-${FZF_VERSION}-${FZF_OS}_${FZF_ARCH}.tar.gz
+        wget https://github.com/junegunn/fzf/releases/download/${FZF_VERSION}/fzf-${FZF_VERSION}-${FZF_OS}_${FZF_ARCH}.${FZF_EXTENSION}
         tar zxvf fzf-${FZF_VERSION}-${FZF_OS}_${FZF_ARCH}.tar.gz
         sudo cp fzf /usr/local/bin
     elif [[ `uname -s` == "Darwin" ]]; then

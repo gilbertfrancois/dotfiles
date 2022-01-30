@@ -1,5 +1,6 @@
 # Nvidia libraries
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib:/usr/local/cuda/lib64:/usr/local/trt/lib:/usr/local/tensorrt/lib
+export PATH=$PATH:/usr/local/cuda/bin
 
 # GStreamer
 # export PATH="/Library/Frameworks/GStreamer.framework/Commands":$PATH
@@ -7,6 +8,9 @@ export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib:/usr/local/cuda/lib64:/
 # Qt
 # export QT_LIBRARY_PATH=${HOME}/Development/lib/Qt5.12.0/5.12.0/clang_64
 # export PATH=${QT_LIBRARY_PATH}/bin:${PATH}
+
+# Private bin folder
+export PATH="${HOME}/.bin:$PATH"
 
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
@@ -35,6 +39,7 @@ else
     export EDITOR='nvim'
 fi
 
+
 # for mosh
 export LANG="en_US.UTF-8"
 export LANGUAGE="en_US.UTF-8"
@@ -43,6 +48,9 @@ export LC_ALL="en_US.UTF-8"
 
 # for tmux
 # export TERM=xterm-256color
+
+# For CDE
+[ "$TERM" = dtterm ] && [ -z "$SSH_CLIENT" ] && reset
 
 # AWS S3
 # Uploads newer apothecary files from local disk to S3.
@@ -123,7 +131,7 @@ function mount_enc() {
     # $2 mount point: mydata (will be converted to /mnt/mydata)
     if [[ $2 == */* ]]; then
         echo "Mount point should only contain the folder name, not the whole path."
-	exit(1)
+	exit
     else
         sudo cryptsetup open --type luks2 $1 $2
         sudo mount /dev/mapper/$2 /mnt/$2
