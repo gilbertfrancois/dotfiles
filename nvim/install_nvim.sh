@@ -1,5 +1,4 @@
-#!/usr/bin/env bash
-
+#!/usr/bin/env bash 
 set -xe
 
 NVIM_VERSION="0.6.1"
@@ -27,31 +26,53 @@ function install_deps {
             sudo snap install ripgrep --classic
         fi
     elif [[ `uname -s` == "Darwin" ]]; then
-        brew install curl tree-sitter ctags the_silver_searcher fd ripgrep fzf wget
+        brew install curl tree-sitter ctags the_silver_searcher fd ripgrep wget
     fi
 }
 
 function install_neovim {
     echo "--- Installing Neovim."
     if [[ `uname -s` == "Linux" ]]; then
-	    sudo rm -rf /usr/local/bin/nvim.appimage /usr/local/bin/nvim
-	    cd /tmp
-	    wget https://github.com/neovim/neovim/releases/download/v${NVIM_VERSION}/nvim.appimage
-	    sudo mv nvim.appimage /usr/local/bin
-	    sudo chmod 755 /usr/local/bin/nvim.appimage
-	    sudo ln -s /usr/local/bin/nvim.appimage /usr/local/bin/nvim
+        if [[ `uname -m` == "x86_64" ]]; then
+			sudo rm -rf /usr/local/bin/nvim.appimage /usr/local/bin/nvim
+			cd /tmp
+			wget https://github.com/neovim/neovim/releases/download/v${NVIM_VERSION}/nvim.appimage
+			sudo mv nvim.appimage /usr/local/bin
+			sudo chmod 755 /usr/local/bin/nvim.appimage
+			sudo ln -s /usr/local/bin/nvim.appimage /usr/local/bin/nvim
+        elif [[ `uname -m` == "aarch64" ]]; then
+			build_neovim
+        elif [[ `uname -m` == "armv7l" ]]; then
+			build_neovim
+        fi
     elif [[ `uname -s` == "Darwin" ]]; then
         brew update
-        brew install neovim wget
+        brew reinstall neovim wget
     else
         echo "Unsupported OS."
     fi 
 }
 
+
 function install_python {
-    sudo apt update
-    sudo apt install -y python3-venv
     echo "--- Installing python environment for NeoVim."
+    if [[ `uname -s` == "Linux" ]]; then
+        if [[ `uname -m` == "x86_64" ]]; then
+			sudo apt update
+			sudo apt install -y python3-venv
+        elif [[ `uname -m` == "aarch64" ]]; then
+			sudo apt update
+			sudo apt install -y python3-venv
+        elif [[ `uname -m` == "armv7l" ]]; then
+			sudo apt update
+			sudo apt install -y python3-venv
+        fi
+    elif [[ `uname -s` == "Darwin" ]]; then
+        brew update
+        brew reinstall python
+    else
+        echo "Unsupported OS."
+    fi 
     VENV_PATH="${NVIM_LIB_DIR}/python"
     rm -rf ${VENV_PATH}
     cd ${NVIM_LIB_DIR}
@@ -119,7 +140,7 @@ function install_fzf {
         tar zxvf fzf-${FZF_VERSION}-${FZF_OS}_${FZF_ARCH}.tar.gz
         sudo cp fzf /usr/local/bin
     elif [[ `uname -s` == "Darwin" ]]; then
-        brew install fzf
+        brew reinstall fzf
     fi
 }
 
@@ -134,9 +155,9 @@ function post_install {
     nvim +UpdateRemotePlugins +qall
 }
 
-reset_config_dir
-install_neovim
-install_deps
+# reset_config_dir
+# install_neovim
+# install_deps
 install_python
 install_node
 install_fzf
