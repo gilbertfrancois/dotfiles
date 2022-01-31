@@ -15,7 +15,6 @@ Plug 'lewis6991/gitsigns.nvim'
 " Color schemes
 Plug 'joshdick/onedark.vim'
 Plug 'gilbertfrancois/intellij-light.vim'
-Plug 'mcchrish/zenbones.nvim'
 
 if has("nvim")
   Plug 'neovim/nvim-lspconfig'

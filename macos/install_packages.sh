@@ -8,9 +8,7 @@ echo "--- Setting up skuld"
 sudo git config --system --unset credential.helper
 brew tap DEEP-IMPACT-AG/hyperdrive
 brew install skuld
-
-echo "--- Installing nerd fonts"
 brew tap homebrew/cask-fonts
-brew install font-iosevka-nerd-font font-hack-nerd-font
-
-
+brew install font-iosevka-nerd-font
+brew install font-terminess-ttf-nerd-font
+brew install font-hack-nerd-font

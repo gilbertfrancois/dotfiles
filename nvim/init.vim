@@ -38,10 +38,10 @@ set noswapfile
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
-set smarttab                            " Makes tabbing smarter will realize you have 2 vs 4
-set expandtab                           " Converts tabs to spaces
-set smartindent                         " Makes indenting smart
-set autoindent                          " Good auto indent
+" set smarttab                            " Makes tabbing smarter will realize you have 2 vs 4
+" set expandtab                           " Converts tabs to spaces
+" set smartindent                         " Makes indenting smart
+" set autoindent                          " Good auto indent
 set shiftround
 set ignorecase                          " Ignore case when searching
 set smartcase                           " Turn on smartcase
@@ -70,7 +70,6 @@ runtime ./maps.vim
 "============================================================================
 
 " colorscheme intellij_light
-" let g:airline_theme = "sol"
 
 " onedark.vim override: Don't set a background color when running in a terminal;
 " just use the terminal's background color
@@ -85,26 +84,7 @@ runtime ./maps.vim
 "   augroup END
 " endif
 colorscheme onedark
-" let g:airline_theme = "onedark"
 let g:onedark_termcolors=256
-"
-" colorscheme zenbones
-
-"============================================================================
-"=                            AIRLINE
-"============================================================================
-
-" let g:airline_disable_statusline = 1
-" let g:airline_powerline_fonts = 1
-" let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#tabline#show_tabs = 1
-" let g:airline#extensions#tabline#show_tab_nr = 1
-" let g:airline#extensions#tabline#tab_nr_type = 1
-" let g:airline_powerline_fonts = 1
-" if !exists('g:airline_symbols')
-"     let g:airline_symbols = {}
-" endif
-" let g:airline_symbols.space = "\ua0"
 
 "============================================================================
 "=                            PYTHON CUSTOMIZATION                          =
@@ -120,8 +100,10 @@ set exrc
 "=                            FORMATTERS
 "============================================================================
 " autocmd FileType c,cpp setlocal equalprg=clang-format
-autocmd FileType python nnoremap <leader>= :0,$!yapf<CR>
+" autocmd FileType python nnoremap <leader>= :0,$!yapf<CR>
 
+autocmd FileType tex    set wrap
+autocmd FileType tex    set textwidth=119
 "============================================================================
 "=                            Statusline
 "============================================================================
