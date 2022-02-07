@@ -49,4 +49,3 @@ require('lspconfig').pyright.setup {
   -- end,
   filetypes = { "python" }
 }
-
