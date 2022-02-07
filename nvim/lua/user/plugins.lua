@@ -30,14 +30,21 @@ end
 -- }
 
 return require('packer').startup(function(use)
+  -- Let packer manage itself
+  use "wbthomason/packer.nvim" 
+
+  -- The Tim Pope plugins
   use 'tpope/vim-fugitive'
   use 'tpope/vim-rhubarb'
   use 'tpope/vim-unimpaired'
   use 'tpope/vim-surround'
   use 'tpope/vim-commentary'
-  use "wbthomason/packer.nvim" -- Have packer manage itself
-  use "nvim-lua/popup.nvim" -- An implementation of the Popup API from vim in Neovim
-  use "nvim-lua/plenary.nvim" -- Useful lua functions used ny lots of plugins
+
+  -- An implementation of the Popup API from vim in Neovim
+  use "nvim-lua/popup.nvim" 
+
+  -- Useful lua functions used ny lots of plugins
+  use "nvim-lua/plenary.nvim" 
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
