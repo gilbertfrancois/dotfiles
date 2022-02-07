@@ -107,4 +107,7 @@ autocmd FileType tex    set textwidth=119
 "============================================================================
 "=                            Statusline
 "============================================================================
-set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%)\ %P
+" set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%)\ %P
+
+lua << EOF
+EOF
