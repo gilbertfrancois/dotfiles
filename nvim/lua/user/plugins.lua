@@ -46,9 +46,36 @@ return require('packer').startup(function(use)
   -- Useful lua functions used ny lots of plugins
   use "nvim-lua/plenary.nvim" 
 
+  -- LSP
+  use 'neovim/nvim-lspconfig'
+
+  -- Completion plugins
+  use 'hrsh7th/nvim-cmp'
+  use 'hrsh7th/cmp-buffer'
+  use 'hrsh7th/cmp-cmdline'
+  use 'hrsh7th/cmp-path'
+  use 'hrsh7th/cmp-nvim-lua'
+  use 'hrsh7th/cmp-nvim-lsp'
+  use 'saadparwaiz1/cmp_luasnip'
+  -- use 'hrsh7th/cmp-nvim-lsp-document-symbol'
+  -- use 'tamago324/cmp-zsh'
+
+  -- Snippet engine
+  use 'L3MON4D3/LuaSnip'
+  -- Many ready-made snippets for a lot of languages
+  use 'rafamadriz/friendly-snippets'
+
+  -- use 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+  use 'nvim-telescope/telescope.nvim'
+  use 'kyazdani42/nvim-tree.lua'
+  use 'kyazdani42/nvim-web-devicons'
 
   -- Plugins can have post-install/update hooks
   use {'iamcco/markdown-preview.nvim', run = 'cd app && npm install', cmd = 'MarkdownPreview'}
+
+  -- Color schemes
+  use 'folke/tokyonight.nvim'
+  use 'joshdick/onedark.vim'
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
