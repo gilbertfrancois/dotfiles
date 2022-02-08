@@ -46,6 +46,10 @@ return require('packer').startup(function(use)
   -- Useful lua functions used ny lots of plugins
   use "nvim-lua/plenary.nvim" 
 
+
+  -- Plugins can have post-install/update hooks
+  use {'iamcco/markdown-preview.nvim', run = 'cd app && npm install', cmd = 'MarkdownPreview'}
+
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if packer_bootstrap then
