@@ -14,7 +14,7 @@ elif [[ `uname -s` == "Linux" ]]; then
     cd nerd-fonts
     ./install.sh Hack
     ./install.sh Meslo
-    ./install.sh Termines
+    ./install.sh Terminus
     cd ..
     rm -rf nerd-fonts
     cd ${CURRENT_FOLDER}
