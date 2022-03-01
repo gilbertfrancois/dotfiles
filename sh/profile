@@ -95,7 +95,7 @@ function enc() {
         echo "example: "
         echo "   enc myfile.tar.gz"
     else
-        openssl enc -aes-256-cbc -e -in ${1} -out ${1}.enc 
+        openssl enc -aes-256-cbc -pbkdf2 -e -in ${1} -out ${1}.enc 
     fi
 }
 
@@ -107,7 +107,7 @@ function dec() {
         filename=${1}
         filename_noext=${filename%.*}
         extension=${filename##*.}
-        openssl enc -aes-256-cbc -d -in ${1} -out ${filename_noext}
+        openssl enc -aes-256-cbc -pbkdf2 -d -in ${1} -out ${filename_noext}
     fi
 }
 
