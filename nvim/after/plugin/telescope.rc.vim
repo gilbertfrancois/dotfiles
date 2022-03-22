@@ -4,6 +4,7 @@ nnoremap <silent> ;f <cmd>Telescope find_files<cr>
 nnoremap <silent> ;e <cmd>Telescope file_browser<cr>
 nnoremap <silent> ;g <cmd>Telescope git_files<cr>
 nnoremap <silent> ;r <cmd>Telescope live_grep<cr>
+nnoremap <silent> ;d <cmd>Telescope diagnostics<cr>
 nnoremap <silent> \\ <cmd>Telescope buffers<cr>
 nnoremap <silent> ;; <cmd>Telescope help_tags<cr>
 
