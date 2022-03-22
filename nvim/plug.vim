@@ -19,6 +19,7 @@ Plug 'gilbertfrancois/intellij-light.vim'
 if has("nvim")
   Plug 'neovim/nvim-lspconfig'
   "
+  Plug 'nvim-lualine/lualine.nvim'
   " Completion
   " Plug 'hrsh7th/nvim-cmp'
   " Plug 'hrsh7th/cmp-buffer'

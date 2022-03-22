@@ -19,7 +19,7 @@ set iskeyword+=-                      	" treat dash separated words as a word te
 set encoding=utf-8                      " The encoding displayed
 set pumheight=14                        " Makes popup menu smaller
 set ruler              			        " Show the cursor position all the time
-set cmdheight=2                         " More space for displaying messages
+set cmdheight=1                         " More space for displaying messages
 set nowrap                              " Display long lines as just one line
 set mouse=a
 " set shell=/bin/bash
