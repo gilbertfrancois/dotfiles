@@ -50,6 +50,8 @@ set incsearch
 set guicursor=
 set lazyredraw                          " Don't redraw while executing macros
 set t_BE=                               " Suppress appending <PasteStart> and <PasteEnd> when pasting
+set t_Co=256
+" set termguicolors
 " set noshowcmd                           " Show (partial) command in the last line of the screen. 
 filetype plugin indent on
 
