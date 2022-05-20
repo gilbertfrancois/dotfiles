@@ -77,7 +77,6 @@ let g:nvim_tree_icons = {
 lua << EOF
 
 require'nvim-tree'.setup {
-   auto_close          = true,
 }
 
 EOF
