@@ -1,6 +1,14 @@
 " set completeopt=menu,menuone,noselect
 
 lua <<EOF
+
+  local ok, lspkind = pcall(require, "lspkind")
+  if not ok then
+    return
+  end
+
+  lspkind.init()
+
   -- Setup nvim-cmp.
   vim.opt.completeopt = {"menu", "menuone", "noselect"}
   -- Don't show the dumb matching stuff.

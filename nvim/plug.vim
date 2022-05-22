@@ -43,7 +43,7 @@ if has("nvim")
   " Plug 'dcampos/cmp-snippy
   "
 
-  " Plug 'onsails/lspkind-nvim'
+  Plug 'onsails/lspkind-nvim'
   
   " Plug 'folke/lsp-colors.nvim'
   Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
