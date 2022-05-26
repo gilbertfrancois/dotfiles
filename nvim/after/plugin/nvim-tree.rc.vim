@@ -169,6 +169,9 @@ require'nvim-tree'.setup { -- BEGIN_DEFAULT_OPTS
     },
   },
 } -- END_DEFAULT_OPTS
+vim.keymap.set("n", "<leader>t", ":NvimTreeToggle<CR>") 
+vim.keymap.set("n", "<leader>r", ":NvimTreeRefresh<CR>") 
+vim.keymap.set("n", "<leader>n", ":NvimTreeFindFile<CR>") 
 EOF
 
 " set termguicolors " this variable must be enabled for colors to be applied properly
@@ -176,6 +179,6 @@ EOF
 " a list of groups can be found at `:help nvim_tree_highlight`
 " highlight NvimTreeFolderIcon guibg=blue
 
-nnoremap <leader>t :NvimTreeToggle<CR>
-nnoremap <leader>r :NvimTreeRefresh<CR>
-nnoremap <leader>n :NvimTreeFindFile<CR>
+" nnoremap <leader>t :NvimTreeToggle<CR>
+" nnoremap <leader>r :NvimTreeRefresh<CR>
+" nnoremap <leader>n :NvimTreeFindFile<CR>

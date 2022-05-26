@@ -1,3 +1,4 @@
+-- To source on the fly, type :so %
 -- Install packer
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
 
@@ -46,6 +47,9 @@ vim.wo.number = true
 --Enable mouse mode
 vim.o.mouse = 'a'
 
+-- Enable global statusbar
+vim.o.laststatus = 3
+
 --Enable break indent
 vim.o.breakindent = true
 
@@ -65,18 +69,19 @@ vim.o.termguicolors = true
 vim.cmd [[colorscheme onedark]]
 
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menu,menuone,noselect'
+vim.o.completeopt = 'menuone,noselect'
 
---Set statusbar
+-- --Set statusbar
 require('lualine').setup {
   options = {
-    icons_enabled = false,
+    icons_enabled = true,
     theme = 'onedark',
     component_separators = '|',
     section_separators = '',
   },
 }
 
+--
 --Enable Comment.nvim
 require('Comment').setup()
 
@@ -138,7 +143,7 @@ end)
 vim.keymap.set('n', ';g', require('telescope.builtin').git_files)
 vim.keymap.set('n', ';r', require('telescope.builtin').live_grep)
 vim.keymap.set('n', ';d', require('telescope.builtin').diagnostics)
-vim.keymap.set('n', '\\', require('telescope.builtin').buffers)
+vim.keymap.set('n', '\\\\', require('telescope.builtin').buffers)
 vim.keymap.set('n', ';;', require('telescope.builtin').help_tags)
 -- vim.keymap.set('n', '<leader>sb', require('telescope.builtin').current_buffer_fuzzy_find)
 -- vim.keymap.set('n', '<leader>st', require('telescope.builtin').tags)
@@ -234,6 +239,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 -- Enable the following language servers
+-- Reference: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver' }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
