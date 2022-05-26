@@ -237,10 +237,14 @@ end
 -- nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- Enable the following language servers
 -- Reference: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
-local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver' }
+-- ~/.local/share/nvim/lib/node/bin/npm i -g vscode-langservers-extracted
+-- ~/.local/share/nvim/lib/node/bin/npm i -g pyright
+-- ~/.local/share/nvim/lib/node/bin/npm i -g typescript typescript-language-server
+local servers = { 'clangd', 'pyright', 'tsserver', 'html' }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,
