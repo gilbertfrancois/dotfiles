@@ -48,7 +48,7 @@ require'nvim-tree'.setup { -- BEGIN_DEFAULT_OPTS
     highlight_opened_files = "none",
     root_folder_modifier = ":~",
     indent_markers = {
-      enable = false,
+      enable = true,
       icons = {
         corner = "└ ",
         edge = "│ ",
@@ -174,6 +174,6 @@ require'nvim-tree'.setup { -- BEGIN_DEFAULT_OPTS
   },
 } -- END_DEFAULT_OPTS
 
-vim.keymap.set("n", "<leader>t", ":NvimTreeToggle<CR>") 
-vim.keymap.set("n", "<leader>r", ":NvimTreeRefresh<CR>") 
-vim.keymap.set("n", "<leader>n", ":NvimTreeFindFile<CR>") 
+vim.keymap.set("n", "<leader>t", ":NvimTreeToggle<CR>")
+vim.keymap.set("n", "<leader>r", ":NvimTreeRefresh<CR>")
+vim.keymap.set("n", "<leader>n", ":NvimTreeFindFile<CR>")
