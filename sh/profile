@@ -27,7 +27,7 @@ export PATH=${PATH}:${HOME}/.platformio/penv/bin
 export PATH=${HOME}/.cargo/bin:${PATH}
 
 # some more ls aliases
-alias ll='ls -alF'
+alias ll='ls -alFh'
 alias la='ls -A'
 alias l='ls -CF'
 alias nvim='PATH=${HOME}/.local/share/nvim/lib/node/bin:/usr/local/opt/llvm/bin:${PATH} nvim'
