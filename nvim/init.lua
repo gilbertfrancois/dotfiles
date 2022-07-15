@@ -14,12 +14,15 @@ require('packer').startup(function(use)
   use 'tpope/vim-fugitive' -- Git commands in nvim
   use 'tpope/vim-rhubarb' -- Fugitive-companion to interact with github
   use 'tpope/vim-unimpaired'
-  use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
+  use 'tpope/vim-surround'
+  use 'tpope/vim-commentary'
+  -- use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
   use 'ludovicchabant/vim-gutentags' -- Automatic tags management
   -- UI to select things (files, grep results, open buffers...)
   use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-  use 'mjlbach/onedark.nvim' -- Theme inspired by Atom
+  -- use 'mjlbach/onedark.nvim' -- Theme inspired by Atom
+  use 'joshdick/onedark.vim'
   use 'nvim-lualine/lualine.nvim' -- Fancier statusline
   -- Add indentation guides even on blank lines
   use 'lukas-reineke/indent-blankline.nvim'
@@ -64,8 +67,13 @@ vim.o.smartcase = true
 vim.o.updatetime = 250
 vim.wo.signcolumn = 'yes'
 
+-- Clipboard
+-- vim.o.clipboard+=unnamedplus
+vim.o.clipboard = "unnamedplus"
+
 --Set colorscheme
 vim.o.termguicolors = true
+-- vim.o.t_Co=256
 vim.cmd [[colorscheme onedark]]
 
 -- Set completeopt to have a better completion experience
@@ -87,7 +95,7 @@ require('lualine').setup {
 
 --
 --Enable Comment.nvim
-require('Comment').setup()
+-- require('Comment').setup()
 
 --Remap space as leader key
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
