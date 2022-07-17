@@ -15,7 +15,7 @@ require('packer').startup(function(use)
   use 'tpope/vim-rhubarb' -- Fugitive-companion to interact with github
   use 'tpope/vim-unimpaired'
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
-  use 'ludovicchabant/vim-gutentags' -- Automatic tags management
+  -- use 'ludovicchabant/vim-gutentags' -- Automatic tags management
   -- UI to select things (files, grep results, open buffers...)
   use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
@@ -74,6 +74,7 @@ vim.o.completeopt = 'menuone,noselect'
 vim.o.tabstop=4
 vim.o.softtabstop=4
 vim.o.shiftwidth=4
+vim.o.expandtab=true
 
 -- --Set statusbar
 require('lualine').setup {
