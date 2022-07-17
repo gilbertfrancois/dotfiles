@@ -55,7 +55,6 @@ vim.o.laststatus = 3
 
 --Enable break indent
 vim.o.breakindent = true
-
 --Save undo history
 vim.opt.undofile = true
 
@@ -67,13 +66,15 @@ vim.o.smartcase = true
 vim.o.updatetime = 250
 vim.wo.signcolumn = 'yes'
 
+vim.o.cursorline = true
+
 -- Clipboard
 -- vim.o.clipboard+=unnamedplus
-vim.o.clipboard = "unnamedplus"
+vim.o.clipboard='unnamedplus'
 
 --Set colorscheme
-vim.o.termguicolors = true
--- vim.o.t_Co=256
+-- vim.o.termguicolors = true
+vim.o.t_Co=256
 vim.cmd [[colorscheme onedark]]
 
 -- Set completeopt to have a better completion experience
@@ -82,6 +83,7 @@ vim.o.completeopt = 'menuone,noselect'
 vim.o.tabstop=4
 vim.o.softtabstop=4
 vim.o.shiftwidth=4
+vim.o.expandtab = true
 
 -- --Set statusbar
 require('lualine').setup {
@@ -92,10 +94,6 @@ require('lualine').setup {
     section_separators = '',
   },
 }
-
---
---Enable Comment.nvim
--- require('Comment').setup()
 
 --Remap space as leader key
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
@@ -256,6 +254,7 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 -- ~/.local/share/nvim/lib/node/bin/npm i -g vscode-langservers-extracted
 -- ~/.local/share/nvim/lib/node/bin/npm i -g pyright
 -- ~/.local/share/nvim/lib/node/bin/npm i -g typescript typescript-language-server
+-- https://github.com/sumneko/lua-language-server/releases
 local servers = { 'clangd', 'pyright', 'tsserver', 'html' }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
