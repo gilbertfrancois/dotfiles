@@ -42,6 +42,8 @@ else
     export EDITOR='nvim'
 fi
 
+# Brew
+export PATH=/opt/homebrew/bin:${PATH}
 
 # for mosh
 export LANG="en_US.UTF-8"
