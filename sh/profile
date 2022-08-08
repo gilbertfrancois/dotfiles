@@ -12,6 +12,9 @@ export PATH=$PATH:/usr/local/cuda/bin
 # Private bin folder
 export PATH="${HOME}/.bin:$PATH"
 
+# Node
+export PATH="/opt/node/bin:$PATH"
+
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
@@ -27,10 +30,10 @@ export PATH=${PATH}:${HOME}/.platformio/penv/bin
 export PATH=${HOME}/.cargo/bin:${PATH}
 
 # some more ls aliases
-alias ll='ls -alF'
+alias ll='ls -alFh'
 alias la='ls -A'
 alias l='ls -CF'
-alias nvim='PATH=${HOME}/.local/share/nvim/lib/node/bin:/usr/local/opt/llvm/bin:${PATH} nvim'
+alias nvim='PATH=${HOME}/.local/share/nvim/lib/lua-language-server/bin:${HOME}/.local/share/nvim/lib/node/bin:/usr/local/opt/llvm/bin:${PATH} nvim'
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -39,6 +42,8 @@ else
     export EDITOR='nvim'
 fi
 
+# Brew
+export PATH=/opt/homebrew/bin:${PATH}
 
 # for mosh
 export LANG="en_US.UTF-8"
