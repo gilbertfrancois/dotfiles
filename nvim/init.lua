@@ -235,8 +235,9 @@ local on_attach = function(_, bufnr)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
   vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
   vim.keymap.set('n', '<leader>so', require('telescope.builtin').lsp_document_symbols, opts)
-  vim.api.nvim_create_user_command("Format", vim.lsp.buf.formatting, {})
 end
+  -- vim.keymap.set('n', '<space>f', vim.lsp.buf.format, opts)
+-- vim.api.nvim_create_user_command("Format", vim.lsp.buf.formatting, {})
 
 -- nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -255,6 +256,10 @@ for _, lsp in ipairs(servers) do
     capabilities = capabilities,
   }
 end
+
+require 'lspconfig'.html.setup {
+  capabilities = capabilities,
+}
 
 -- Example custom server
 -- Make runtime files discoverable to the server
