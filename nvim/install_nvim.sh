@@ -149,10 +149,10 @@ function install_fzf {
     fi
 }
 
-#reset_config_dir
-#install_neovim
-#install_deps
-#install_python
+reset_config_dir
+install_neovim
+install_deps
+install_python
 install_node
 install_fzf
 
