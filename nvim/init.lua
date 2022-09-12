@@ -84,6 +84,8 @@ vim.o.softtabstop=4
 vim.o.shiftwidth=4
 vim.o.expandtab = true
 
+vim.api.nvim_exec([[let g:python3_host_prog = join([$HOME, "/.local/share/nvim/lib/python/bin/python3"], "")]], true)
+
 -- --Set statusbar
 require('lualine').setup {
   options = {
