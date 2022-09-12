@@ -90,7 +90,7 @@ function install_node {
     echo "--- Installing nodejs."
     if [[ `uname -s` == "Linux" ]]; then
         NODE_OS="linux"
-        NODE_EXTENSION="tar.xz"
+        NODE_EXTENSION="tar.gz"
         if [[ `uname -m` == "x86_64" ]]; then
             NODE_ARCH="x64"
         elif [[ `uname -m` == "aarch64" ]]; then
@@ -132,7 +132,7 @@ function install_fzf {
     echo "--- Installing FZF."
     if [[ `uname -s` == "Linux" ]]; then
         FZF_OS="linux"
-        FZF_EXTENSION="tar.xz"
+        FZF_EXTENSION="tar.gz"
         if [[ `uname -m` == "x86_64" ]]; then
             FZF_ARCH="amd64"
         elif [[ `uname -m` == "aarch64" ]]; then
@@ -149,10 +149,10 @@ function install_fzf {
     fi
 }
 
-#reset_config_dir
-#install_neovim
-#install_deps
-#install_python
+reset_config_dir
+install_neovim
+install_deps
+install_python
 install_node
 install_fzf
 
