@@ -56,15 +56,15 @@ require'nvim-tree'.setup { -- BEGIN_DEFAULT_OPTS
       },
     },
     icons = {
-      webdev_colors = true,
+      webdev_colors = false,
       git_placement = "before",
       padding = " ",
       symlink_arrow = " ➛ ",
       show = {
-        file = true,
-        folder = true,
-        folder_arrow = true,
-        git = true,
+        file = false,
+        folder = false,
+        folder_arrow = false,
+        git = false,
       },
       glyphs = {
         default = "",

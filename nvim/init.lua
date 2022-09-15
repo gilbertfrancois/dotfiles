@@ -21,7 +21,12 @@ require('packer').startup(function(use)
   -- UI to select things (files, grep results, open buffers...)
   use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+
+  -- Colour themes
+  use 'lifepillar/vim-colortemplate'
   use 'joshdick/onedark.vim'
+  use 'gilbertfrancois/vim-terminal-colorschemes'
+
   use 'nvim-lualine/lualine.nvim' -- Fancier statusline
   -- Add indentation guides even on blank lines
   use 'lukas-reineke/indent-blankline.nvim'
@@ -74,7 +79,7 @@ vim.o.clipboard='unnamedplus'
 --Set colorscheme
 -- vim.o.termguicolors = true
 vim.o.t_Co=256
-vim.cmd [[colorscheme onedark]]
+vim.cmd [[colorscheme blitzblit-dark]]
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
@@ -86,15 +91,15 @@ vim.o.expandtab = true
 
 vim.api.nvim_exec([[let g:python3_host_prog = join([$HOME, "/.local/share/nvim/lib/python/bin/python3"], "")]], true)
 
--- --Set statusbar
-require('lualine').setup {
-  options = {
-    icons_enabled = true,
-    theme = 'onedark',
-    component_separators = '|',
-    section_separators = '',
-  },
-}
+-- -- --Set statusbar
+-- require('lualine').setup {
+--   options = {
+--     icons_enabled = true,
+--     theme = 'onedark',
+--     component_separators = '|',
+--     section_separators = '',
+--   },
+-- }
 
 --Remap space as leader key
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
