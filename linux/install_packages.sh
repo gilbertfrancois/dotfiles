@@ -23,4 +23,7 @@ sudo apt install -y \
     valgrind \
     zsh \
     zsh-common \
-    zsh-doc 
+    zsh-doc \
+    cargo
+
+cargo install viu
