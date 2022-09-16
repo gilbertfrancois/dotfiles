@@ -120,6 +120,7 @@ function install_node {
 
     ${NVIM_LIB_DIR}/node/bin/npm install --location=global --prefix ${NVIM_LIB_DIR}/node neovim
     ${NVIM_LIB_DIR}/node/bin/npm install --location=global --prefix ${NVIM_LIB_DIR}/node pyright
+    ${NVIM_LIB_DIR}/node/bin/npm install --location=global --prefix ${NVIM_LIB_DIR}/node prettier
     ${NVIM_LIB_DIR}/node/bin/npm install --location=global --prefix ${NVIM_LIB_DIR}/node typescript typescript-language-server
     ${NVIM_LIB_DIR}/node/bin/npm install --location=global --prefix ${NVIM_LIB_DIR}/node diagnostic-languageserver
     ${NVIM_LIB_DIR}/node/bin/npm install --location=global --prefix ${NVIM_LIB_DIR}/node vscode-langservers-extracted
@@ -149,10 +150,10 @@ function install_fzf {
     fi
 }
 
-reset_config_dir
-install_neovim
-install_deps
+# reset_config_dir
+# install_neovim
+# install_deps
 install_python
 install_node
-install_fzf
+# install_fzf
 
