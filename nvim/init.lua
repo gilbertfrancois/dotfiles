@@ -1,4 +1,12 @@
 -- To source on the fly, type :so %
+-- Enable the following language servers
+-- Reference: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+-- ~/.local/share/nvim/lib/node/bin/npm i -g vscode-langservers-extracted
+-- ~/.local/share/nvim/lib/node/bin/npm i -g pyright
+-- ~/.local/share/nvim/lib/node/bin/npm i -g prettier
+-- ~/.local/share/nvim/lib/node/bin/npm i -g typescript typescript-language-server
+-- ~/.local/share/nvim/lib/python/bin/pip install pynvim pyright black
+-- https://github.com/sumneko/lua-language-server/releases
 -- Install packer
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
 
@@ -17,18 +25,12 @@ require('packer').startup(function(use)
     use 'tpope/vim-unimpaired'
     use 'tpope/vim-surround'
     use 'tpope/vim-commentary'
-    -- use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
-    -- use 'ludovicchabant/vim-gutentags' -- Automatic tags management
     -- UI to select things (files, grep results, open buffers...)
     use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-
     -- Colour themes
-    use 'lifepillar/vim-colortemplate'
     use 'joshdick/onedark.vim'
     use 'gilbertfrancois/vim-terminal-colorschemes'
-
-    use 'nvim-lualine/lualine.nvim' -- Fancier statusline
     -- Add indentation guides even on blank lines
     use 'lukas-reineke/indent-blankline.nvim'
     -- Add git related info in the signs columns and popups
@@ -92,16 +94,6 @@ vim.o.shiftwidth = 4
 vim.o.expandtab = true
 
 vim.api.nvim_exec([[let g:python3_host_prog = join([$HOME, "/.local/share/nvim/lib/python/bin/python3"], "")]], true)
-
--- -- --Set statusbar
--- require('lualine').setup {
---   options = {
---     icons_enabled = true,
---     theme = 'onedark',
---     component_separators = '|',
---     section_separators = '',
---   },
--- }
 
 --Remap space as leader key
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
@@ -252,29 +244,49 @@ local on_attach = function(_, bufnr)
     vim.keymap.set('n', '<leader>f', vim.lsp.buf.formatting, opts)
     -- vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format{async=true}' ]])
 end
--- vim.api.nvim_create_user_command("Format", vim.lsp.buf.formatting, {})
+
+-- LSP formatting settings
+local util = require 'vim.lsp.util'
+local formatting_callback = function(client, bufnr)
+    vim.keymap.set('n', '<leader>f', function()
+        local params = util.make_formatting_params({})
+        client.request('textDocument/formatting', params, nil, bufnr)
+    end, { buffer = bufnr })
+end
 
 -- nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
--- Enable the following language servers
--- Reference: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
--- ~/.local/share/nvim/lib/node/bin/npm i -g vscode-langservers-extracted
--- ~/.local/share/nvim/lib/node/bin/npm i -g pyright
--- ~/.local/share/nvim/lib/node/bin/npm i -g prettier
--- ~/.local/share/nvim/lib/node/bin/npm i -g typescript typescript-language-server
--- https://github.com/sumneko/lua-language-server/releases
-local servers = { 'clangd', 'pyright', 'tsserver', 'html' }
-for _, lsp in ipairs(servers) do
-    lspconfig[lsp].setup {
-        on_attach = on_attach,
-        capabilities = capabilities,
-    }
-end
+lspconfig.clangd.setup {
+    on_attach = function(client, bufnr)
+        formatting_callback(client, bufnr)
+        on_attach(client, bufnr)
+    end,
+    capabilities = capabilities,
+}
 
-require 'lspconfig'.html.setup {
+lspconfig.pyright.setup {
+    on_attach = function(client, bufnr)
+        on_attach(client, bufnr)
+    end,
+    capabilities = capabilities,
+}
+
+lspconfig.tsserver.setup {
+    on_attach = function(client, bufnr)
+        -- formatting_callback(client, bufnr)
+        on_attach(client, bufnr)
+    end,
+    capabilities = capabilities,
+}
+
+lspconfig.html.setup {
+    on_attach = function(client, bufnr)
+        -- formatting_callback(client, bufnr)
+        on_attach(client, bufnr)
+    end,
     capabilities = capabilities,
 }
 
@@ -285,7 +297,10 @@ table.insert(runtime_path, 'lua/?.lua')
 table.insert(runtime_path, 'lua/?/init.lua')
 
 lspconfig.sumneko_lua.setup {
-    on_attach = on_attach,
+    on_attach = function(client, bufnr)
+        formatting_callback(client, bufnr)
+        on_attach(client, bufnr)
+    end,
     capabilities = capabilities,
     settings = {
         Lua = {
@@ -314,8 +329,7 @@ lspconfig.sumneko_lua.setup {
 -- luasnip setup
 local luasnip = require 'luasnip'
 
-
--- null-ls formatting
+-- NullLs formatting server
 local null_ls = require "null-ls"
 local formatting = null_ls.builtins.formatting
 null_ls.setup({
@@ -323,7 +337,6 @@ null_ls.setup({
     sources = {
         formatting.prettier.with({ extra_args = {} }),
         formatting.black.with({ extra_args = {} }),
-        formatting.stylua,
     },
 })
 
