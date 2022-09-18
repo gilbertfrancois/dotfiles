@@ -241,7 +241,7 @@ local on_attach = function(_, bufnr)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
     vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', '<leader>so', require('telescope.builtin').lsp_document_symbols, opts)
-    vim.keymap.set('n', '<leader>f', vim.lsp.buf.formatting, opts)
+    -- vim.keymap.set('n', '<leader>f', vim.lsp.buf.formatting, opts)
     -- vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format{async=true}' ]])
 end
 
@@ -268,25 +268,17 @@ lspconfig.clangd.setup {
 }
 
 lspconfig.pyright.setup {
-    on_attach = function(client, bufnr)
-        on_attach(client, bufnr)
-    end,
+    on_attach = on_attach,
     capabilities = capabilities,
 }
 
 lspconfig.tsserver.setup {
-    on_attach = function(client, bufnr)
-        -- formatting_callback(client, bufnr)
-        on_attach(client, bufnr)
-    end,
+    on_attach = on_attach,
     capabilities = capabilities,
 }
 
 lspconfig.html.setup {
-    on_attach = function(client, bufnr)
-        -- formatting_callback(client, bufnr)
-        on_attach(client, bufnr)
-    end,
+    on_attach = on_attach,
     capabilities = capabilities,
 }
 
