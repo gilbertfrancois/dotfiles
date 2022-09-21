@@ -84,6 +84,7 @@ vim.o.clipboard = 'unnamedplus'
 -- vim.o.termguicolors = true
 vim.o.t_Co = 256
 vim.cmd [[colorscheme blitzblit-dark]]
+-- vim.cmd [[colorscheme onedark]]
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
@@ -241,9 +242,20 @@ local on_attach = function(_, bufnr)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
     vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', '<leader>so', require('telescope.builtin').lsp_document_symbols, opts)
-    -- vim.keymap.set('n', '<leader>f', vim.lsp.buf.formatting, opts)
+    vim.keymap.set('n', '<leader>f', vim.lsp.buf.formatting, opts)
     -- vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format{async=true}' ]])
 end
+
+-- NullLs formatting server
+local null_ls = require "null-ls"
+local formatting = null_ls.builtins.formatting
+null_ls.setup({
+    debug = false,
+    sources = {
+        formatting.prettier.with({ extra_args = {} }),
+        formatting.black.with({ extra_args = {} }),
+    },
+})
 
 -- LSP formatting settings
 local util = require 'vim.lsp.util'
@@ -320,18 +332,6 @@ lspconfig.sumneko_lua.setup {
         },
     },
 }
-
-
--- NullLs formatting server
-local null_ls = require "null-ls"
-local formatting = null_ls.builtins.formatting
-null_ls.setup({
-    debug = false,
-    sources = {
-        formatting.prettier.with({ extra_args = {} }),
-        formatting.black.with({ extra_args = {} }),
-    },
-})
 
 -- luasnip setup
 local luasnip = require 'luasnip'
