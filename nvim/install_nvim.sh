@@ -200,7 +200,7 @@ function install_language_servers {
     mkdir lua-lsp
     cd lua-lsp
     tar zxvf ../lua-language-server-${LUA_LSP_VERSION}-${OS}-${ARCH}.tar.gz
-    cp bin/lua-language-server /usr/local/bin
+    sudo cp bin/lua-language-server /usr/local/bin
     popd
 }
 
@@ -226,11 +226,11 @@ function __os_template {
     fi
 }
 
-# reset_config_dir
-# install_neovim
-# install_deps
-# install_python
-# install_node
-# install_fzf
+reset_config_dir
+install_neovim
+install_deps
+install_python
+install_node
+install_fzf
 install_language_servers
 
