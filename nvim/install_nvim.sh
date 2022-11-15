@@ -200,7 +200,7 @@ function install_language_servers {
     mkdir lua-lsp
     cd lua-lsp
     tar zxvf ../lua-language-server-${LUA_LSP_VERSION}-${OS}-${ARCH}.tar.gz
-    cp bin/lua-language-server ${HOME}/.bin/
+    cp bin/lua-language-server /usr/local/bin
     popd
 }
 
