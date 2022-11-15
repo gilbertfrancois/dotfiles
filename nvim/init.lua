@@ -7,6 +7,7 @@
 -- ~/.local/share/nvim/lib/node/bin/npm i -g typescript typescript-language-server
 -- ~/.local/share/nvim/lib/python/bin/pip install pynvim pyright black
 -- https://github.com/sumneko/lua-language-server/releases
+-- cargo install texlab
 -- Install packer
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
 
@@ -299,10 +300,15 @@ lspconfig.html.setup {
     capabilities = capabilities,
 }
 
-lspconfig.glslls.setup {
+lspconfig.texlab.setup {
     on_attach = on_attach,
     capabilities = capabilities,
 }
+
+-- lspconfig.glslls.setup {
+--     on_attach = on_attach,
+--     capabilities = capabilities,
+-- }
 vim.cmd([[
     au BufRead,BufNewFile *.frag set filetype=glsl
     au BufRead,BufNewFile *.fs set filetype=glsl

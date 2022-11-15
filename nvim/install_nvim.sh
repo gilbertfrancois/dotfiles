@@ -1,9 +1,10 @@
 #!/usr/bin/env bash 
 set -xe
 
-NVIM_VERSION="0.7.2"
-NODE_VERSION="16.16.0"    # NodeJS LTS
-FZF_VERSION="0.32.0"
+NVIM_VERSION="0.8.1"
+NODE_VERSION="18.12.1"    # NodeJS LTS
+FZF_VERSION="0.35.0"
+LUA_LSP_VERSION="3.6.3"
 
 NVIM_CONFIG_DIR=${HOME}/.config/nvim
 NVIM_SHARE_DIR=${HOME}/.local/share/nvim
@@ -21,12 +22,12 @@ function install_deps {
     echo "--- Installing ctags, ripgrep"
     # TODO: Install version for ARMv8
     if [[ `uname -s` == "Linux" ]]; then
-        sudo apt install -y curl exuberant-ctags wget
+        sudo apt install -y curl exuberant-ctags wget ninja-build
         if [[ `uname -m` == "x86_64" ]]; then
             sudo snap install ripgrep --classic
         fi
     elif [[ `uname -s` == "Darwin" ]]; then
-        brew reinstall curl tree-sitter ctags the_silver_searcher fd ripgrep wget pandoc pandoc-crossref
+        brew reinstall curl ctags the_silver_searcher fd ripgrep wget pandoc pandoc-crossref rust ninja
     fi
 }
 
@@ -124,6 +125,7 @@ function install_node {
     ${NVIM_LIB_DIR}/node/bin/npm install --location=global --prefix ${NVIM_LIB_DIR}/node typescript typescript-language-server
     ${NVIM_LIB_DIR}/node/bin/npm install --location=global --prefix ${NVIM_LIB_DIR}/node diagnostic-languageserver
     ${NVIM_LIB_DIR}/node/bin/npm install --location=global --prefix ${NVIM_LIB_DIR}/node vscode-langservers-extracted
+    ${NVIM_LIB_DIR}/node/bin/npm install --location=global --prefix ${NVIM_LIB_DIR}/node tree-sitter
     if [[ `uname -s` == "Linux" ]]; then
         ${NVIM_LIB_DIR}/node/bin/npm install --location=global --prefix ${NVIM_LIB_DIR}/node tree-sitter-cli
     fi
@@ -150,10 +152,75 @@ function install_fzf {
     fi
 }
 
-# reset_config_dir
-# install_neovim
-# install_deps
+function install_language_servers {
+    # Python
+    ${HOME}/.local/share/nvim/lib/python/bin/pip install pynvim pyright black
+
+    # LaTeX
+    cargo install texlab
+
+    # GLSL
+    pushd /tmp
+    git checkout https://github.com/svenstaro/glsl-language-server.git
+    cd glsl-language-server
+    git submodule update --init
+    cmake -Bbuild -GNinja
+    ninja -Cbuild
+    sudo -Cbuild install
+    popd
+
+    # Lua
+    pushd /tmp
+    if [[ `uname -s` == "Linux" ]]; then
+        OS="linux"
+    elif [[ `uname -s` == "Darwin" ]]; then
+        OS="darwin"
+    else
+        OS=""
+        echo "Unsupported OS."
+    fi 
+    if [[ `uname -m` == "x86_64" ]]; then
+        ARCH="x86_64"
+    elif [[ `uname -m` == "aarch64" ]]; then
+        ARCH="aarch64"
+    elif [[ `uname -m` == "armv7l" ]]; then
+        ARCH="armv71"
+    else
+        ARCH=""
+        echo "Unsupported architecture"
+    fi
+    wget https://github.com/sumneko/lua-language-server/releases/download/${LUA_LSP_VERSION}/lua-language-server-${LUA_LSP_VERSION}-${OS}-${ARCH}.tar.gz
+    tar zxvf lua-language-server-${LUA_LSP_VERSION}-${OS}-${ARCH}.tar.gz
+    cp lua-language-server/bin/lua-language-server ${HOME}/.bin/
+    popd
+
+
+function __os_template {
+    if [[ `uname -s` == "Linux" ]]; then
+        OS="linux"
+    elif [[ `uname -s` == "Darwin" ]]; then
+        OS="darwin"
+    else
+        OS=""
+        echo "Unsupported OS."
+    fi 
+    if [[ `uname -m` == "x86_64" ]]; then
+        ARCH="x86_64"
+    elif [[ `uname -m` == "aarch64" ]]; then
+        ARCH="aarch64"
+    elif [[ `uname -m` == "armv7l" ]]; then
+        ARCH="armv71"
+    else
+        ARCH=""
+        echo "Unsupported architecture"
+    fi
+}
+
+reset_config_dir
+install_neovim
+install_deps
 install_python
 install_node
-# install_fzf
+install_fzf
+install_language_servers
 
