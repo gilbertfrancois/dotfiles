@@ -7,6 +7,7 @@
 -- ~/.local/share/nvim/lib/node/bin/npm i -g typescript typescript-language-server
 -- ~/.local/share/nvim/lib/python/bin/pip install pynvim pyright black
 -- https://github.com/sumneko/lua-language-server/releases
+-- cargo install texlab
 -- Install packer
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
 
@@ -167,8 +168,10 @@ vim.keymap.set('n', ';;', require('telescope.builtin').help_tags)
 -- Treesitter configuration
 -- Parsers must be installed manually via :TSInstall
 require('nvim-treesitter.configs').setup {
+    ensure_installed = { "c", "cpp", "css", "fortran", "html", "json", "latex", "javascript", "lua", "python", "glsl" },
     highlight = {
         enable = true, -- false will disable the whole extension
+        disable = { "javascript", "html", "python", "css" }
     },
     incremental_selection = {
         enable = true,
@@ -297,6 +300,22 @@ lspconfig.html.setup {
     capabilities = capabilities,
 }
 
+lspconfig.texlab.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+}
+
+-- lspconfig.glslls.setup {
+--     on_attach = on_attach,
+--     capabilities = capabilities,
+-- }
+vim.cmd([[
+    au BufRead,BufNewFile *.frag set filetype=glsl
+    au BufRead,BufNewFile *.fs set filetype=glsl
+    au BufRead,BufNewFile *.vert set filetype=glsl
+    au BufRead,BufNewFile *.vs set filetype=glsl
+]])
+
 -- Example custom server
 -- Make runtime files discoverable to the server
 local runtime_path = vim.split(package.path, ';')
@@ -376,6 +395,7 @@ cmp.setup {
         { name = 'luasnip' },
     },
 }
+
 
 
 -- vim: ts=4 sts=4 sw=4 et
