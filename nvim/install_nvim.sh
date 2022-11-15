@@ -154,20 +154,24 @@ function install_fzf {
 
 function install_language_servers {
     # Python
-    ${HOME}/.local/share/nvim/lib/python/bin/pip install pynvim pyright black
+    # ${HOME}/.local/share/nvim/lib/python/bin/pip install pynvim pyright black
 
     # LaTeX
-    cargo install texlab
+    # cargo install --force texlab
 
-    # GLSL
-    pushd /tmp
-    git checkout https://github.com/svenstaro/glsl-language-server.git
-    cd glsl-language-server
-    git submodule update --init
-    cmake -Bbuild -GNinja
-    ninja -Cbuild
-    sudo -Cbuild install
-    popd
+    # # GLSL
+    # pwd
+    # pushd /tmp
+    # rm -rf glsl-language-server
+    # git clone https://github.com/svenstaro/glsl-language-server.git
+    # cd glsl-language-server
+    # pwd
+    # git submodule update --init
+    # cmake -Bbuild -GNinja
+    # ninja -Cbuild
+    # sudo ninja -Cbuild install
+    # popd
+    # pwd
 
     # Lua
     pushd /tmp
@@ -180,7 +184,9 @@ function install_language_servers {
         echo "Unsupported OS."
     fi 
     if [[ `uname -m` == "x86_64" ]]; then
-        ARCH="x86_64"
+        ARCH="x64"
+    elif [[ `uname -m` == "arm64" ]]; then
+        ARCH="arm64"
     elif [[ `uname -m` == "aarch64" ]]; then
         ARCH="aarch64"
     elif [[ `uname -m` == "armv7l" ]]; then
@@ -190,9 +196,13 @@ function install_language_servers {
         echo "Unsupported architecture"
     fi
     wget https://github.com/sumneko/lua-language-server/releases/download/${LUA_LSP_VERSION}/lua-language-server-${LUA_LSP_VERSION}-${OS}-${ARCH}.tar.gz
-    tar zxvf lua-language-server-${LUA_LSP_VERSION}-${OS}-${ARCH}.tar.gz
-    cp lua-language-server/bin/lua-language-server ${HOME}/.bin/
+    rm -rf lua-lsp
+    mkdir lua-lsp
+    cd lua-lsp
+    tar zxvf ../lua-language-server-${LUA_LSP_VERSION}-${OS}-${ARCH}.tar.gz
+    cp bin/lua-language-server ${HOME}/.bin/
     popd
+}
 
 
 function __os_template {
@@ -216,11 +226,11 @@ function __os_template {
     fi
 }
 
-reset_config_dir
-install_neovim
-install_deps
-install_python
-install_node
-install_fzf
+# reset_config_dir
+# install_neovim
+# install_deps
+# install_python
+# install_node
+# install_fzf
 install_language_servers
 
