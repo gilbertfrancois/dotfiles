@@ -1,4 +1,7 @@
 #!/bin/bash
+sudo xcode-select --install
+sudo xcodebuild -license accept
+sudo xcodebuild -runFirstLaunch
 
 echo "--- Installing packages..."
 brew update
