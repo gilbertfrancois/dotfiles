@@ -48,6 +48,7 @@ require('packer').startup(function(use)
     use 'kyazdani42/nvim-tree.lua'
     use 'kyazdani42/nvim-web-devicons'
     use 'jose-elias-alvarez/null-ls.nvim'
+    use 'normen/vim-pio'
 end)
 
 --Set highlight on search
