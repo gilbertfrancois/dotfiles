@@ -157,7 +157,7 @@ function install_language_servers {
     ${HOME}/.local/share/nvim/lib/python/bin/python -m pip install pynvim pyright black isort
 
     # LaTeX
-    # cargo install --force texlab
+    cargo install --force texlab
 
     # # GLSL
     # pwd
