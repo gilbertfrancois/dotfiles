@@ -193,12 +193,15 @@ function install_language_servers {
         ARCH=""
         echo "Unsupported architecture"
     fi
+
     wget https://github.com/sumneko/lua-language-server/releases/download/${LUA_LSP_VERSION}/lua-language-server-${LUA_LSP_VERSION}-${OS}-${ARCH}.tar.gz
-    rm -rf lua-lsp
-    mkdir lua-lsp
-    cd lua-lsp
+    rm -rf lua-language-server
+    mkdir lua-language-server
+    cd lua-language-server
     tar zxvf ../lua-language-server-${LUA_LSP_VERSION}-${OS}-${ARCH}.tar.gz
-    sudo cp bin/lua-language-server /usr/local/bin
+    cd ..
+    rm -rf ${NVIM_LIB_DIR}/lua-language-server
+    sudo cp lua-language-server ${NVIM_LIB_DIR}/
     popd
 }
 
