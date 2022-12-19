@@ -160,18 +160,16 @@ function install_language_servers {
     cargo install --force texlab
 
     # # GLSL
-    # pwd
-    # pushd /tmp
-    # rm -rf glsl-language-server
-    # git clone https://github.com/svenstaro/glsl-language-server.git
-    # cd glsl-language-server
-    # pwd
-    # git submodule update --init
-    # cmake -Bbuild -GNinja
-    # ninja -Cbuild
-    # sudo ninja -Cbuild install
-    # popd
-    # pwd
+    pushd /tmp
+    rm -rf glsl-language-server
+    git clone https://github.com/svenstaro/glsl-language-server.git
+    cd glsl-language-server
+    pwd
+    git submodule update --init
+    cmake -Bbuild -GNinja
+    ninja -Cbuild
+    sudo ninja -Cbuild install
+    popd
 
     # Lua
     pushd /tmp
