@@ -4,7 +4,7 @@ set -xe
 NVIM_VERSION="0.8.1"
 NODE_VERSION="18.12.1"    # NodeJS LTS
 FZF_VERSION="0.35.0"
-LUA_LSP_VERSION="3.6.3"
+LUA_LSP_VERSION="3.6.4"
 
 NVIM_CONFIG_DIR=${HOME}/.config/nvim
 NVIM_SHARE_DIR=${HOME}/.local/share/nvim
