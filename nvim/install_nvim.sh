@@ -154,7 +154,7 @@ function install_fzf {
 
 function install_language_servers {
     # Python
-    # ${HOME}/.local/share/nvim/lib/python/bin/pip install pynvim pyright black
+    ${HOME}/.local/share/nvim/lib/python/bin/python -m pip install pynvim pyright black isort
 
     # LaTeX
     # cargo install --force texlab
