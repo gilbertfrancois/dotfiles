@@ -24,7 +24,7 @@ eval "$(pyenv init --path)"
 source $HOME/.poetry/env
 
 # PlatformIO (Set the path at the end so that it does not interfere with pyenv.)
-export PATH=${PATH}:${HOME}/.platformio/penv/bin
+# export PATH=${PATH}:${HOME}/.platformio/penv/bin
 
 # Rust and cargo
 export PATH=${HOME}/.cargo/bin:${PATH}
