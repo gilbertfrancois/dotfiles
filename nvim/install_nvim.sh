@@ -4,7 +4,7 @@ set -xe
 NVIM_VERSION="0.8.1"
 NODE_VERSION="18.12.1"    # NodeJS LTS
 FZF_VERSION="0.35.0"
-LUA_LSP_VERSION="3.6.3"
+LUA_LSP_VERSION="3.6.4"
 
 NVIM_CONFIG_DIR=${HOME}/.config/nvim
 NVIM_SHARE_DIR=${HOME}/.local/share/nvim
@@ -154,24 +154,22 @@ function install_fzf {
 
 function install_language_servers {
     # Python
-    # ${HOME}/.local/share/nvim/lib/python/bin/pip install pynvim pyright black
+    ${HOME}/.local/share/nvim/lib/python/bin/python -m pip install pynvim pyright black isort
 
     # LaTeX
-    # cargo install --force texlab
+    cargo install --force texlab
 
     # # GLSL
-    # pwd
-    # pushd /tmp
-    # rm -rf glsl-language-server
-    # git clone https://github.com/svenstaro/glsl-language-server.git
-    # cd glsl-language-server
-    # pwd
-    # git submodule update --init
-    # cmake -Bbuild -GNinja
-    # ninja -Cbuild
-    # sudo ninja -Cbuild install
-    # popd
-    # pwd
+    pushd /tmp
+    rm -rf glsl-language-server
+    git clone https://github.com/svenstaro/glsl-language-server.git
+    cd glsl-language-server
+    pwd
+    git submodule update --init
+    cmake -Bbuild -GNinja
+    ninja -Cbuild
+    sudo ninja -Cbuild install
+    popd
 
     # Lua
     pushd /tmp
@@ -195,12 +193,15 @@ function install_language_servers {
         ARCH=""
         echo "Unsupported architecture"
     fi
+
     wget https://github.com/sumneko/lua-language-server/releases/download/${LUA_LSP_VERSION}/lua-language-server-${LUA_LSP_VERSION}-${OS}-${ARCH}.tar.gz
-    rm -rf lua-lsp
-    mkdir lua-lsp
-    cd lua-lsp
+    rm -rf lua-language-server
+    mkdir lua-language-server
+    cd lua-language-server
     tar zxvf ../lua-language-server-${LUA_LSP_VERSION}-${OS}-${ARCH}.tar.gz
-    sudo cp bin/lua-language-server /usr/local/bin
+    cd ..
+    rm -rf ${NVIM_LIB_DIR}/lua-language-server
+    sudo cp lua-language-server ${NVIM_LIB_DIR}/
     popd
 }
 
