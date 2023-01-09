@@ -30,7 +30,7 @@ require('packer').startup(function(use)
     use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     -- Colour themes
-    use 'joshdick/onedark.vim'
+    use 'navarasu/onedark.nvim'
     use 'gilbertfrancois/vim-terminal-colorschemes'
     -- Add indentation guides even on blank lines
     use 'lukas-reineke/indent-blankline.nvim'
@@ -85,7 +85,6 @@ vim.o.clipboard = 'unnamedplus'
 --Set colorscheme
 -- vim.o.termguicolors = true
 vim.o.t_Co = 256
-vim.cmd [[colorscheme blitzblit-dark]]
 -- vim.cmd [[colorscheme onedark]]
 
 -- Set completeopt to have a better completion experience
@@ -171,10 +170,10 @@ end)
 -- Treesitter configuration
 -- Parsers must be installed manually via :TSInstall
 require('nvim-treesitter.configs').setup {
-    ensure_installed = { "c", "cpp", "css", "fortran", "html", "json", "latex", "javascript", "lua", "python", "glsl" },
+    ensure_installed = { "markdown", "c", "cpp", "css", "fortran", "html", "json", "latex", "javascript", "lua", "python", "glsl" },
     highlight = {
         enable = true, -- false will disable the whole extension
-        disable = { "javascript", "html", "python", "css" }
+        -- disable = { "javascript", "html", "python", "css" }
     },
     incremental_selection = {
         enable = true,
@@ -405,7 +404,45 @@ cmp.setup {
         { name = 'luasnip' },
     },
 }
+require('onedark').setup  {
+    -- Main options --
+    style = 'warmer', -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
+    transparent = false,  -- Show/hide background
+    term_colors = true, -- Change terminal color as per the selected theme style
+    ending_tildes = false, -- Show the end-of-buffer tildes. By default they are hidden
+    cmp_itemkind_reverse = false, -- reverse item kind highlights in cmp menu
 
+    -- toggle theme style ---
+    toggle_style_key = '<leader>ts', -- keybind to toggle theme style. Leave it nil to disable it, or set it to a string, for example "<leader>ts"
+    toggle_style_list = {'warmer', 'warm', 'light'}, -- List of styles to toggle between
 
+    -- Change code style ---
+    -- Options are italic, bold, underline, none
+    -- You can configure multiple style with comma seperated, For e.g., keywords = 'italic,bold'
+    code_style = {
+        comments = 'italic',
+        keywords = 'none',
+        functions = 'none',
+        strings = 'none',
+        variables = 'none'
+    },
+
+    -- Lualine options --
+    lualine = {
+        transparent = false, -- lualine center bar transparency
+    },
+
+    -- Custom Highlights --
+    colors = {}, -- Override default colors
+    highlights = {}, -- Override highlight groups
+
+    -- Plugins Config --
+    diagnostics = {
+        darker = true, -- darker colors for diagnostic
+        undercurl = true,   -- use undercurl instead of underline for diagnostics
+        background = true,    -- use background color for virtual text
+    },
+}
+require('onedark').load()
 
 -- vim: ts=4 sts=4 sw=4 et

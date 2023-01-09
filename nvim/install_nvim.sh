@@ -201,10 +201,9 @@ function install_language_servers {
     tar zxvf ../lua-language-server-${LUA_LSP_VERSION}-${OS}-${ARCH}.tar.gz
     cd ..
     rm -rf ${NVIM_LIB_DIR}/lua-language-server
-    sudo cp lua-language-server ${NVIM_LIB_DIR}/
+    cp -r lua-language-server ${NVIM_LIB_DIR}/
     popd
 }
-
 
 function __os_template {
     if [[ `uname -s` == "Linux" ]]; then
@@ -234,4 +233,3 @@ install_python
 install_node
 install_fzf
 install_language_servers
-
