@@ -16,6 +16,7 @@ export PATH="${HOME}/.bin:${HOME}/.local/bin:$PATH"
 export PATH="/opt/node/bin:$PATH"
 
 # pyenv
+export PATH=$HOME/.poetry/bin:$PATH
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
@@ -33,7 +34,8 @@ export PATH=${HOME}/.cargo/bin:${PATH}
 alias ll='ls -alFh'
 alias la='ls -A'
 alias l='ls -CF'
-alias nvim='PATH=${HOME}/.cargo/bin:${HOME}/.local/share/nvim/lib/lua-language-server/bin:${HOME}/.local/share/nvim/lib/node/bin:/usr/local/opt/llvm/bin:${PATH} nvim'
+alias nvim='PATH=${HOME}/.cargo/bin:${HOME}/.local/share/nvim/lib/lua-language-server/bin:${HOME}/.local/share/nvim/lib/node/bin:/usr/lib/llvm-12/bin:/usr/local/opt/llvm/bin:${PATH} nvim'
+alias ztheme='(){ export ZSH_THEME="$@" && source $ZSH/oh-my-zsh.sh }'
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -142,4 +144,3 @@ function mount_enc() {
         sudo mount /dev/mapper/$2 /mnt/$2
     fi
 }
-    
