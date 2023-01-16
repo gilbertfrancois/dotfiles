@@ -8,7 +8,7 @@ dap.adapters.codelldb = {
   port = "13000",
   executable = {
     -- CHANGE THIS to your path!
-    command = "/home/ubuntu/.local/share/nvim/lib/codelldb/codelldb",
+    command = "/Users/gilbert/.local/share/nvim/lib/extension/adapter/codelldb",
     args = { "--port", "13000" },
 
     -- On windows you may have to uncomment this:

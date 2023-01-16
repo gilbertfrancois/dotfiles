@@ -445,11 +445,12 @@ require("cmp").setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
 })
 
 vim.keymap.set('n', '<F4>', require('dap').continue)
-vim.keymap.set('n', '<F5>', require('dap').stop)
+vim.keymap.set('n', '<F5>', require('dap').close)
 vim.keymap.set('n', '<F6>', require('dap').step_into)
 vim.keymap.set('n', '<F7>', require('dap').step_over)
 vim.keymap.set('n', '<F8>', require('dap').step_out)
-vim.keymap.set('n', '<F9>', require('dap').run_last)
+vim.keymap.set('n', '<F9>', require('dap').step_back)
+vim.keymap.set('n', '<F10>', require('dap').run_last)
 
 vim.keymap.set('n', '<Leader>b', require('dap').toggle_breakpoint)
 vim.keymap.set('n', '<Leader>B', function()
