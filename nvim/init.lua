@@ -52,6 +52,7 @@ require('packer').startup(function(use)
     -- vim dap
     use 'mfussenegger/nvim-dap'
     use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }
+    use 'rcarriga/cmp-dap'
     use 'theHamsta/nvim-dap-virtual-text'
     use 'mfussenegger/nvim-dap-python'
     -- use 'nvim-telescope/telescope-dap.nvim'
@@ -430,11 +431,26 @@ end
 require('nvim-dap-virtual-text').setup({})
 require("dap-python").setup("python", {})
 
-vim.keymap.set('n', '<F5>', require('dap').continue)
-vim.keymap.set('n', '<F6>', require('dap').stop)
-vim.keymap.set('n', '<F7>', require('dap').step_into)
-vim.keymap.set('n', '<F8>', require('dap').step_over)
-vim.keymap.set('n', '<F9>', require('dap').step_out)
+require("cmp").setup({
+  enabled = function()
+    return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
+        or require("cmp_dap").is_dap_buffer()
+  end
+})
+
+require("cmp").setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+  sources = {
+    { name = "dap" },
+  },
+})
+
+vim.keymap.set('n', '<F4>', require('dap').continue)
+vim.keymap.set('n', '<F5>', require('dap').stop)
+vim.keymap.set('n', '<F6>', require('dap').step_into)
+vim.keymap.set('n', '<F7>', require('dap').step_over)
+vim.keymap.set('n', '<F8>', require('dap').step_out)
+vim.keymap.set('n', '<F9>', require('dap').run_last)
+
 vim.keymap.set('n', '<Leader>b', require('dap').toggle_breakpoint)
 vim.keymap.set('n', '<Leader>B', function()
     require('dap').set_breakpoint { vim.fn.input('Breakpoint condition: ') }
@@ -447,7 +463,11 @@ vim.keymap.set('n', '<Leader>dl', require('dap').run_last)
 vim.keymap.set('n', '<Leader>lb', require('dap').list_breakpoints)
 vim.keymap.set('n', '<Leader>cb', require('dap').clear_breakpoints)
 
+require("user.daps.adapter.lldb")
+require("user.daps.settings.cpp")
+require("user.daps.settings.c")
 
+-- Color scheme
 require('onedark').setup {
     -- Main options --
     style = 'warmer', -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
