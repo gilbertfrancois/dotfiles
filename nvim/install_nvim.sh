@@ -83,7 +83,7 @@ function install_python {
     pip install --upgrade pip
     pip install wheel
     # Install neovim extension, python liners, formatters, import sorters and more...
-    pip install neovim jedi rope ropevim pylint flake8 pynvim yapf isort autopep8 black
+    pip install neovim jedi rope ropevim pylint flake8 pynvim yapf isort autopep8 black debugpy
 }
 
 function install_node {

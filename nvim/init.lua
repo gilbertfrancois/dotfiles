@@ -49,6 +49,12 @@ require('packer').startup(function(use)
     use 'kyazdani42/nvim-web-devicons'
     use 'jose-elias-alvarez/null-ls.nvim'
     use 'normen/vim-pio'
+    -- vim dap
+    use 'mfussenegger/nvim-dap'
+    use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }
+    use 'theHamsta/nvim-dap-virtual-text'
+    use 'mfussenegger/nvim-dap-python'
+    -- use 'nvim-telescope/telescope-dap.nvim'
 end)
 
 --Set highlight on search
@@ -147,7 +153,7 @@ require('telescope').setup {
 
 -- Enable telescope fzf native
 require('telescope').load_extension 'fzf'
-
+-- require('telescope').load_extension('dap')
 
 -- Find ...
 vim.keymap.set('n', '<leader>ff', function()
@@ -165,12 +171,14 @@ vim.keymap.set('n', '<leader>st', require('telescope.builtin').tags)
 vim.keymap.set('n', '<leader>so', function()
     require('telescope.builtin').tags { only_current_buffer = true }
 end)
+
 -- vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles)
 
 -- Treesitter configuration
 -- Parsers must be installed manually via :TSInstall
 require('nvim-treesitter.configs').setup {
-    ensure_installed = { "markdown", "c", "cpp", "css", "fortran", "html", "json", "latex", "javascript", "lua", "python", "glsl" },
+    ensure_installed = { "markdown", "c", "cpp", "css", "fortran", "html", "json", "latex", "javascript", "lua", "python",
+        "glsl" },
     highlight = {
         enable = true, -- false will disable the whole extension
         -- disable = { "javascript", "html", "python", "css" }
@@ -318,12 +326,13 @@ lspconfig.texlab.setup {
 --     on_attach = on_attach,
 --     capabilities = capabilities,
 -- }
-vim.cmd([[
-    au BufRead,BufNewFile *.frag set filetype=glsl
-    au BufRead,BufNewFile *.fs set filetype=glsl
-    au BufRead,BufNewFile *.vert set filetype=glsl
-    au BufRead,BufNewFile *.vs set filetype=glsl
-]])
+
+-- vim.cmd([[
+--     au BufRead,BufNewFile *.frag set filetype=glsl
+--     au BufRead,BufNewFile *.fs set filetype=glsl
+--     au BufRead,BufNewFile *.vert set filetype=glsl
+--     au BufRead,BufNewFile *.vs set filetype=glsl
+-- ]])
 
 -- Example custom server
 -- Make runtime files discoverable to the server
@@ -360,6 +369,7 @@ lspconfig.sumneko_lua.setup {
         },
     },
 }
+
 
 -- luasnip setup
 local luasnip = require 'luasnip'
@@ -404,17 +414,51 @@ cmp.setup {
         { name = 'luasnip' },
     },
 }
-require('onedark').setup  {
+
+-- Debugging
+local dap, dapui = require("dap"), require("dapui")
+dapui.setup()
+dap.listeners.after.event_initialized["dapui_config"] = function()
+    dapui.open()
+end
+dap.listeners.before.event_terminated["dapui_config"] = function()
+    dapui.close()
+end
+dap.listeners.before.event_exited["dapui_config"] = function()
+    dapui.close()
+end
+require('nvim-dap-virtual-text').setup({})
+require("dap-python").setup("python", {})
+
+vim.keymap.set('n', '<F5>', require('dap').continue)
+vim.keymap.set('n', '<F6>', require('dap').stop)
+vim.keymap.set('n', '<F7>', require('dap').step_into)
+vim.keymap.set('n', '<F8>', require('dap').step_over)
+vim.keymap.set('n', '<F9>', require('dap').step_out)
+vim.keymap.set('n', '<Leader>b', require('dap').toggle_breakpoint)
+vim.keymap.set('n', '<Leader>B', function()
+    require('dap').set_breakpoint { vim.fn.input('Breakpoint condition: ') }
+end)
+vim.keymap.set('n', '<Leader>lp', function()
+    require('dap').set_breakpoint { nil, nil, vim.fn.input('Log point message: ') }
+end)
+vim.keymap.set('n', '<Leader>dr', require('dap').repl.open)
+vim.keymap.set('n', '<Leader>dl', require('dap').run_last)
+vim.keymap.set('n', '<Leader>lb', require('dap').list_breakpoints)
+vim.keymap.set('n', '<Leader>cb', require('dap').clear_breakpoints)
+
+
+require('onedark').setup {
     -- Main options --
     style = 'warmer', -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
-    transparent = false,  -- Show/hide background
+    transparent = false, -- Show/hide background
     term_colors = true, -- Change terminal color as per the selected theme style
     ending_tildes = false, -- Show the end-of-buffer tildes. By default they are hidden
     cmp_itemkind_reverse = false, -- reverse item kind highlights in cmp menu
 
     -- toggle theme style ---
     toggle_style_key = '<leader>ts', -- keybind to toggle theme style. Leave it nil to disable it, or set it to a string, for example "<leader>ts"
-    toggle_style_list = {'warmer', 'warm', 'light'}, -- List of styles to toggle between
+    toggle_style_list = { 'warmer', 'warm', 'light' }, -- List of styles to toggle between
 
     -- Change code style ---
     -- Options are italic, bold, underline, none
@@ -439,8 +483,8 @@ require('onedark').setup  {
     -- Plugins Config --
     diagnostics = {
         darker = true, -- darker colors for diagnostic
-        undercurl = true,   -- use undercurl instead of underline for diagnostics
-        background = true,    -- use background color for virtual text
+        undercurl = true, -- use undercurl instead of underline for diagnostics
+        background = true, -- use background color for virtual text
     },
 }
 require('onedark').load()
