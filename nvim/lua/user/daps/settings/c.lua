@@ -19,7 +19,7 @@ dap.configurations.c = {
           -- create this directory
           os.execute("mkdir " .. "bin")
         end
-        local cmd = "!gcc -g % -o bin/" .. fileName
+        local cmd = "!cc -g % -o bin/" .. fileName
         -- First, compile it
         vim.cmd(cmd)
         -- Then, return it

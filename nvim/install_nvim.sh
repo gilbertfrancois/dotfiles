@@ -5,6 +5,7 @@ NVIM_VERSION="0.8.2"
 NODE_VERSION="18.12.1"    # NodeJS LTS
 FZF_VERSION="0.35.0"
 LUA_LSP_VERSION="3.6.4"
+VSCODE_LLDB_VERSION="1.8.1"
 
 NVIM_CONFIG_DIR=${HOME}/.config/nvim
 NVIM_SHARE_DIR=${HOME}/.local/share/nvim
@@ -152,7 +153,7 @@ function install_fzf {
     fi
 }
 
-function install_language_servers {
+function lsp_extensions {
     # Python
     ${HOME}/.local/share/nvim/lib/python/bin/python -m pip install pynvim pyright black isort
 
@@ -205,6 +206,40 @@ function install_language_servers {
     popd
 }
 
+function install_dap_extensions {
+    if [[ `uname -s` == "Linux" ]]; then
+        OS="linux"
+    elif [[ `uname -s` == "Darwin" ]]; then
+        OS="darwin"
+    else
+        OS=""
+        echo "Unsupported OS."
+    fi 
+    if [[ `uname -m` == "x86_64" ]]; then
+        ARCH="x86_64"
+    elif [[ `uname -m` == "aarch64" ]]; then
+        ARCH="aarch64"
+    elif [[ `uname -m` == "arm64" ]]; then
+        ARCH="aarch64"
+    elif [[ `uname -m` == "armv7l" ]]; then
+        ARCH="arm"
+    else
+        ARCH=""
+        echo "Unsupported architecture"
+    fi
+
+    pushd /tmp
+    rm -rf /tmp/vscode_lldb
+    mkdir /tmp/vscode_lldb
+    cd /tmp/vscode_lldb
+    wget https://github.com/vadimcn/vscode-lldb/releases/download/v${VSCODE_LLDB_VERSION}/codelldb-${ARCH}-${OS}.vsix
+    unzip codelldb-${ARCH}-${OS}.vsix
+    rm -f codelldb-${ARCH}-${OS}.vsix
+    cd ..
+    mv vscode_lldb ${NVIM_LIB_DIR}
+    popd
+}
+
 function __os_template {
     if [[ `uname -s` == "Linux" ]]; then
         OS="linux"
@@ -226,10 +261,11 @@ function __os_template {
     fi
 }
 
-reset_config_dir
-install_neovim
-install_deps
-install_python
-install_node
-install_fzf
-install_language_servers
+# reset_config_dir
+# install_neovim
+# install_deps
+# install_python
+# install_node
+# install_fzf
+# install_lsp_extensions
+install_dap_extensions

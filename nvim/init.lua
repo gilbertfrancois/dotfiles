@@ -5,10 +5,11 @@
 -- ~/.local/share/nvim/lib/node/bin/npm i -g pyright
 -- ~/.local/share/nvim/lib/node/bin/npm i -g prettier
 -- ~/.local/share/nvim/lib/node/bin/npm i -g typescript typescript-language-server
--- ~/.local/share/nvim/lib/python/bin/pip install pynvim pyright black
+-- ~/.local/share/nvim/lib/python/bin/pip install pynvim pyright black isort debugpy 
 -- https://github.com/sumneko/lua-language-server/releases
 -- cargo install texlab
 -- Install packer
+--
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
 
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
@@ -464,7 +465,18 @@ vim.keymap.set('n', '<Leader>dl', require('dap').run_last)
 vim.keymap.set('n', '<Leader>lb', require('dap').list_breakpoints)
 vim.keymap.set('n', '<Leader>cb', require('dap').clear_breakpoints)
 
-require("user.daps.adapter.lldb")
+require("dap").adapters.codelldb = {
+  type = "server",
+  port = "13000",
+  executable = {
+    -- CHANGE THIS to your path!
+    command = "/Users/gilbert/.local/share/nvim/lib/vscode_lldb/extension/adapter/codelldb",
+    args = { "--port", "13000" },
+
+    -- On windows you may have to uncomment this:
+    -- detached = false,
+  }
+}
 require("user.daps.settings.cpp")
 require("user.daps.settings.c")
 
