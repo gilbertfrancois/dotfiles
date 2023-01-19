@@ -57,6 +57,8 @@ require('packer').startup(function(use)
     use 'theHamsta/nvim-dap-virtual-text'
     use 'mfussenegger/nvim-dap-python'
     -- use 'nvim-telescope/telescope-dap.nvim'
+    --
+    use 'karb94/neoscroll.nvim'
 end)
 
 --Set highlight on search
@@ -522,4 +524,7 @@ require('onedark').setup {
 }
 require('onedark').load()
 
+require('neoscroll').setup({
+    easing_function = "quadratic"
+})
 -- vim: ts=4 sts=4 sw=4 et
