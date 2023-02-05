@@ -1,11 +1,11 @@
 #!/usr/bin/env bash 
 set -xe
 
-NVIM_VERSION="0.8.2"
-NODE_VERSION="18.12.1"    # NodeJS LTS
-FZF_VERSION="0.35.0"
-LUA_LSP_VERSION="3.6.4"
-VSCODE_LLDB_VERSION="1.8.1"
+NVIM_VERSION="0.8.3"
+NODE_VERSION="18.14.0"    # NodeJS LTS
+# FZF_VERSION="0.35.0"
+# LUA_LSP_VERSION="3.6.4"
+# VSCODE_LLDB_VERSION="1.8.1"
 
 NVIM_CONFIG_DIR=${HOME}/.config/nvim
 NVIM_SHARE_DIR=${HOME}/.local/share/nvim
@@ -13,22 +13,25 @@ NVIM_LIB_DIR=${NVIM_SHARE_DIR}/lib
 
 function reset_config_dir {
     echo "--- (Re)setting Neovim config folder."
-    mkdir -p ${HOME}/.config
     rm -rf ${NVIM_CONFIG_DIR}
-    ln -s ${HOME}/.dotfiles/nvim ${NVIM_CONFIG_DIR}
+    rm -rf ${NVIM_SHARE_DIR}
+    mkdir -p ${HOME}/.config
+    mkdir -p ${NVIM_SHARE_DIR}
     mkdir -p ${NVIM_LIB_DIR}
+    ln -s ${HOME}/.dotfiles/nvim ${NVIM_CONFIG_DIR}
 }
 
 function install_deps {
     echo "--- Installing ctags, ripgrep"
     # TODO: Install version for ARMv8
     if [[ `uname -s` == "Linux" ]]; then
-        sudo apt install -y curl exuberant-ctags wget ninja-build
-        if [[ `uname -m` == "x86_64" ]]; then
-            sudo snap install ripgrep --classic
-        fi
+        sudo apt install -y curl wget exuberant-ctags ninja-build
+        # if [[ `uname -m` == "x86_64" ]]; then
+        #     sudo snap install ripgrep --classic
+        # fi
     elif [[ `uname -s` == "Darwin" ]]; then
-        brew reinstall curl ctags the_silver_searcher fd ripgrep wget pandoc pandoc-crossref rust ninja
+        # brew reinstall curl ctags the_silver_searcher fd ripgrep wget pandoc pandoc-crossref rust ninja
+        brew reinstall curl wget ctags ninja
     fi
 }
 
@@ -59,16 +62,8 @@ function install_neovim {
 function install_python {
     echo "--- Installing python environment for NeoVim."
     if [[ `uname -s` == "Linux" ]]; then
-        if [[ `uname -m` == "x86_64" ]]; then
-			sudo apt update
-			sudo apt install -y python3-venv
-        elif [[ `uname -m` == "aarch64" ]]; then
-			sudo apt update
-			sudo apt install -y python3-venv
-        elif [[ `uname -m` == "armv7l" ]]; then
-			sudo apt update
-			sudo apt install -y python3-venv
-        fi
+        sudo apt update
+        sudo apt install -y python3-venv
     elif [[ `uname -s` == "Darwin" ]]; then
         brew update
         brew reinstall python
@@ -82,9 +77,10 @@ function install_python {
     source ${VENV_PATH}/bin/activate
     # Avoid problems due to outdated pip.
     pip install --upgrade pip
-    pip install wheel
+    pip install setuptools wheel
     # Install neovim extension, python liners, formatters, import sorters and more...
-    pip install neovim jedi rope ropevim pylint flake8 pynvim yapf isort autopep8 black debugpy
+    # pip install neovim jedi rope ropevim pylint flake8 pynvim yapf isort autopep8 black debugpy
+    pip install neovim
 }
 
 function install_node {
@@ -121,15 +117,15 @@ function install_node {
     export PATH=${NVIM_LIB_DIR}/node/bin:$PATH
 
     ${NVIM_LIB_DIR}/node/bin/npm install --location=global --prefix ${NVIM_LIB_DIR}/node neovim
-    ${NVIM_LIB_DIR}/node/bin/npm install --location=global --prefix ${NVIM_LIB_DIR}/node pyright
-    ${NVIM_LIB_DIR}/node/bin/npm install --location=global --prefix ${NVIM_LIB_DIR}/node prettier
-    ${NVIM_LIB_DIR}/node/bin/npm install --location=global --prefix ${NVIM_LIB_DIR}/node typescript typescript-language-server
-    ${NVIM_LIB_DIR}/node/bin/npm install --location=global --prefix ${NVIM_LIB_DIR}/node diagnostic-languageserver
-    ${NVIM_LIB_DIR}/node/bin/npm install --location=global --prefix ${NVIM_LIB_DIR}/node vscode-langservers-extracted
-    ${NVIM_LIB_DIR}/node/bin/npm install --location=global --prefix ${NVIM_LIB_DIR}/node tree-sitter
-    if [[ `uname -s` == "Linux" ]]; then
-        ${NVIM_LIB_DIR}/node/bin/npm install --location=global --prefix ${NVIM_LIB_DIR}/node tree-sitter-cli
-    fi
+    # ${NVIM_LIB_DIR}/node/bin/npm install --location=global --prefix ${NVIM_LIB_DIR}/node pyright
+    # ${NVIM_LIB_DIR}/node/bin/npm install --location=global --prefix ${NVIM_LIB_DIR}/node prettier
+    # ${NVIM_LIB_DIR}/node/bin/npm install --location=global --prefix ${NVIM_LIB_DIR}/node typescript typescript-language-server
+    # ${NVIM_LIB_DIR}/node/bin/npm install --location=global --prefix ${NVIM_LIB_DIR}/node diagnostic-languageserver
+    # ${NVIM_LIB_DIR}/node/bin/npm install --location=global --prefix ${NVIM_LIB_DIR}/node vscode-langservers-extracted
+    # ${NVIM_LIB_DIR}/node/bin/npm install --location=global --prefix ${NVIM_LIB_DIR}/node tree-sitter
+    # if [[ `uname -s` == "Linux" ]]; then
+        # ${NVIM_LIB_DIR}/node/bin/npm install --location=global --prefix ${NVIM_LIB_DIR}/node tree-sitter-cli
+    # fi
 }
 
 function install_fzf {
@@ -261,11 +257,11 @@ function __os_template {
     fi
 }
 
-# reset_config_dir
-# install_neovim
-# install_deps
-# install_python
-# install_node
+reset_config_dir
+install_neovim
+install_deps
+install_python
+install_node
 # install_fzf
 # install_lsp_extensions
-install_dap_extensions
+# install_dap_extensions
