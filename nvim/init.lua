@@ -21,6 +21,10 @@ require('packer').startup(function(use)
             -- Additional lua configuration, makes nvim stuff amazing
             'folke/neodev.nvim',
         },
+        use { "jose-elias-alvarez/null-ls.nvim",
+            requires = { "nvim-lua/plenary.nvim" },
+        },
+
     }
     use { -- Autocompletion
         'hrsh7th/nvim-cmp',
@@ -380,6 +384,18 @@ mason_lspconfig.setup_handlers {
     end,
 }
 
+-- Setup null-ls for formatting with external tools. Install
+-- the external tools with Mason, e.g.
+-- :MasonInstall black
+-- or from the installation dialog.
+local sources = {
+    -- python
+    require("null-ls").builtins.formatting.black,
+    require("null-ls").builtins.formatting.isort,
+    require("null-ls").builtins.formatting.prettier,
+}
+require("null-ls").setup({sources = sources})
+
 -- Turn on lsp status information
 require('fidget').setup()
 
@@ -497,9 +513,13 @@ end
 dap.listeners.before.event_exited["dapui_config"] = function()
     dapui.close()
 end
+dap.listeners.before.event_invalidated["dapui_config"] = function()
+    dapui.close()
+end
 
 vim.keymap.set('n', '<F4>', dap.continue)
-vim.keymap.set('n', '<F5>', dap.close)
+-- vim.keymap.set('n', '<F5>', dap.close)
+vim.keymap.set('n', '<F5>', dap.terminate)
 vim.keymap.set('n', '<F6>', dap.step_into)
 vim.keymap.set('n', '<F7>', dap.step_over)
 vim.keymap.set('n', '<F8>', dap.step_out)
