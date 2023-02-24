@@ -502,6 +502,10 @@ dapui.setup()
 
 require('nvim-dap-virtual-text').setup({})
 require("dap-python").setup("python", {})
+table.insert(dap.configurations.python, {
+    justMyCode = false,
+})
+
 
 -- listeners
 dap.listeners.after.event_initialized["dapui_config"] = function()
@@ -513,9 +517,9 @@ end
 dap.listeners.before.event_exited["dapui_config"] = function()
     dapui.close()
 end
-dap.listeners.before.event_invalidated["dapui_config"] = function()
-    dapui.close()
-end
+-- dap.listeners.before.event_invalidated["dapui_config"] = function()
+--     dapui.close()
+-- end
 
 vim.keymap.set('n', '<F4>', dap.continue)
 -- vim.keymap.set('n', '<F5>', dap.close)
