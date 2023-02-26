@@ -6,6 +6,9 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
     vim.fn.system { 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path }
     vim.cmd [[packadd packer.nvim]]
 end
+-- disable netrw at the very start of your init.lua (strongly advised)
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 require('packer').startup(function(use)
     -- Package manager
@@ -21,6 +24,10 @@ require('packer').startup(function(use)
             -- Additional lua configuration, makes nvim stuff amazing
             'folke/neodev.nvim',
         },
+        use { "jose-elias-alvarez/null-ls.nvim",
+            requires = { "nvim-lua/plenary.nvim" },
+        },
+
     }
     use { -- Autocompletion
         'hrsh7th/nvim-cmp',
@@ -35,6 +42,13 @@ require('packer').startup(function(use)
     use { -- Additional text objects via treesitter
         'nvim-treesitter/nvim-treesitter-textobjects',
         after = 'nvim-treesitter',
+    }
+    use {
+        'nvim-tree/nvim-tree.lua',
+        requires = {
+            'nvim-tree/nvim-web-devicons', -- optional, for file icons
+        },
+        tag = 'nightly' -- optional, updated every week. (see issue #1193)
     }
     -- Git related plugins
     use 'tpope/vim-fugitive' -- Git commands in nvim
@@ -340,6 +354,10 @@ local on_attach = function(_, bufnr)
     end, { desc = 'Format current buffer with LSP' })
 end
 
+-- empty setup using defaults
+require("nvim-tree").setup()
+vim.keymap.set('n', '<leader>t', require("nvim-tree").toggle)
+
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
 --
@@ -349,7 +367,7 @@ local servers = {
     clangd = {},
     pyright = {},
     tsserver = {},
-    sumneko_lua = {
+    lua_ls = {
         Lua = {
             workspace = { checkThirdParty = false },
             telemetry = { enable = false },
@@ -384,6 +402,18 @@ mason_lspconfig.setup_handlers {
     end,
 }
 
+-- Setup null-ls for formatting with external tools. Install
+-- the external tools with Mason, e.g.
+-- :MasonInstall black
+-- or from the installation dialog.
+local sources = {
+    -- python
+    require("null-ls").builtins.formatting.black,
+    require("null-ls").builtins.formatting.isort,
+    require("null-ls").builtins.formatting.prettier,
+}
+require("null-ls").setup({ sources = sources })
+
 -- Turn on lsp status information
 require('fidget').setup()
 
@@ -398,7 +428,7 @@ cmp.setup {
         end,
     },
     mapping = cmp.mapping.preset.insert {
-        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-d>'] = cmp.mapping.scroll_docs( -4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<CR>'] = cmp.mapping.confirm {
@@ -417,8 +447,8 @@ cmp.setup {
         ['<S-Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-                luasnip.jump(-1)
+            elseif luasnip.jumpable( -1) then
+                luasnip.jump( -1)
             else
                 fallback()
             end
@@ -490,6 +520,10 @@ dapui.setup()
 
 require('nvim-dap-virtual-text').setup({})
 require("dap-python").setup("python", {})
+table.insert(dap.configurations.python, {
+    justMyCode = false,
+})
+
 
 -- listeners
 dap.listeners.after.event_initialized["dapui_config"] = function()
@@ -501,9 +535,13 @@ end
 dap.listeners.before.event_exited["dapui_config"] = function()
     dapui.close()
 end
+-- dap.listeners.before.event_invalidated["dapui_config"] = function()
+--     dapui.close()
+-- end
 
 vim.keymap.set('n', '<F4>', dap.continue)
-vim.keymap.set('n', '<F5>', dap.close)
+-- vim.keymap.set('n', '<F5>', dap.close)
+vim.keymap.set('n', '<F5>', dap.terminate)
 vim.keymap.set('n', '<F6>', dap.step_into)
 vim.keymap.set('n', '<F7>', dap.step_over)
 vim.keymap.set('n', '<F8>', dap.step_out)
