@@ -32,7 +32,7 @@ export PYTHON_KEYRING_BACKEND=keyring.backends.fail.Keyring
 export PATH=${HOME}/.cargo/bin:${PATH}
 
 # some more ls aliases
-alias ll='ls -alFh'
+alias ll='ls -lFh'
 alias la='ls -A'
 alias l='ls -CF'
 alias nvim='PATH=${HOME}/.cargo/bin:${HOME}/.local/share/nvim/lib/lua-language-server/bin:${HOME}/.local/share/nvim/lib/node/bin:/usr/lib/llvm-12/bin:/usr/local/opt/llvm/bin:${PATH} nvim'
