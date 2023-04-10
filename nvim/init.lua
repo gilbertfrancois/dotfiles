@@ -74,6 +74,9 @@ require('packer').startup(function(use)
     -- use 'rcarriga/cmp-dap'
     use 'theHamsta/nvim-dap-virtual-text'
     use 'mfussenegger/nvim-dap-python'
+
+    -- CoPilot
+    use 'github/copilot.vim'
     -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
     local has_plugins, plugins = pcall(require, 'custom.plugins')
     if has_plugins then
@@ -466,12 +469,12 @@ require('neoscroll').setup({
 
 require('onedark').setup {
     -- Main options --
-    colors = {
-        bg0 = "#242424",
-        bg1 = "#2d2d2d",
-        bg2 = "#363636",
-        bg3 = "#383838",
-    },
+    -- colors = {
+        -- bg0 = "#242424",
+        -- bg1 = "#2d2d2d",
+        -- bg2 = "#363636",
+        -- bg3 = "#383838",
+    -- },
     style = 'warmer', -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
     transparent = false, -- Show/hide background
     term_colors = true, -- Change terminal color as per the selected theme style
@@ -480,7 +483,7 @@ require('onedark').setup {
 
     -- toggle theme style ---
     toggle_style_key = '<leader>ts', -- keybind to toggle theme style. Leave it nil to disable it, or set it to a string, for example "<leader>ts"
-    toggle_style_list = {}, -- List of styles to toggle between
+    toggle_style_list = {'warmer', 'light'}, -- List of styles to toggle between
 
     -- Change code style ---
     -- Options are italic, bold, underline, none
