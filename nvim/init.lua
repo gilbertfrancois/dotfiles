@@ -48,7 +48,7 @@ require('packer').startup(function(use)
         requires = {
             'nvim-tree/nvim-web-devicons', -- optional, for file icons
         },
-        tag = 'nightly' -- optional, updated every week. (see issue #1193)
+        -- tag = 'nightly' -- optional, updated every week. (see issue #1193)
     }
     -- Git related plugins
     use 'tpope/vim-fugitive' -- Git commands in nvim
@@ -210,6 +210,11 @@ require('gitsigns').setup {
     },
 }
 
+-- NeoVim Tree
+-- empty setup using defaults
+require("nvim-tree").setup()
+vim.keymap.set('n', '<leader>t', ':NvimTreeToggle<CR>', { desc = 'Toggle [T]ree' })
+
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
@@ -242,7 +247,8 @@ vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
-vim.keymap.set('n', '<leader>t', ':e .<CR>', { desc = '[E]xplorer (netrw)' })
+-- vim.keymap.set('n', '<leader>t', ':e .<CR>', { desc = '[E]xplorer (netrw)' })
+
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
@@ -358,8 +364,6 @@ local on_attach = function(_, bufnr)
 end
 
 -- empty setup using defaults
-require("nvim-tree").setup()
-vim.keymap.set('n', '<leader>t', require("nvim-tree").toggle)
 
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -463,10 +467,10 @@ cmp.setup {
     },
 }
 
-require('neoscroll').setup({
-    easing_function = "quadratic"
-})
-
+-- require('neoscroll').setup({
+--     easing_function = "quadratic"
+-- })
+--
 require('onedark').setup {
     -- Main options --
     -- colors = {
@@ -482,7 +486,7 @@ require('onedark').setup {
     cmp_itemkind_reverse = false, -- reverse item kind highlights in cmp menu
 
     -- toggle theme style ---
-    toggle_style_key = '<leader>ts', -- keybind to toggle theme style. Leave it nil to disable it, or set it to a string, for example "<leader>ts"
+    -- toggle_style_key = '<leader>ts', -- keybind to toggle theme style. Leave it nil to disable it, or set it to a string, for example "<leader>ts"
     toggle_style_list = {'warmer', 'light'}, -- List of styles to toggle between
 
     -- Change code style ---
