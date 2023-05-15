@@ -13,7 +13,7 @@ export PATH="/Library/Frameworks/GStreamer.framework/Commands":${PATH}
 export PATH="${HOME}/.bin:${HOME}/.local/bin:${PATH}"
 
 # Node
-export PATH="/opt/node/bin:${PATH}"
+export PATH="/opt/node/bin:/opt/cmake/bin:${PATH}"
 
 # pyenv
 export PATH=$HOME/.poetry/bin:$PATH
@@ -46,7 +46,7 @@ else
 fi
 
 # Brew
-export PATH=/opt/homebrew/bin:${PATH}
+export PATH=/opt/homebrew/sbin:/opt/homebrew/bin:${PATH}
 
 # for mosh
 export LANG="en_US.UTF-8"
