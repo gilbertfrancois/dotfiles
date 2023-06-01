@@ -1,8 +1,8 @@
 #!/usr/bin/env bash 
 set -xe
 
-NVIM_VERSION="0.8.3"
-NODE_VERSION="18.14.0"    # NodeJS LTS
+NVIM_VERSION="0.9.0"
+NODE_VERSION="18.16.0"    # NodeJS LTS
 # FZF_VERSION="0.35.0"
 # LUA_LSP_VERSION="3.6.4"
 # VSCODE_LLDB_VERSION="1.8.1"
