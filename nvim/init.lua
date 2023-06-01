@@ -148,6 +148,12 @@ vim.cmd [[colorscheme onedark]]
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
+vim.o.tabstop = 4
+vim.o.softtabstop = 4
+vim.o.shiftwidth = 4
+vim.o.expandtab = true
+
+
 -- System clipboard
 vim.o.clipboard = 'unnamedplus'
 
@@ -417,9 +423,9 @@ local sources = {
     -- python
     require("null-ls").builtins.formatting.black,
     require("null-ls").builtins.formatting.isort,
-    require("null-ls").builtins.formatting.prettier,
+    require("null-ls").builtins.formatting.prettier.with( {extra_args = {}}),
 }
-require("null-ls").setup({ sources = sources })
+require("null-ls").setup({ debug=false, sources = sources })
 
 -- Turn on lsp status information
 require('fidget').setup()
@@ -442,7 +448,7 @@ cmp.setup {
             behavior = cmp.ConfirmBehavior.Replace,
             select = true,
         },
-        ['<Tab>'] = cmp.mapping(function(fallback)
+        ['<C-n>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
             elseif luasnip.expand_or_jumpable() then
@@ -451,7 +457,7 @@ cmp.setup {
                 fallback()
             end
         end, { 'i', 's' }),
-        ['<S-Tab>'] = cmp.mapping(function(fallback)
+        ['<C-p>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()
             elseif luasnip.jumpable( -1) then
