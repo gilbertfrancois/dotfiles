@@ -1,7 +1,7 @@
 #!/usr/bin/env bash 
 set -xe
 
-NVIM_VERSION="0.9.0"
+NVIM_VERSION="0.9.1"
 NODE_VERSION="18.16.0"    # NodeJS LTS
 # FZF_VERSION="0.35.0"
 # LUA_LSP_VERSION="3.6.4"

@@ -24,9 +24,9 @@ require('packer').startup(function(use)
             -- Additional lua configuration, makes nvim stuff amazing
             'folke/neodev.nvim',
         },
-        use { "jose-elias-alvarez/null-ls.nvim",
-            requires = { "nvim-lua/plenary.nvim" },
-        },
+        -- use { "jose-elias-alvarez/null-ls.nvim",
+        --     requires = { "nvim-lua/plenary.nvim" },
+        -- },
 
     }
     use { -- Autocompletion
@@ -76,6 +76,7 @@ require('packer').startup(function(use)
     use 'mfussenegger/nvim-dap-python'
     -- Latex
     use 'lervag/vimtex'
+    use 'lunacookies/vim-colors-xcode'
 
     -- CoPilot
     use 'github/copilot.vim'
@@ -145,7 +146,7 @@ vim.wo.signcolumn = 'yes'
 
 -- Set colorscheme
 vim.o.termguicolors = true
-vim.cmd [[colorscheme onedark]]
+vim.cmd [[colorscheme xcodelighthc]]
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
@@ -421,13 +422,13 @@ mason_lspconfig.setup_handlers {
 -- the external tools with Mason, e.g.
 -- :MasonInstall black
 -- or from the installation dialog.
-local sources = {
-    -- python
-    require("null-ls").builtins.formatting.black,
-    require("null-ls").builtins.formatting.isort,
-    require("null-ls").builtins.formatting.prettier.with( {extra_args = {}}),
-}
-require("null-ls").setup({ debug=false, sources = sources })
+-- local sources = {
+--     -- python
+--     require("null-ls").builtins.formatting.black,
+--     require("null-ls").builtins.formatting.isort,
+--     require("null-ls").builtins.formatting.prettier.with( {extra_args = {}}),
+-- }
+-- require("null-ls").setup({ debug=false, sources = sources })
 
 -- Turn on lsp status information
 require('fidget').setup()
@@ -479,51 +480,54 @@ cmp.setup {
 --     easing_function = "quadratic"
 -- })
 --
-require('onedark').setup {
-    -- Main options --
-    -- colors = {
-        -- bg0 = "#242424",
-        -- bg1 = "#2d2d2d",
-        -- bg2 = "#363636",
-        -- bg3 = "#383838",
-    -- },
-    style = 'warmer', -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
-    transparent = false, -- Show/hide background
-    term_colors = true, -- Change terminal color as per the selected theme style
-    ending_tildes = false, -- Show the end-of-buffer tildes. By default they are hidden
-    cmp_itemkind_reverse = false, -- reverse item kind highlights in cmp menu
 
-    -- toggle theme style ---
-    toggle_style_key = '<leader>cs', -- keybind to toggle theme style. Leave it nil to disable it, or set it to a string, for example "<leader>ts"
-    toggle_style_list = {'warmer', 'light'}, -- List of styles to toggle between
 
-    -- Change code style ---
-    -- Options are italic, bold, underline, none
-    -- You can configure multiple style with comma seperated, For e.g., keywords = 'italic,bold'
-    code_style = {
-        comments = 'italic',
-        keywords = 'none',
-        functions = 'none',
-        strings = 'none',
-        variables = 'none'
-    },
 
-    -- Lualine options --
-    lualine = {
-        transparent = false, -- lualine center bar transparency
-    },
-
-    -- Custom Highlights --
-    highlights = {}, -- Override highlight groups
-
-    -- Plugins Config --
-    diagnostics = {
-        darker = true, -- darker colors for diagnostic
-        undercurl = true, -- use undercurl instead of underline for diagnostics
-        background = true, -- use background color for virtual text
-    },
-}
-require('onedark').load()
+-- require('onedark').setup {
+--     -- Main options --
+--     -- colors = {
+--         -- bg0 = "#242424",
+--         -- bg1 = "#2d2d2d",
+--         -- bg2 = "#363636",
+--         -- bg3 = "#383838",
+--     -- },
+--     style = 'light', -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
+--     transparent = false, -- Show/hide background
+--     term_colors = false, -- Change terminal color as per the selected theme style
+--     ending_tildes = false, -- Show the end-of-buffer tildes. By default they are hidden
+--     cmp_itemkind_reverse = false, -- reverse item kind highlights in cmp menu
+--
+--     -- toggle theme style ---
+--     toggle_style_key = '<leader>cs', -- keybind to toggle theme style. Leave it nil to disable it, or set it to a string, for example "<leader>ts"
+--     toggle_style_list = {'light', 'warmer'}, -- List of styles to toggle between
+--
+--     -- Change code style ---
+--     -- Options are italic, bold, underline, none
+--     -- You can configure multiple style with comma seperated, For e.g., keywords = 'italic,bold'
+--     code_style = {
+--         comments = 'italic',
+--         keywords = 'none',
+--         functions = 'none',
+--         strings = 'none',
+--         variables = 'none'
+--     },
+--
+--     -- Lualine options --
+--     lualine = {
+--         transparent = false, -- lualine center bar transparency
+--     },
+--
+--     -- Custom Highlights --
+--     highlights = {}, -- Override highlight groups
+--
+--     -- Plugins Config --
+--     diagnostics = {
+--         darker = true, -- darker colors for diagnostic
+--         undercurl = true, -- use undercurl instead of underline for diagnostics
+--         background = true, -- use background color for virtual text
+--     },
+-- }
+-- require('onedark').load()
 
 
 -- =============================================================================

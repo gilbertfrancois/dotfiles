@@ -2,14 +2,16 @@
 
 sudo apt install -y cmake libncurses5-dev libncursesw5-dev git
 
-cd /tmp
-git clone https://github.com/Syllo/nvtop.git
-mkdir -p nvtop/build && cd nvtop/build
+pushd /tmp
+rm -rf nvtop
+git clone https://github.com/Syllo/nvtop.git nvtop
+cd nvtop
 
-# If it errors with "Could NOT find NVML (missing: NVML_INCLUDE_DIRS)"
-# try the following command instead, otherwise skip to the build with make.
-cmake ..
+cmake -S . -B build -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_BUILD_TYPE=Release
+cmake --build build
+sudo cmake --install build
 
-make
-sudo make install
+cd ..
+rm -rf nvtop
+popd
 
