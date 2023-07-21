@@ -46,9 +46,9 @@ function install_neovim {
 			sudo chmod 755 /usr/local/bin/nvim.appimage
 			sudo ln -s /usr/local/bin/nvim.appimage /usr/local/bin/nvim
         elif [[ `uname -m` == "aarch64" ]]; then
-			build_neovim
+			echo "Build Neovim from source."
         elif [[ `uname -m` == "armv7l" ]]; then
-			build_neovim
+			echo "Build Neovim from source."
         fi
     elif [[ `uname -s` == "Darwin" ]]; then
         brew update
@@ -92,7 +92,11 @@ function install_node {
         if [[ `uname -m` == "x86_64" ]]; then
             NODE_ARCH="x64"
         elif [[ `uname -m` == "aarch64" ]]; then
-            NODE_ARCH="arm64"
+	    if [[ `getconf LONG_BIT` == "32" ]]; then
+	        NODE_ARCH="armv7l"
+	    else
+                NODE_ARCH="arm64"
+	    fi
         elif [[ `uname -m` == "armv7l" ]]; then
             FZF_ARCH="armv7l"
         fi

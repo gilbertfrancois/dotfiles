@@ -19,7 +19,6 @@ sudo apt install -y make \
  tk-dev \
  libffi-dev \
  liblzma-dev \
- python-openssl \
  git
 
 echo "--- Building Python ${1}"

@@ -1,6 +1,6 @@
 # Nvidia libraries
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/lib:/usr/local/cuda/lib64:/usr/local/trt/lib:/usr/local/tensorrt/lib
-export PATH=${PATH}:/usr/local/cuda/bin
+export PATH=${PATH}:/usr/local/cuda/bin:/opt/ngc-cli
 
 # GStreamer (macOS)
 export PATH="/Library/Frameworks/GStreamer.framework/Commands":${PATH}
@@ -14,6 +14,8 @@ export PATH="${HOME}/.bin:${HOME}/.local/bin:${PATH}"
 
 # Node
 export PATH="/opt/node/bin:/opt/cmake/bin:${PATH}"
+
+
 
 # pyenv
 export PATH=$HOME/.poetry/bin:$PATH
@@ -35,8 +37,9 @@ export PATH=${HOME}/.cargo/bin:${PATH}
 alias ll='ls -lFh'
 alias la='ls -A'
 alias l='ls -CF'
-alias nvim='PATH=${HOME}/.cargo/bin:${HOME}/.local/share/nvim/lib/lua-language-server/bin:${HOME}/.local/share/nvim/lib/node/bin:/usr/lib/llvm-12/bin:/usr/local/opt/llvm/bin:${PATH} nvim'
+alias nvim='PATH=${HOME}/.cargo/bin:${HOME}/.local/share/nvim/lib/lua-language-server/bin:${HOME}/.local/share/nvim/lib/node/bin:${PATH} nvim'
 alias ztheme='(){ export ZSH_THEME="$@" && source $ZSH/oh-my-zsh.sh }'
+export PATH=/opt/neovim/bin:${PATH}
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -145,3 +148,17 @@ function mount_enc() {
         sudo mount /dev/mapper/$2 /mnt/$2
     fi
 }
+
+function mv2s3() {
+    pwd=`pwd`
+    cwd=`basename ${pwd}`
+    src=${1}
+    dst=../../s3/data_src/${cwd}
+    echo "Initiating: ${src} -> ${dst}"
+    mkdir -p ${dst}
+    mv -v ${src} ${dst}
+}
+
+
+
+
