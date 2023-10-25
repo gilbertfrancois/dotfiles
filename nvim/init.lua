@@ -202,10 +202,11 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- Enable `lukas-reineke/indent-blankline.nvim`
 -- See `:help indent_blankline.txt`
-require('indent_blankline').setup {
-    char = '┊',
-    show_trailing_blankline_indent = false,
-}
+require("ibl").setup()
+-- require('indent_blankline').setup {
+--     char = '┊',
+--     show_trailing_blankline_indent = false,
+-- }
 
 -- Gitsigns
 -- See `:help gitsigns.txt`
@@ -523,7 +524,6 @@ cmp.setup {
 --     -- Plugins Config --
 --     diagnostics = {
 --         darker = true, -- darker colors for diagnostic
---         undercurl = true, -- use undercurl instead of underline for diagnostics
 --         background = true, -- use background color for virtual text
 --     },
 -- }
