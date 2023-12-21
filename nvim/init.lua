@@ -1,4 +1,4 @@
--- Install packer
+-- Install packerini
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
 local is_bootstrap = false
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
@@ -58,6 +58,7 @@ require('packer').startup(function(use)
     use 'tpope/vim-commentary'
     use 'lewis6991/gitsigns.nvim'
     use 'navarasu/onedark.nvim' -- Theme inspired by Atom
+    use 'lunacookies/vim-colors-xcode' -- Theme inspired by Xcode
     use 'nvim-lualine/lualine.nvim' -- Fancier statusline
     use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
     -- use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
@@ -76,7 +77,8 @@ require('packer').startup(function(use)
     use 'mfussenegger/nvim-dap-python'
     -- Latex
     use 'lervag/vimtex'
-    use 'lunacookies/vim-colors-xcode'
+    -- Docker
+    use 'jamestthompson3/nvim-remote-containers'
 
     -- CoPilot
     use 'github/copilot.vim'
@@ -147,6 +149,11 @@ vim.wo.signcolumn = 'yes'
 -- Set colorscheme
 vim.o.termguicolors = true
 vim.cmd [[colorscheme xcodelighthc]]
+
+
+-- Set autocommand to autocmd FileType c,cpp setlocal equalprg=clang-format to format on save
+-- G=gg
+vim.cmd [[autocmd FileType c,cpp setlocal equalprg=clang-format]]
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
@@ -264,7 +271,7 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = { 'c', 'cpp', 'lua', 'python', 'typescript', 'vimdoc', 'vim' },
+    ensure_installed = { 'c', 'cpp', 'lua', 'python', 'typescript', 'vimdoc', 'vim', 'jsonc' },
 
     highlight = { enable = true },
     indent = { enable = true, disable = { 'python' } },
