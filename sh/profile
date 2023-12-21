@@ -38,6 +38,7 @@ alias l='ls -CF'
 alias nvim='PATH=${HOME}/.cargo/bin:${HOME}/.local/share/nvim/lib/lua-language-server/bin:${HOME}/.local/share/nvim/lib/node/bin:${PATH} nvim'
 alias ztheme='(){ export ZSH_THEME="$@" && source $ZSH/oh-my-zsh.sh }'
 export PATH=/opt/neovim/bin:${PATH}
+alias texfolder='cd /Users/gilbert/Library/Mobile\ Documents/com~apple~CloudDocs/Gilbert/Documents/Texpad'
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
