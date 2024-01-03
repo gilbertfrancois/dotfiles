@@ -10,13 +10,6 @@ end
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
--- [[ Basic Keymaps ]]
--- Set <space> as the leader key
--- See `:help mapleader`
---  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
-
 require('packer').startup(function(use)
     -- Package manager
     use 'wbthomason/packer.nvim'
@@ -31,10 +24,14 @@ require('packer').startup(function(use)
             -- Additional lua configuration, makes nvim stuff amazing
             'folke/neodev.nvim',
         },
+        -- use { "jose-elias-alvarez/null-ls.nvim",
+        --     requires = { "nvim-lua/plenary.nvim" },
+        -- },
+
     }
     use { -- Autocompletion
         'hrsh7th/nvim-cmp',
-        requires = { 'hrsh7th/cmp-nvim-lsp', 'hrsh7th/cmp-path', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
+        requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
     }
     use { -- Highlight, edit, and navigate code
         'nvim-treesitter/nvim-treesitter',
@@ -55,15 +52,14 @@ require('packer').startup(function(use)
     }
     -- Git related plugins
     use 'tpope/vim-fugitive' -- Git commands in nvim
-    use 'tpope/vim-rhubarb'  -- Fugitive-companion to interact with github
+    use 'tpope/vim-rhubarb' -- Fugitive-companion to interact with github
     use 'tpope/vim-unimpaired'
     use 'tpope/vim-surround'
     use 'tpope/vim-commentary'
     use 'lewis6991/gitsigns.nvim'
-    use 'navarasu/onedark.nvim'               -- Theme inspired by Atom
-    use 'lunacookies/vim-colors-xcode'        -- Theme inspired by Xcode
-    use 'projekt0n/github-nvim-theme'         -- Theme inspired by Github
-    use 'nvim-lualine/lualine.nvim'           -- Fancier statusline
+    use 'navarasu/onedark.nvim' -- Theme inspired by Atom
+    use 'lunacookies/vim-colors-xcode' -- Theme inspired by Xcode
+    use 'nvim-lualine/lualine.nvim' -- Fancier statusline
     use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
     -- use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
     -- use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
@@ -83,8 +79,6 @@ require('packer').startup(function(use)
     use 'lervag/vimtex'
     -- Docker
     use 'jamestthompson3/nvim-remote-containers'
-    use 'folke/neodev.nvim'
-    use 'folke/which-key.nvim'
 
     -- CoPilot
     use 'github/copilot.vim'
@@ -154,7 +148,7 @@ vim.wo.signcolumn = 'yes'
 
 -- Set colorscheme
 vim.o.termguicolors = true
-vim.cmd [[colorscheme github_light_default]]
+vim.cmd [[colorscheme xcodelighthc]]
 -- vim.cmd [[colorscheme default]]
 vim.cmd [[set background=light]]
 
@@ -174,6 +168,13 @@ vim.o.expandtab = true
 
 -- System clipboard
 vim.o.clipboard = 'unnamedplus'
+
+-- [[ Basic Keymaps ]]
+-- Set <space> as the leader key
+-- See `:help mapleader`
+--  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
@@ -197,35 +198,18 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- Set lualine as statusline
 -- See `:help lualine.txt`
 require('lualine').setup {
-    options = {
-        icons_enabled = false,
-    },
 }
 
--- Setup neovim lua configuration
-require('neodev').setup()
+-- Enable Comment.nvim
+-- require('Comment').setup()
 
 -- Enable `lukas-reineke/indent-blankline.nvim`
 -- See `:help indent_blankline.txt`
 require("ibl").setup()
-
--- document existing key chains
-require('which-key').register {
-    ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
-    ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
-    ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
-    ['<leader>h'] = { name = 'Git [H]unk', _ = 'which_key_ignore' },
-    ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
-    ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-    ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
-    ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
-}
--- register which-key VISUAL mode
--- required for visual <leader>hs (hunk stage) to work
-require('which-key').register({
-    ['<leader>'] = { name = 'VISUAL <leader>' },
-    ['<leader>h'] = { 'Git [H]unk' },
-}, { mode = 'v' })
+-- require('indent_blankline').setup {
+--     char = '┊',
+--     show_trailing_blankline_indent = false,
+-- }
 
 -- Gitsigns
 -- See `:help gitsigns.txt`
@@ -392,45 +376,34 @@ local on_attach = function(_, bufnr)
     end, { desc = 'Format current buffer with LSP' })
 end
 
-
--- Setup neovim lua configuration
-require('neodev').setup()
-
--- mason-lspconfig requires that these setup functions are called in this order
--- before setting up the servers.
-require('mason').setup()
-require('mason-lspconfig').setup()
+-- empty setup using defaults
 
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
 --
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
---
---  If you want to override the default filetypes that your language server will attach to you can
---  define the property 'filetypes' to the map in question.
 local servers = {
     clangd = {},
-    -- gopls = {},
     pyright = {},
-    -- rust_analyzer = {},
     tsserver = {},
-    html = { filetypes = { 'html', 'twig', 'hbs' } },
-
     lua_ls = {
         Lua = {
             workspace = { checkThirdParty = false },
             telemetry = { enable = false },
-            -- NOTE: toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-            -- diagnostics = { disable = { 'missing-fields' } },
         },
     },
 }
 
-
+-- Setup neovim lua configuration
+require('neodev').setup()
+--
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+
+-- Setup mason so it can manage external tooling
+require('mason').setup()
 
 -- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
@@ -445,7 +418,6 @@ mason_lspconfig.setup_handlers {
             capabilities = capabilities,
             on_attach = on_attach,
             settings = servers[server_name],
-            filetypes = (servers[server_name] or {}).filetypes,
         }
     end,
 }
@@ -476,7 +448,7 @@ cmp.setup {
         end,
     },
     mapping = cmp.mapping.preset.insert {
-        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-d>'] = cmp.mapping.scroll_docs( -4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<CR>'] = cmp.mapping.confirm {
@@ -495,8 +467,8 @@ cmp.setup {
         ['<C-p>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-                luasnip.jump(-1)
+            elseif luasnip.jumpable( -1) then
+                luasnip.jump( -1)
             else
                 fallback()
             end
@@ -508,10 +480,10 @@ cmp.setup {
     },
 }
 
-require('neoscroll').setup({
-    easing_function = "quadratic"
-})
-
+-- require('neoscroll').setup({
+--     easing_function = "quadratic"
+-- })
+--
 
 
 

@@ -17,6 +17,7 @@ vim.g.loaded_netrwPlugin = 1
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+
 require('packer').startup(function(use)
     -- Package manager
     use 'wbthomason/packer.nvim'
@@ -34,7 +35,12 @@ require('packer').startup(function(use)
     }
     use { -- Autocompletion
         'hrsh7th/nvim-cmp',
-        requires = { 'hrsh7th/cmp-nvim-lsp', 'hrsh7th/cmp-path', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
+        requires = {
+            'hrsh7th/cmp-nvim-lsp',
+            'hrsh7th/cmp-path',
+            'L3MON4D3/LuaSnip',
+            'saadparwaiz1/cmp_luasnip'
+        },
     }
     use { -- Highlight, edit, and navigate code
         'nvim-treesitter/nvim-treesitter',
@@ -62,7 +68,6 @@ require('packer').startup(function(use)
     use 'lewis6991/gitsigns.nvim'
     use 'navarasu/onedark.nvim'               -- Theme inspired by Atom
     use 'lunacookies/vim-colors-xcode'        -- Theme inspired by Xcode
-    use 'projekt0n/github-nvim-theme'         -- Theme inspired by Github
     use 'nvim-lualine/lualine.nvim'           -- Fancier statusline
     use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
     -- use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
@@ -89,10 +94,10 @@ require('packer').startup(function(use)
     -- CoPilot
     use 'github/copilot.vim'
     -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
-    -- local has_plugins, plugins = pcall(require, 'custom.plugins')
-    -- if has_plugins then
-    --     plugins(use)
-    -- end
+    local has_plugins, plugins = pcall(require, 'custom.plugins')
+    if has_plugins then
+        plugins(use)
+    end
 
     if is_bootstrap then
         require('packer').sync()
@@ -154,9 +159,9 @@ vim.wo.signcolumn = 'yes'
 
 -- Set colorscheme
 vim.o.termguicolors = true
-vim.cmd [[colorscheme github_light_default]]
--- vim.cmd [[colorscheme default]]
 vim.cmd [[set background=light]]
+vim.cmd [[colorscheme github_light]]
+-- vim.cmd [[colorscheme default]]
 
 
 -- Set autocommand to autocmd FileType c,cpp setlocal equalprg=clang-format to format on save
@@ -196,11 +201,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- Set lualine as statusline
 -- See `:help lualine.txt`
-require('lualine').setup {
-    options = {
-        icons_enabled = false,
-    },
-}
+require('lualine').setup()
 
 -- Setup neovim lua configuration
 require('neodev').setup()
@@ -208,6 +209,10 @@ require('neodev').setup()
 -- Enable `lukas-reineke/indent-blankline.nvim`
 -- See `:help indent_blankline.txt`
 require("ibl").setup()
+-- require('indent_blankline').setup {
+--     char = '┊',
+--     show_trailing_blankline_indent = false,
+-- }
 
 -- document existing key chains
 require('which-key').register {
@@ -217,7 +222,7 @@ require('which-key').register {
     ['<leader>h'] = { name = 'Git [H]unk', _ = 'which_key_ignore' },
     ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
     ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-    ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
+    -- ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
     ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
 }
 -- register which-key VISUAL mode
