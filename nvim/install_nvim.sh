@@ -46,8 +46,10 @@ function install_neovim {
 			sudo chmod 755 /usr/local/bin/nvim.appimage
 			sudo ln -s /usr/local/bin/nvim.appimage /usr/local/bin/nvim
         elif [[ `uname -m` == "aarch64" ]]; then
+                        sudo apt install -y libuv1 lua-luv-dev lua-lpeg-dev
 			echo "Build Neovim from source."
         elif [[ `uname -m` == "armv7l" ]]; then
+                        sudo apt install -y libuv1 lua-luv-dev lua-lpeg-dev
 			echo "Build Neovim from source."
         fi
     elif [[ `uname -s` == "Darwin" ]]; then
