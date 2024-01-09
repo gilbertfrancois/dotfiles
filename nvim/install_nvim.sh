@@ -9,6 +9,7 @@ NODE_VERSION="20.10.0" # NodeJS LTS
 
 NVIM_CONFIG_DIR=${HOME}/.config/nvim
 NVIM_SHARE_DIR=${HOME}/.local/share/nvim
+NVIM_STATE_DIR=${HOME}/.local/state/nvim
 NVIM_CACHE_DIR=${HOME}/.cache/nvim
 NVIM_LIB_DIR=${NVIM_SHARE_DIR}/lib
 
@@ -16,6 +17,7 @@ function reset_config_dir {
 	echo "--- (Re)setting Neovim config folder."
 	rm -rf ${NVIM_CONFIG_DIR}
 	rm -rf ${NVIM_SHARE_DIR}
+	rm -rf ${NVIM_STATE_DIR}
 	rm -rf ${NVIM_CACHE_DIR}
 }
 
@@ -267,12 +269,8 @@ function __os_template {
 
 # delete_config_dir
 init_config_dir
-# ln -s ${HOME}/.dotfiles/nvim ${NVIM_CONFIG_DIR}
+ln -s ${HOME}/.dotfiles/nvim/lazyvim/nvim ${HOME}.config/nvim
 # install_neovim
 # install_deps
 install_python
 install_node
-
-# install_fzf
-# install_lsp_extensions
-# install_dap_extensions
