@@ -269,7 +269,7 @@ function __os_template {
 
 # delete_config_dir
 init_config_dir
-ln -s ${HOME}/.dotfiles/nvim/lazyvim/nvim ${HOME}.config/nvim
+ln -s ${HOME}/.dotfiles/nvim/lazyvim/nvim ${HOME}/.config/nvim
 # install_neovim
 # install_deps
 install_python
