@@ -2,3 +2,4 @@
 packer_compiled.lua
 .DS_Store
 tags
+*.log
