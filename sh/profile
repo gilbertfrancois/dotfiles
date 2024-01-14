@@ -158,4 +158,4 @@ function mv2s3() {
     mv -v ${src} ${dst}
 }
 
-eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
+# eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
