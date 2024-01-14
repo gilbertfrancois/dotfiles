@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -xe
 
-NVIM_VERSION="0.9.4"
+NVIM_VERSION="0.9.5"
 NODE_VERSION="20.10.0" # NodeJS LTS
 # FZF_VERSION="0.35.0"
 # LUA_LSP_VERSION="3.6.4"
@@ -41,6 +41,18 @@ function install_deps {
 	fi
 }
 
+function compile_neovim {
+	# sudo apt-get install -y libuv1 lua-luv-dev lua-lpeg-dev
+	sudo apt-get install -y ninja-build gettext cmake unzip curl
+	pushd /tmp
+	git clone https://github.com/neovim/neovim
+	cd neovim
+	git checkout stable
+	make CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX=/tmp/neovim-install
+	make install
+	popd
+}
+
 function install_neovim {
 	echo "--- Installing Neovim."
 	if [[ $(uname -s) == "Linux" ]]; then
@@ -52,11 +64,9 @@ function install_neovim {
 			sudo chmod 755 /usr/local/bin/nvim.appimage
 			sudo ln -s /usr/local/bin/nvim.appimage /usr/local/bin/nvim
 		elif [[ $(uname -m) == "aarch64" ]]; then
-			sudo apt install -y libuv1 lua-luv-dev lua-lpeg-dev
-			echo "Build Neovim from source."
+			compile_neovim
 		elif [[ $(uname -m) == "armv7l" ]]; then
-			sudo apt install -y libuv1 lua-luv-dev lua-lpeg-dev
-			echo "Build Neovim from source."
+			compile_neovim
 		fi
 	elif [[ $(uname -s) == "Darwin" ]]; then
 		brew update
@@ -115,7 +125,7 @@ function install_node {
 			NODE_ARCH="arm64"
 		fi
 	fi
-	cd /tmp
+	pushd /tmp
 	rm -rf node*
 	rm -rf ${NVIM_LIB_DIR}/node*
 	wget https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-${NODE_OS}-${NODE_ARCH}.${NODE_EXTENSION}
@@ -136,6 +146,7 @@ function install_node {
 	# if [[ `uname -s` == "Linux" ]]; then
 	# ${NVIM_LIB_DIR}/node/bin/npm install --location=global --prefix ${NVIM_LIB_DIR}/node tree-sitter-cli
 	# fi
+	popd
 }
 
 function install_fzf {
@@ -267,10 +278,10 @@ function __os_template {
 	fi
 }
 
-# delete_config_dir
+reset_config_dir
 init_config_dir
-ln -s ${HOME}/.dotfiles/nvim/lazyvim/nvim ${HOME}/.config/nvim
-# install_neovim
-# install_deps
+install_neovim
+ln -s ${HOME}/.dotfiles/nvim/config/nvim ${HOME}/.config/nvim
+install_deps
 install_python
 install_node

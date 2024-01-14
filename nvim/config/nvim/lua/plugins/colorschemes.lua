@@ -1,7 +1,17 @@
 return {
     { "navarasu/onedark.nvim" }, -- Theme inspired by Atom
-    { "lunacookies/vim-colors-xcode" }, -- Theme inspired by Xcode
-    { "projekt0n/github-nvim-theme" }, -- Theme inspired by Github
+    { "projekt0n/github-nvim-theme" },
+    --     "projekt0n/github-nvim-theme",
+    --     opts = {
+    --         setup = {
+    --             groups = {
+    --                 all = {
+    --                     StatusLine = { fg = "#ffffff", bg = "#000000" },
+    --                 },
+    --             },
+    --         },
+    --     },
+    -- }, -- Theme inspired by Github
 
     {
         "LazyVim/LazyVim",
