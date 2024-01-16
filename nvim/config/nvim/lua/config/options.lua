@@ -9,3 +9,5 @@ vim.opt.expandtab = true
 vim.opt.relativenumber = false
 
 vim.opt.conceallevel = 0
+vim.g.python3_host_prog = vim.fn.getenv("HOME") .. "/.local/share/nvim/lib/python/bin/python3"
+vim.g.node_host_prog = vim.fn.getenv("HOME") .. "/.local/share/nvim/lib/node/bin/neovim-node-host"

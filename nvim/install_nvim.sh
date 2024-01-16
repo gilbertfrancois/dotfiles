@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -xe
 
-NVIM_VERSION="0.9.4"
-NODE_VERSION="20.10.0" # NodeJS LTS
+NVIM_VERSION="0.9.5"
+NODE_VERSION="20.11.0" # NodeJS LTS
 # FZF_VERSION="0.35.0"
 # LUA_LSP_VERSION="3.6.4"
 # VSCODE_LLDB_VERSION="1.8.1"
@@ -86,7 +86,7 @@ function install_python {
 	pip install --upgrade pip
 	pip install setuptools wheel
 	# Install neovim extension
-	pip install neovim
+	pip install pynvim
 }
 
 function install_node {
@@ -123,19 +123,9 @@ function install_node {
 	tar -xvf node-v${NODE_VERSION}-${NODE_OS}-${NODE_ARCH}.${NODE_EXTENSION}
 	mv node-v${NODE_VERSION}-${NODE_OS}-${NODE_ARCH} ${NVIM_LIB_DIR}
 	ln -s ${NVIM_LIB_DIR}/node-v${NODE_VERSION}-${NODE_OS}-${NODE_ARCH} ${NVIM_LIB_DIR}/node
-
 	export PATH=${NVIM_LIB_DIR}/node/bin:$PATH
 
 	${NVIM_LIB_DIR}/node/bin/npm install --location=global --prefix ${NVIM_LIB_DIR}/node neovim
-	# ${NVIM_LIB_DIR}/node/bin/npm install --location=global --prefix ${NVIM_LIB_DIR}/node pyright
-	# ${NVIM_LIB_DIR}/node/bin/npm install --location=global --prefix ${NVIM_LIB_DIR}/node prettier
-	# ${NVIM_LIB_DIR}/node/bin/npm install --location=global --prefix ${NVIM_LIB_DIR}/node typescript typescript-language-server
-	# ${NVIM_LIB_DIR}/node/bin/npm install --location=global --prefix ${NVIM_LIB_DIR}/node diagnostic-languageserver
-	# ${NVIM_LIB_DIR}/node/bin/npm install --location=global --prefix ${NVIM_LIB_DIR}/node vscode-langservers-extracted
-	# ${NVIM_LIB_DIR}/node/bin/npm install --location=global --prefix ${NVIM_LIB_DIR}/node tree-sitter
-	# if [[ `uname -s` == "Linux" ]]; then
-	# ${NVIM_LIB_DIR}/node/bin/npm install --location=global --prefix ${NVIM_LIB_DIR}/node tree-sitter-cli
-	# fi
 }
 
 function install_fzf {
@@ -269,8 +259,8 @@ function __os_template {
 
 # delete_config_dir
 init_config_dir
-ln -s ${HOME}/.dotfiles/nvim/lazyvim/nvim ${HOME}/.config/nvim
+# ln -s ${HOME}/.dotfiles/nvim/lazyvim/nvim ${HOME}/.config/nvim
 # install_neovim
 # install_deps
-install_python
+# install_python
 install_node
