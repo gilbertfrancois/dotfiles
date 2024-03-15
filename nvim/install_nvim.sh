@@ -2,6 +2,7 @@
 set -xe
 
 NVIM_VERSION="0.9.5"
+# NODE_VERSION="18.16.0" # NodeJS LTS
 NODE_VERSION="20.11.0" # NodeJS LTS
 # FZF_VERSION="0.35.0"
 # LUA_LSP_VERSION="3.6.4"
@@ -257,10 +258,10 @@ function __os_template {
 	fi
 }
 
-# delete_config_dir
+reset_config_dir
 init_config_dir
-# ln -s ${HOME}/.dotfiles/nvim/lazyvim/nvim ${HOME}/.config/nvim
+ln -s ${HOME}/.dotfiles/nvim/config/nvim ${HOME}/.config/nvim
 # install_neovim
 # install_deps
-# install_python
+install_python
 install_node
