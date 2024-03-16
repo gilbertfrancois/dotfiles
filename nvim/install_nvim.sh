@@ -261,7 +261,19 @@ function __os_template {
 reset_config_dir
 init_config_dir
 ln -s ${HOME}/.dotfiles/nvim/config/nvim ${HOME}/.config/nvim
+function install_alias {
+	ALIAS="alias nvim='PATH=${HOME}/.local/share/nvim/lib/python/bin:${HOME}/.local/share/nvim/lib/node/bin:\${PATH} nvim'"
+	PROFILE_PATH=${HOME}/.profile
+	if grep "alias nvim" ${PROFILE_PATH}; then
+		echo "  - Alias already installed in ${PROFILE_PATH}."
+	else
+		echo ${ALIAS} >>${PROFILE_PATH}
+		echo "  - Alias added to ${PROFILE_PATH}."
+	fi
+}
+
 # install_neovim
 # install_deps
 install_python
 install_node
+install_alias
