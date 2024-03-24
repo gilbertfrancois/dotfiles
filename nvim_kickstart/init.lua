@@ -107,7 +107,7 @@ vim.opt.conceallevel = 0
 vim.g.python3_host_prog = vim.fn.getenv("HOME") .. "/.local/share/nvim/lib/python/bin/python3"
 vim.g.node_host_prog = vim.fn.getenv("HOME") .. "/.local/share/nvim/lib/node/bin/neovim-node-host"
 -- Set to true if you have a Nerd Font installed
-vim.g.have_nerd_font = true
+vim.g.have_nerd_font = false
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -189,6 +189,10 @@ vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagn
 vim.keymap.set("n", "<leadr>x", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
 vim.keymap.set("n", "<leader>xx", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
+-- Copilot keymaps
+vim.keymap.set("i", "<C-y>", 'copilot#Accept("\\<CR>")', { expr = true, replace_keycodes = false })
+vim.g.copilot_no_tab_map = true
+
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
@@ -253,6 +257,7 @@ require("lazy").setup({
 
 	"lukas-reineke/indent-blankline.nvim",
 	"github/copilot.vim",
+
 	"tpope/vim-fugitive",
 	"tpope/vim-rhubarb",
 	"tpope/vim-unimpaired",
@@ -370,7 +375,10 @@ require("lazy").setup({
 			{ "nvim-telescope/telescope-ui-select.nvim" },
 
 			-- Useful for getting pretty icons, but requires a Nerd Font.
-			{ "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
+			{
+				"nvim-tree/nvim-web-devicons",
+				enabled = vim.g.have_nerd_font,
+			},
 		},
 		config = function()
 			-- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -562,18 +570,22 @@ require("lazy").setup({
 					--    See `:help CursorHold` for information about when this is executed
 					--
 					-- When you move your cursor, the highlights will be cleared (the second autocommand).
-					local client = vim.lsp.get_client_by_id(event.data.client_id)
-					if client and client.server_capabilities.documentHighlightProvider then
-						vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-							buffer = event.buf,
-							callback = vim.lsp.buf.document_highlight,
-						})
-
-						vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-							buffer = event.buf,
-							callback = vim.lsp.buf.clear_references,
-						})
-					end
+					-- local client = vim.lsp.get_client_by_id(event.data.client_id)
+					-- if client and client.server_capabilities.documentHighlightProvider then
+					-- 	vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+					-- 		buffer = event.buf,
+					-- 		callback = function()
+					-- 			vim.lsp.buf.document_highlight()
+					-- 		end,
+					-- 	})
+					-- 	vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+					-- 		buffer = event.buf,
+					-- 		-- write callback that silence the error
+					-- 		callback = function()
+					-- 			vim.lsp.buf.clear_references()
+					-- 		end,
+					-- 	})
+					-- end
 				end,
 			})
 
