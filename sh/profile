@@ -93,11 +93,22 @@ function dataup() {
 }
 
 function datadown() {
-   aws --profile ava-x-skuld s3 $1 --sse AES256 s3://data-gilbert.ava-x.ch/$2 $3
+    if [ $# -eq 0 ]; then
+        echo "example: "
+        echo "   datadown sync data/data/myfolder/ myfolder/"
+        echo "   datadown cp data/data/ myfile.tar"
+    else
+       aws --profile ava-x-skuld s3 $1 --sse AES256 s3://data-gilbert.ava-x.ch/$2 $3
+    fi
 }
 
 function datals() {
-   aws --profile ava-x-skuld s3 ls s3://data-gilbert.ava-x.ch/$1
+    if [ $# -eq 0 ]; then
+        echo "example: "
+        echo "   datals data/"
+    else
+       aws --profile ava-x-skuld s3 ls s3://data-gilbert.ava-x.ch/$1
+    fi
 }
 
 function enc() {
