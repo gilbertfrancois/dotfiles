@@ -35,7 +35,7 @@ export PATH=${HOME}/.cargo/bin:${PATH}
 alias ll='ls -lFh'
 alias la='ls -A'
 alias l='ls -CF'
-alias nvim='PATH=${HOME}/.local/share/nvim/lib/node/bin:${PATH} nvim'
+# alias nvim='PATH={HOME}/.local/share/nvim/lib/python/bin:${HOME}/.local/share/nvim/lib/node/bin:${PATH} nvim'
 alias ztheme='(){ export ZSH_THEME="$@" && source $ZSH/oh-my-zsh.sh }'
 export PATH=/opt/neovim/bin:${PATH}
 alias texfolder='cd /Users/gilbert/Library/Mobile\ Documents/com~apple~CloudDocs/Gilbert/Documents/Texpad'
@@ -93,11 +93,22 @@ function dataup() {
 }
 
 function datadown() {
-   aws --profile ava-x-skuld s3 $1 --sse AES256 s3://data-gilbert.ava-x.ch/$2 $3
+    if [ $# -eq 0 ]; then
+        echo "example: "
+        echo "   datadown sync data/data/myfolder/ myfolder/"
+        echo "   datadown cp data/data/ myfile.tar"
+    else
+       aws --profile ava-x-skuld s3 $1 --sse AES256 s3://data-gilbert.ava-x.ch/$2 $3
+    fi
 }
 
 function datals() {
-   aws --profile ava-x-skuld s3 ls s3://data-gilbert.ava-x.ch/$1
+    if [ $# -eq 0 ]; then
+        echo "example: "
+        echo "   datals data/"
+    else
+       aws --profile ava-x-skuld s3 ls s3://data-gilbert.ava-x.ch/$1
+    fi
 }
 
 function enc() {

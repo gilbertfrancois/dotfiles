@@ -2,6 +2,7 @@
 set -xe
 
 NVIM_VERSION="0.9.5"
+# NODE_VERSION="18.16.0" # NodeJS LTS
 NODE_VERSION="20.11.0" # NodeJS LTS
 # FZF_VERSION="0.35.0"
 # LUA_LSP_VERSION="3.6.4"
@@ -12,6 +13,14 @@ NVIM_SHARE_DIR=${HOME}/.local/share/nvim
 NVIM_STATE_DIR=${HOME}/.local/state/nvim
 NVIM_CACHE_DIR=${HOME}/.cache/nvim
 NVIM_LIB_DIR=${NVIM_SHARE_DIR}/lib
+
+if ! type "sudo" >/dev/null; then
+	echo "No sudo command found."
+	SUDO=""
+else
+	echo "sudo command found."
+	SUDO=sudo
+fi
 
 function reset_config_dir {
 	echo "--- (Re)setting Neovim config folder."
@@ -28,16 +37,14 @@ function init_config_dir {
 }
 
 function install_deps {
-	echo "--- Installing ctags, ripgrep"
+	echo "--- Installing additional dependencies."
 	# TODO: Install version for ARMv8
 	if [[ $(uname -s) == "Linux" ]]; then
-		sudo apt install -y curl wget exuberant-ctags ninja-build
-		# if [[ `uname -m` == "x86_64" ]]; then
-		#     sudo snap install ripgrep --classic
-		# fi
+		${SUDO} apt update
+		${SUDO} apt install -y libfuse2 kmod
 	elif [[ $(uname -s) == "Darwin" ]]; then
 		# brew reinstall curl ctags the_silver_searcher fd ripgrep wget pandoc pandoc-crossref rust ninja
-		brew reinstall curl wget ctags ninja
+		echo "No additional dependencies to install on macOS."
 	fi
 }
 
@@ -45,17 +52,17 @@ function install_neovim {
 	echo "--- Installing Neovim."
 	if [[ $(uname -s) == "Linux" ]]; then
 		if [[ $(uname -m) == "x86_64" ]]; then
-			sudo rm -rf /usr/local/bin/nvim.appimage /usr/local/bin/nvim
+			${SUDO} rm -rf /usr/local/bin/nvim.appimage /usr/local/bin/nvim
 			cd /tmp
 			wget https://github.com/neovim/neovim/releases/download/v${NVIM_VERSION}/nvim.appimage
-			sudo mv nvim.appimage /usr/local/bin
-			sudo chmod 755 /usr/local/bin/nvim.appimage
-			sudo ln -s /usr/local/bin/nvim.appimage /usr/local/bin/nvim
+			${SUDO} mv nvim.appimage /usr/local/bin
+			${SUDO} chmod 755 /usr/local/bin/nvim.appimage
+			${SUDO} ln -s /usr/local/bin/nvim.appimage /usr/local/bin/nvim
 		elif [[ $(uname -m) == "aarch64" ]]; then
-			sudo apt install -y libuv1 lua-luv-dev lua-lpeg-dev
+			${SUDO} apt install -y libuv1 lua-luv-dev lua-lpeg-dev
 			echo "Build Neovim from source."
 		elif [[ $(uname -m) == "armv7l" ]]; then
-			sudo apt install -y libuv1 lua-luv-dev lua-lpeg-dev
+			${SUDO} apt install -y libuv1 lua-luv-dev lua-lpeg-dev
 			echo "Build Neovim from source."
 		fi
 	elif [[ $(uname -s) == "Darwin" ]]; then
@@ -69,8 +76,8 @@ function install_neovim {
 function install_python {
 	echo "--- Installing python environment for NeoVim."
 	if [[ $(uname -s) == "Linux" ]]; then
-		sudo apt update
-		sudo apt install -y python3-venv
+		${SUDO} apt update
+		${SUDO} apt install -y python3-venv
 	elif [[ $(uname -s) == "Darwin" ]]; then
 		brew update
 		brew reinstall python
@@ -143,7 +150,7 @@ function install_fzf {
 		cd /tmp
 		wget https://github.com/junegunn/fzf/releases/download/${FZF_VERSION}/fzf-${FZF_VERSION}-${FZF_OS}_${FZF_ARCH}.${FZF_EXTENSION}
 		tar zxvf fzf-${FZF_VERSION}-${FZF_OS}_${FZF_ARCH}.tar.gz
-		sudo cp fzf /usr/local/bin
+		${SUDO} cp fzf /usr/local/bin
 	elif [[ $(uname -s) == "Darwin" ]]; then
 		brew reinstall fzf
 	fi
@@ -165,7 +172,7 @@ function lsp_extensions {
 	git submodule update --init
 	cmake -Bbuild -GNinja
 	ninja -Cbuild
-	sudo ninja -Cbuild install
+	${SUDO} ninja -Cbuild install
 	popd
 
 	# Lua
@@ -257,10 +264,27 @@ function __os_template {
 	fi
 }
 
-# delete_config_dir
+function install_alias {
+	ALIAS="alias nvim='PATH=${HOME}/.local/share/nvim/lib/python/bin:${HOME}/.local/share/nvim/lib/node/bin:\${PATH} nvim'"
+	PROFILE_PATH=${HOME}/.profile
+	if grep "alias nvim" ${PROFILE_PATH}; then
+		echo "  - Alias already installed in ${PROFILE_PATH}."
+	else
+		echo ${ALIAS} >>${PROFILE_PATH}
+		echo "  - Alias added to ${PROFILE_PATH}."
+	fi
+}
+
+reset_config_dir
 init_config_dir
-# ln -s ${HOME}/.dotfiles/nvim/lazyvim/nvim ${HOME}/.config/nvim
-# install_neovim
-# install_deps
-# install_python
+ln -s ${HOME}/.dotfiles/nvim/config/nvim ${HOME}/.config/nvim
+install_neovim
+install_deps
+install_python
 install_node
+install_alias
+source ${HOME}/.profile
+if [[ $(uname -s) == "Linux" ]]; then
+	${SUDO} /usr/sbin/modprobe fuse
+fi
+nvim --headless "+Lazy! sync" +qa
