@@ -133,9 +133,9 @@ function dec() {
 }
 
 # RipGrep FZF and more...
-source ${HOME}/.dotfiles/sh/rg.bash
-source ${HOME}/.dotfiles/sh/completion.zsh
-source ${HOME}/.dotfiles/sh/key-bindings.zsh
+# source ${HOME}/.dotfiles/sh/rg.bash
+# source ${HOME}/.dotfiles/sh/completion.zsh
+# source ${HOME}/.dotfiles/sh/key-bindings.zsh
 
 function setup_disk_enc() {
     # $1 device, e.g. /dev/sda1

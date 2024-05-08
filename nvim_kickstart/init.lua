@@ -263,6 +263,16 @@ require("lazy").setup({
 	"tpope/vim-unimpaired",
 	"tpope/vim-surround",
 	"tpope/vim-commentary",
+	"mfussenegger/nvim-dap",
+	"nvim-neotest/nvim-nio",
+	{
+		"rcarriga/nvim-dap-ui",
+		requires = {
+			"mfussenegger/nvim-dap",
+		},
+	},
+	"theHamsta/nvim-dap-virtual-text",
+	"mfussenegger/nvim-dap-python",
 	{
 		"nvim-neo-tree/neo-tree.nvim",
 		branch = "v3.x",
@@ -966,5 +976,95 @@ require("lazy").setup({
 	},
 })
 
--- The line beneath this is called `modeline`. See `:help modeline`
+-- =============================================================================
+-- DAP
+-- =============================================================================
+local dap, dapui = require("dap"), require("dapui")
+-- all setup functions
+dapui.setup()
+
+require("nvim-dap-virtual-text").setup({})
+require("dap-python").setup("python", {})
+table.insert(dap.configurations.python, {
+	justMyCode = false,
+})
+
+-- listeners
+dap.listeners.after.event_initialized["dapui_config"] = function()
+	dapui.open()
+end
+dap.listeners.before.event_terminated["dapui_config"] = function()
+	dapui.close()
+end
+dap.listeners.before.event_exited["dapui_config"] = function()
+	dapui.close()
+end
+-- dap.listeners.before.event_invalidated["dapui_config"] = function()
+--     dapui.close()
+-- end
+
+vim.keymap.set("n", "<F4>", dap.continue)
+-- vim.keymap.set('n', '<F5>', dap.close)
+vim.keymap.set("n", "<F5>", dap.terminate)
+vim.keymap.set("n", "<F6>", dap.step_into)
+vim.keymap.set("n", "<F7>", dap.step_over)
+vim.keymap.set("n", "<F8>", dap.step_out)
+vim.keymap.set("n", "<F9>", dap.step_back)
+vim.keymap.set("n", "<F10>", dap.run_last)
+vim.keymap.set("n", "<Leader>b", dap.toggle_breakpoint)
+vim.keymap.set("n", "<Leader>B", function()
+	dap.set_breakpoint({ vim.fn.input("Breakpoint condition: ") })
+end)
+vim.keymap.set("n", "<Leader>lp", function()
+	dap.set_breakpoint({ nil, nil, vim.fn.input("Log point message: ") })
+end)
+vim.keymap.set("n", "<Leader>dr", dap.repl.open)
+vim.keymap.set("n", "<Leader>dl", dap.run_last)
+vim.keymap.set("n", "<Leader>lb", dap.list_breakpoints)
+vim.keymap.set("n", "<Leader>cb", dap.clear_breakpoints)
+vim.keymap.set("n", "<Leader>do", dap.focus_frame)
+
+dap.adapters.codelldb = {
+	type = "server",
+	port = "13000",
+	-- executable = {
+	-- 	command = vim.fn.getenv("HOME") .. "/.local/share/nvim/mason/packages/codelldb/extension/adapter/codelldb",
+	-- 	args = { "--port", "13000" },
+	-- 	-- On windows you may have to uncomment this:
+	-- 	-- detached = false,
+	-- },
+}
+
+dap.configurations.cpp = {
+	{
+		name = "Launch",
+		type = "codelldb",
+		request = "launch",
+		program = function()
+			return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+		end,
+		cwd = "${workspaceFolder}",
+		stopOnEntry = false,
+		args = {},
+		-- -- old settings
+		-- stopOnEntry = false,
+		-- runInTerminal = true,
+		-- console = "integratedTerminal",
+
+		-- if you change `runInTerminal` to true, you might need to change the yama/ptrace_scope setting:
+		--
+		--    echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+		--
+		-- Otherwise you might get the following error:
+		--
+		--    Error on launch: Failed to attach to the target process
+		--
+		-- But you should be aware of the implications:
+		-- https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html
+		-- runInTerminal = false,
+	},
+}
+
+dap.configurations.c = dap.configurations.cpp
+
 -- vim: ts=4 sts=4 sw=4 et
