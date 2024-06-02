@@ -52,12 +52,16 @@ function install_neovim {
 	echo "--- Installing Neovim."
 	if [[ $(uname -s) == "Linux" ]]; then
 		if [[ $(uname -m) == "x86_64" ]]; then
-			${SUDO} rm -rf /usr/local/bin/nvim.appimage /usr/local/bin/nvim
-			cd /tmp
-			wget https://github.com/neovim/neovim/releases/download/v${NVIM_VERSION}/nvim.appimage
-			${SUDO} mv nvim.appimage /usr/local/bin
-			${SUDO} chmod 755 /usr/local/bin/nvim.appimage
-			${SUDO} ln -s /usr/local/bin/nvim.appimage /usr/local/bin/nvim
+			sudo apt update
+			sudo apt install make gcc ripgrep unzip git xclip curl
+			# Now we install nvim
+			curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
+			sudo rm -rf /opt/nvim-linux64
+			sudo mkdir -p /opt/nvim-linux64
+			sudo chmod a+rX /opt/nvim-linux64
+			sudo tar -C /opt -xzf nvim-linux64.tar.gz
+			# make it available in /usr/local/bin, distro installs to /usr/bin
+			sudo ln -sf /opt/nvim-linux64/bin/nvim /usr/local/bin/
 		elif [[ $(uname -m) == "aarch64" ]]; then
 			${SUDO} apt install -y libuv1 lua-luv-dev lua-lpeg-dev
 			echo "Build Neovim from source."
