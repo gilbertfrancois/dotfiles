@@ -35,6 +35,8 @@ alias ll='ls -lFh'
 alias la='ls -A'
 alias l='ls -CF'
 # alias nvim='PATH={HOME}/.local/share/nvim/lib/python/bin:${HOME}/.local/share/nvim/lib/node/bin:${PATH} nvim'
+
+export PATH=/opt/nvim/bin:${PATH}
 alias ztheme='(){ export ZSH_THEME="$@" && source $ZSH/oh-my-zsh.sh }'
 alias texfolder='cd /Users/gilbert/Library/Mobile\ Documents/com~apple~CloudDocs/Gilbert/Documents/Texpad'
 
@@ -53,6 +55,9 @@ export LANG="en_US.UTF-8"
 export LANGUAGE="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
+
+export USER_ID=$(id -u)
+export GROUP_ID=$(id -g)
 
 # AWS S3
 # Uploads newer apothecary files from local disk to S3.
@@ -155,5 +160,17 @@ function mv2s3() {
     mkdir -p ${dst}
     mv -v ${src} ${dst}
 }
+
+function av() {
+    if [ $# -eq 0 ]; then
+        echo "Alias for ansible-vault"
+        echo "example: "
+        echo "   av [action] [file]"
+    else
+        ansible-vault $1 --vault-pass-file ~/.vault_pass.txt $2
+    fi
+}
+
+
 
 # eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
