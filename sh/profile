@@ -24,6 +24,10 @@ eval "$(pyenv init --path)"
 export PATH="${HOME}/.poetry/bin:${PATH}"
 export PYTHON_KEYRING_BACKEND=keyring.backends.fail.Keyring
 
+
+export USER_ID=$(id -u)
+export GROUP_ID=$(id -g)
+
 # PlatformIO (Set the path at the end so that it does not interfere with pyenv.)
 # export PATH=${PATH}:${HOME}/.platformio/penv/bin
 
