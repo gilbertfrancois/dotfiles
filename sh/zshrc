@@ -115,3 +115,6 @@ eval "$(fzf --zsh)"
 
 export GI_TYPELIB_PATH=/Library/Frameworks/GStreamer.framework/Versions/Current/lib/girepository-1.0
 export LD_LIBRARY_PATH=/Library/Frameworks/GStreamer.framework/Versions/Current/lib
+
+export SDL_VIDEODRIVER=x11
+export SDL_VIDEO_GL_DRIVER=libGL.so
