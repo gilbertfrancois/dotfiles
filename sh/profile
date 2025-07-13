@@ -40,6 +40,9 @@ export PATH=/opt/nvim/bin:${PATH}
 alias ztheme='(){ export ZSH_THEME="$@" && source $ZSH/oh-my-zsh.sh }'
 alias texfolder='cd /Users/gilbert/Library/Mobile\ Documents/com~apple~CloudDocs/Gilbert/Documents/Texpad'
 
+alias mkmov='ffmpeg -framerate 25 -start_number $(ls -1 *.jpg | awk -F"[.]" "{print \$1}" | sort -n | head -n 1) -i %08d.jpg -c:v libx264 -pix_fmt yuv420p movie.mp4'
+
+
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
     export EDITOR='nvim'
