@@ -16,7 +16,7 @@ chmod 755 install_poetry.sh
 echo "... Uninstall old Poetry installation"
 ./install_poetry.sh --uninstall
 echo "... Install latest poetry"
-./install_poetry.sh
+./install_poetry.sh --version 1.8.5
 echo "... Change settings"
 # Change this setting in the poetry configuration...
 poetry config virtualenvs.prefer-active-python true
