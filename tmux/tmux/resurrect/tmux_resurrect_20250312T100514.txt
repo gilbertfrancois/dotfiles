@@ -1,0 +1,9 @@
+pane	0	1	1	:*	1	blackbox-3	:/home/gilbert/ava-x/genesis	1	zsh	:
+pane	0	2	0	:-	1	blackbox-3	:/home/gilbert/ava-x/genesis	1	zsh	:
+pane	0	3	0	:	1	blackbox-3	:/home/gilbert/ava-x/genesis	1	zsh	:
+pane	0	4	0	:	1	blackbox-3	:/home/gilbert/ava-x/genesis	1	zsh	:
+window	0	1	:vim	1	:*	c0fd,124x26,0,0,0	off
+window	0	2	:sh	0	:-	c0fe,124x26,0,0,1	off
+window	0	3	:run1	0	:	c0ff,124x26,0,0,2	off
+window	0	4	:run2	0	:	c100,124x26,0,0,3	off
+state	0	
