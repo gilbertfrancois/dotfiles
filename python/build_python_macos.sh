@@ -19,4 +19,5 @@ export LDFLAGS="-L${PREFIX}/opt/tcl-tk/lib ${LDFLAGS}"
 export CPPFLAGS="-I${PREFIX}/opt/tcl-tk/include ${CPPFLAGS}"
 export CFLAGS="-O2"
 
-PYTHON_CONFIGURE_OPTS="--enable-framework" pyenv install ${1}
+# PYTHON_CONFIGURE_OPTS="--enable-framework" pyenv install ${1}
+pyenv install ${1}
