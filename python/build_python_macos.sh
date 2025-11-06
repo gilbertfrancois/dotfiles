@@ -18,6 +18,7 @@ export CPPFLAGS="-I${PREFIX}/opt/zlib/include ${CPPFLAGS}"
 export LDFLAGS="-L${PREFIX}/opt/tcl-tk/lib ${LDFLAGS}"
 export CPPFLAGS="-I${PREFIX}/opt/tcl-tk/include ${CPPFLAGS}"
 export CFLAGS="-O2"
+export PYTHON_CONFIGURE_OPTS="--with-tcltk-includes='-I$(brew --prefix tcl-tk)/include' --with-tcltk-libs='-L$(brew --prefix tcl-tk)/lib -ltcl9.0 -ltk9.0'"
 
 # PYTHON_CONFIGURE_OPTS="--enable-framework" pyenv install ${1}
 pyenv install ${1}
