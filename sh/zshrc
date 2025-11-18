@@ -104,11 +104,6 @@ if [ -f ${HOME}/.dotfiles_secret/sh/profile ]; then
     source ${HOME}/.dotfiles_secret/sh/profile
 fi
 
-PATH="/home/gilbert/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="/home/gilbert/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/home/gilbert/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/home/gilbert/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/home/gilbert/perl5"; export PERL_MM_OPT;
 echo "ZSHRC called"
 eval "$(fzf --zsh)"
 # alias nvim='PATH=/Users/gilbert/.local/share/nvim/lib/python/bin:/Users/gilbert/.local/share/nvim/lib/node/bin:/opt/nvim/bin:${PATH} nvim'
