@@ -104,7 +104,6 @@ if [ -f ${HOME}/.dotfiles_secret/sh/profile ]; then
     source ${HOME}/.dotfiles_secret/sh/profile
 fi
 
-echo "ZSHRC called"
 eval "$(fzf --zsh)"
 # alias nvim='PATH=/Users/gilbert/.local/share/nvim/lib/python/bin:/Users/gilbert/.local/share/nvim/lib/node/bin:/opt/nvim/bin:${PATH} nvim'
 
@@ -115,3 +114,4 @@ fpath=(/Users/gilbert/.docker/completions $fpath)
 autoload -Uz compinit
 compinit
 # End of Docker CLI completions
+echo "ZSHRC loaded"
