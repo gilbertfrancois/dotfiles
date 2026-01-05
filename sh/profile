@@ -194,3 +194,4 @@ xterm-kitty-settings() {
 
 
 # eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
+alias pgsrt='docker exec -it sentinel_rt_server-postgres-1 psql -U sentinel -d sentinel'
