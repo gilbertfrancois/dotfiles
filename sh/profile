@@ -178,7 +178,7 @@ function av() {
     fi
 }
 
-xterm-kitty-settings() {
+export_term_kitty() {
   if [ -z "$1" ]; then
     echo "Usage: xterm-kitty-settings user@host"
     return 1
