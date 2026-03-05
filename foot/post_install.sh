@@ -68,3 +68,7 @@ echo "  $ICON_DST_SVG_DIR/foot-server.svg"
 
 sudo update-alternatives --install /usr/share/icons/default/index.theme x-cursor-theme /usr/share/icons/Yaru/cursor.theme 200
 sudo update-alternatives --set x-cursor-theme /usr/share/icons/Yaru/cursor.theme
+
+cp foot.desktop $HOME/.local/share/applications/foot.desktop
+cp footclient.desktop $HOME/.local/share/applications/footclient.desktop
+cp foot-server.desktop $HOME/.local/share/applications/foot-server.desktop

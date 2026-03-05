@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Exec=env XCURSOR_SIZE=12 /home/gilbert/.local/foot.app/bin/footclient
+Icon=footclient
+Terminal=false
+Categories=System;TerminalEmulator;
+Keywords=shell;prompt;command;commandline;
+
+Name=Foot Client
+GenericName=Terminal
+Comment=A wayland native terminal emulator (client)
