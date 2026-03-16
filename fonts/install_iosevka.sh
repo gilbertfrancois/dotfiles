@@ -8,8 +8,8 @@ INSTALL_DIR="$HOME/.local/share/fonts/${FONT_NAME}-Nerd-Font"
 echo "📥 Installing ${FONT_NAME} Nerd Font..."
 
 # Dependencies
-sudo apt update
-sudo apt install -y curl unzip
+sudo dnf update
+sudo dnf install -y curl unzip
 
 # Create font directory
 mkdir -p "$INSTALL_DIR"

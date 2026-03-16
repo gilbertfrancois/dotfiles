@@ -3,13 +3,20 @@ set -euo pipefail
 
 PREFIX="$HOME/.local/foot.app"
 
-sudo apt update
-sudo apt install -y \
-    build-essential git pkg-config meson ninja-build scdoc python3 \
-    libxkbcommon-dev libwayland-dev wayland-protocols \
-    libpixman-1-dev libfontconfig1-dev \
-    libutf8proc-dev libncursesw5-dev \
-    libfcft-dev libtllist-dev
+# sudo apt update
+# sudo apt install -y \
+    # build-essential git pkg-config meson ninja-build scdoc python3 \
+    # libxkbcommon-dev libwayland-dev wayland-protocols \
+    # libpixman-1-dev libfontconfig1-dev \
+    # libutf8proc-dev libncursesw5-dev \
+    # libfcft-dev libtllist-dev
+
+sudo dnf install -y \
+    @development-tools git pkgconf-pkg-config meson ninja-build scdoc python3 \
+    libxkbcommon-devel wayland-devel wayland-protocols-devel \
+    pixman-devel fontconfig-devel \
+    utf8proc-devel ncurses-devel \
+    fcft-devel tllist-devel wayland-utils
 
 cd /tmp
 rm -rf foot
