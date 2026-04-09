@@ -69,14 +69,31 @@ export GROUP_ID=$(id -g)
 # AWS S3
 # Uploads newer apothecary files from local disk to S3.
 function apup() {
-    echo "Uploading ${HOME}/ava-x/apothecary/ -> s3://apothecary.smbh.ch/"
-    aws --profile ava-x-skuld s3 sync --sse AES256 ${HOME}/ava-x/apothecary/ s3://apothecary.smbh.ch/
+    if [ $# -eq 0 ]; then
+        echo "Use relative path from the ava-x/apothecary folder, example: "
+        echo "   apup some_folder/some_file"
+    else
+        aws --profile ava-x-skuld s3 sync --sse AES256 ${HOME}/ava-x/apothecary/$1 s3://apothecary.smbh.ch/$1
+    fi
 }
 
 # Downloads apothecary files from S3 to local disk.
 function apdown() {
-    echo "Downloading $s3://apothecary.smbh.ch/ -> {HOME}/ava-x/apothecary/"
-    aws --profile ava-x-skuld s3 sync --sse AES256 s3://apothecary.smbh.ch/ ${HOME}/ava-x/apothecary/
+    if [ $# -eq 0 ]; then
+        echo "Use relative path from the ava-x/apothecary folder, example: "
+        echo "   apdown some_folder/some_file"
+    else
+        aws --profile ava-x-skuld s3 sync --sse AES256 s3://apothecary.smbh.ch/$1 ${HOME}/ava-x/apothecary/$1
+    fi
+}
+
+function aprm() {
+    if [ $# -eq 0 ]; then
+        echo "Use relative path from the ava-x/apothecary folder, example: "
+        echo "   aprm some_folder/some_file"
+    else
+        aws --profile ava-x-skuld s3 rm --recursive s3://apothecary.smbh.ch/$1
+    fi
 }
 
 # example: apls data/unittest/
@@ -195,4 +212,8 @@ export_term_kitty() {
 
 # eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
 alias pgsrt='docker exec -it sentinel_rt_server-postgres-1 psql -U sentinel -d sentinel'
+
+export XCURSOR_THEME=Yaru
+export XCURSOR_SIZE=24
+
 echo "PROFILE loaded"
