@@ -67,4 +67,5 @@ sudo dnf install -y gstreamer1-devel gstreamer1-plugins-base-devel
 dnf copr enable lihaohong/yazi
 dnf install yazi
 
-echo "Installation complete. Please reboot to ensure drivers are fully loaded."
+sudo dnf install texlive-scheme-tetex
+sudo dnf install texlive-tabularray
