@@ -52,3 +52,5 @@ sudo dnf update
 sudo dnf install texlive-scheme-medium
 sudo dnf search zathura
 sudo dnf install zathura zathura-plugins-all
+sudo dnf install ansible
+sudo dnf install awscli2
