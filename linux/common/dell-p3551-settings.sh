@@ -3,8 +3,8 @@
 source "$(dirname "$0")/fedora_tweaks.sh"
 
 function install_dell_settings() {
-    sudo grubby --update-kernel=ALL --remove-args="acpi_backlight=vendor"
-    sudo grubby --update-kernel=ALL --args="i915.enable_lspcon=0"
+    sudo grubby --update-kernel=ALL --args="acpi_osi=! acpi_osi='Windows 2015' acpi_backlight=native mem_sleep_default=deep"
+    sudo grubby --update-kernel=ALL --args="rd.driver.blacklist=nouveau,nova_core modprobe.blacklist=nouveau,nova_core"
 }
 
 function install_nvidia_580xx() {
