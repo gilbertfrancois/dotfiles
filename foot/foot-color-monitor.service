@@ -1,0 +1,12 @@
+[Unit]
+Description=Sync foot terminal colors with desktop color scheme (XDG portal)
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=%h/.config/foot/foot-color-monitor.sh
+Restart=on-failure
+RestartSec=3s
+
+[Install]
+WantedBy=graphical-session.target

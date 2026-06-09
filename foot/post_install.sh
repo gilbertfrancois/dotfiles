@@ -55,6 +55,27 @@ install_one "foot-server" "$DESKTOP_SRC_DIR/foot-server.desktop" "$FOOTSERVER_BI
 update-desktop-database "$DESKTOP_DST_DIR" >/dev/null 2>&1 || true
 gtk-update-icon-cache -f "$HOME/.local/share/icons/hicolor" >/dev/null 2>&1 || true
 
+DOTFILES_FOOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# 5) Install foot-launch wrapper (reads XDG portal color-scheme on startup)
+cp -f "$DOTFILES_FOOT/foot-launch.sh" "$HOME/.local/bin/foot-launch"
+chmod +x "$HOME/.local/bin/foot-launch"
+
+# Update foot.desktop Exec to use the wrapper
+sed -i -E "s|^Exec=([^ ]*foot[^ ]*)(.*)$|Exec=$HOME/.local/bin/foot-launch\2|" \
+    "$DESKTOP_DST_DIR/foot.desktop"
+
+# 6) Install color-scheme monitor script and systemd user service
+mkdir -p "$HOME/.config/foot"
+cp -f "$DOTFILES_FOOT/foot-color-monitor.sh" "$HOME/.config/foot/foot-color-monitor.sh"
+chmod +x "$HOME/.config/foot/foot-color-monitor.sh"
+
+mkdir -p "$HOME/.config/systemd/user"
+cp -f "$DOTFILES_FOOT/foot-color-monitor.service" "$HOME/.config/systemd/user/foot-color-monitor.service"
+
+systemctl --user daemon-reload
+systemctl --user enable --now foot-color-monitor.service
+
 echo "Done."
 echo "Desktop entries:"
 echo "  $DESKTOP_DST_DIR/foot.desktop"
