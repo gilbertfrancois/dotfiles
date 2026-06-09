@@ -1,5 +1,5 @@
 allow_remote_control yes
-include mocha.conf
+include current-theme.conf
 # --------------------------------
 # Font
 # --------------------------------
@@ -88,3 +88,8 @@ detect_urls yes
 # Window decorations
 # --------------------------------
 hide_window_decorations yes
+
+
+# BEGIN_KITTY_THEME
+# Tango Light
+# END_KITTY_THEME
