@@ -4,7 +4,7 @@ After=graphical-session.target
 
 [Service]
 Type=simple
-ExecStart=%h/.config/foot/foot-color-monitor.sh
+ExecStart=%h/.dotfiles/foot/foot-color-monitor.sh
 Restart=on-failure
 RestartSec=3s
 
