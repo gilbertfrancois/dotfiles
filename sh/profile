@@ -218,4 +218,13 @@ alias pgsrt='docker exec -it sentinel_rt_server-postgres-1 psql -U sentinel -d s
 export XCURSOR_THEME=Yaru
 export XCURSOR_SIZE=24
 
+if [ -z "$TERM_BACKGROUND" ]; then
+  _cs=$(gsettings get org.gnome.desktop.interface color-scheme 2>/dev/null)
+  case "$_cs" in
+      *prefer-dark*)  export TERM_BACKGROUND=dark ;;
+      *prefer-light*) export TERM_BACKGROUND=light ;;
+  esac
+  unset _cs
+fi
+
 echo "PROFILE loaded"

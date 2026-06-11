@@ -3,7 +3,7 @@
 # Hyprland, Sway, and any desktop with an xdg-desktop-portal backend).
 # Values: 0=no-preference, 1=dark, 2=light
 
-FOOT_BIN="${HOME}/.local/foot.app/bin/foot"
+FOOT_BIN="/usr/bin/foot"
 [[ -x "$FOOT_BIN" ]] || FOOT_BIN="$(command -v foot)"
 
 result=$(gdbus call --session \
