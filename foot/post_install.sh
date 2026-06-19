@@ -61,9 +61,8 @@ DOTFILES_FOOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cp -f "$DOTFILES_FOOT/foot-launch.sh" "$HOME/.local/bin/foot-launch"
 chmod +x "$HOME/.local/bin/foot-launch"
 
-# Update foot.desktop Exec to use the wrapper
-sed -i -E "s|^Exec=([^ ]*foot[^ ]*)(.*)$|Exec=$HOME/.local/bin/foot-launch\2|" \
-    "$DESKTOP_DST_DIR/foot.desktop"
+# Install foot.desktop from dotfiles (already uses foot-launch as Exec)
+cp -f "$DOTFILES_FOOT/foot.desktop" "$DESKTOP_DST_DIR/foot.desktop"
 
 # 6) Install color-scheme monitor script and systemd user service
 mkdir -p "$HOME/.config/foot"

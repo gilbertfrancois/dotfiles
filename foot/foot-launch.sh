@@ -6,12 +6,13 @@
 FOOT_BIN="/usr/bin/foot"
 [[ -x "$FOOT_BIN" ]] || FOOT_BIN="$(command -v foot)"
 
-result=$(gdbus call --session \
+value=$(gdbus call --session \
     --dest org.freedesktop.portal.Desktop \
     --object-path /org/freedesktop/portal/desktop \
     --method org.freedesktop.portal.Settings.Read \
-    "org.freedesktop.appearance" "color-scheme" 2>/dev/null)
+    "org.freedesktop.appearance" "color-scheme" 2>/dev/null \
+    | grep -oE 'uint32 [0-9]+' | grep -oE '[0-9]+$')
 
-[[ "$result" == *"2"* ]] && theme=light || theme=dark
+[[ "$value" == "2" ]] && theme=light || theme=dark
 
 exec "$FOOT_BIN" -o "main.initial-color-theme=${theme}" "$@"

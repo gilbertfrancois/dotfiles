@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Exec=env XCURSOR_SIZE=12 /home/gilbert/.local/foot.app/bin/foot
+Exec=foot-launch %U
 Icon=foot
 Terminal=false
 Categories=System;TerminalEmulator;

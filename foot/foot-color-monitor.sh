@@ -9,14 +9,15 @@ send_signal() {
 }
 
 apply_current_scheme() {
-    local result
-    result=$(gdbus call --session \
+    local value
+    value=$(gdbus call --session \
         --dest org.freedesktop.portal.Desktop \
         --object-path /org/freedesktop/portal/desktop \
         --method org.freedesktop.portal.Settings.Read \
-        "org.freedesktop.appearance" "color-scheme" 2>/dev/null)
+        "org.freedesktop.appearance" "color-scheme" 2>/dev/null \
+        | grep -oE 'uint32 [0-9]+' | grep -oE '[0-9]+$')
 
-    if [[ "$result" == *"2"* ]]; then
+    if [[ "$value" == "2" ]]; then
         send_signal SIGUSR2
     else
         send_signal SIGUSR1
