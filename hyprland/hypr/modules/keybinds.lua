@@ -96,14 +96,12 @@ hl.bind(MAIN_MOD .. " + CTRL + Right", hl.dsp.window.resize({ x = 80, y = 0, rel
 hl.bind(MAIN_MOD .. " + CTRL + Up", hl.dsp.window.resize({ x = 0, y = -80, relative = true }))
 hl.bind(MAIN_MOD .. " + CTRL + Down", hl.dsp.window.resize({ x = 0, y = 80, relative = true }))
 
--- Screenshots
-hl.bind("Print", hl.dsp.exec_cmd([[grim ~/Pictures/screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png]]))
-hl.bind(
-	"SHIFT + Print",
-	hl.dsp.exec_cmd([[grim -g "$(slurp)" ~/Pictures/screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png]])
-)
-hl.bind(MAIN_MOD .. " + S", hl.dsp.exec_cmd([[grim -g "$(slurp)" - | wl-copy]]))
-hl.bind(MAIN_MOD .. " + SHIFT + S", hl.dsp.exec_cmd([[grim ~/Pictures/screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png]]))
+-- Screenshots (all save to ~/Pictures/Screenshots and copy to clipboard)
+hl.bind("XF86Tools", hl.dsp.exec_cmd("~/.config/hypr/scripts/screenshot.sh"))
+hl.bind("SHIFT + XF86Tools", hl.dsp.exec_cmd("~/.config/hypr/scripts/screenshot.sh window"))
+hl.bind("CTRL + XF86Tools", hl.dsp.exec_cmd("~/.config/hypr/scripts/screenshot.sh region"))
+
+-- Screen recording
 hl.bind(MAIN_MOD .. " + Print", hl.dsp.exec_cmd("~/.config/hypr/scripts/screenrecord.sh"))
 hl.bind(MAIN_MOD .. " + SHIFT + Print", hl.dsp.exec_cmd("~/.config/hypr/scripts/screenrecord.sh area"))
 hl.bind(MAIN_MOD .. " + R", hl.dsp.exec_cmd("~/.config/hypr/scripts/screenrecord.sh"))
