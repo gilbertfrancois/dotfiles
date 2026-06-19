@@ -57,4 +57,4 @@ hl.config({
 -- hl.window_rule({ match = { float = true }, rounding = 11 })
 -- Force Hyprland to respect and blur transparent pixels inside Firefox
 -- hl.window_rule({ match = { class = "firefox" }, opaque = false })
-hl.exec_cmd("hyprctl setenv MOZ_ENABLE_WAYLAND 1")
+-- hl.exec_cmd("hyprctl setenv MOZ_ENABLE_WAYLAND 1")
