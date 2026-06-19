@@ -3,3 +3,4 @@ packer_compiled.lua
 .DS_Store
 tags
 *.log
+hyprland/hypr/modules/monitor.lua
