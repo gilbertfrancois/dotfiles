@@ -18,13 +18,13 @@ hl.config({
 	},
 	decoration = {
 		rounding = 11,
-		blur = {
-			enabled = true,
-			size = 10,
-			passes = 3,
-			new_optimizations = true,
-			xray = true,
-		},
+		-- blur = {
+		-- 	enabled = true,
+		-- 	size = 10,
+		-- 	passes = 3,
+		-- 	new_optimizations = true,
+		-- 	xray = true,
+		-- },
 	},
 })
 
@@ -32,8 +32,8 @@ hl.config({
 hl.layer_rule({
 	name = "noctalia",
 	match = { namespace = "^noctalia-background-.*$" },
-	blur = true,
-	blur_popups = true,
+	-- blur = true,
+	-- blur_popups = true,
 	ignore_alpha = 0.5,
 })
 
