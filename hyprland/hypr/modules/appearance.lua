@@ -44,6 +44,7 @@ hl.config({
 		disable_hyprland_logo = true, -- Disables the random anime girl & logo backgrounds
 		disable_splash_rendering = true, -- Disables the splash text sentences at the bottom
 		force_default_wallpaper = 0, -- 0 completely disables the built-in wallpaper engine
+		vrr = 2, -- Variable refresh rate: 0=off, 1=always, 2=fullscreen only
 	},
 })
 

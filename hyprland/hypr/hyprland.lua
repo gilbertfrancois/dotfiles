@@ -1,7 +1,6 @@
 -- Globals shared across all modules
 MAIN_MOD = "SUPER"
--- TERMINAL = "~/.local/bin/foot-launch"
-TERMINAL = "kitty"
+TERMINAL = "~/.local/bin/foot-launch"
 BROWSER = "brave-browser --incognito"
 FILE_MANAGER = "nautilus"
 -- MENU = "rofi -show drun -modes drun,run -theme ~/.config/rofi/config.rasi"
