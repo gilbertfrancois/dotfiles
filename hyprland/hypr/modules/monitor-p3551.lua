@@ -1,7 +1,7 @@
 hl.monitor({
 	output = "eDP-1",
 	mode = "1920x1080@60.06",
-	position = "auto",
+	position = "0x0",
 	scale = 1,
 })
 hl.monitor({
@@ -12,9 +12,9 @@ hl.monitor({
 	mirror = "eDP-1",
 })
 hl.monitor({
-	output = "DP-6",
+	output = "desc:Dell Inc. DELL P2415Q D8VXF994054B",
 	mode = "3840x2160@59.99600",
-	position = "auto",
+	position = "-2560x0",
 	scale = 1.5,
 })
 hl.monitor({
