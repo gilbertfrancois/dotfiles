@@ -8,6 +8,10 @@ send_signal() {
     pkill -"${1}" -x foot 2>/dev/null || true
 }
 
+write_theme_file() {
+    echo "$1" > "${XDG_RUNTIME_DIR:-/run/user/$UID}/color-scheme"
+}
+
 apply_current_scheme() {
     local value
     value=$(gdbus call --session \
@@ -18,8 +22,10 @@ apply_current_scheme() {
         | grep -oE 'uint32 [0-9]+' | grep -oE '[0-9]+$')
 
     if [[ "$value" == "2" ]]; then
+        write_theme_file light
         send_signal SIGUSR2
     else
+        write_theme_file dark
         send_signal SIGUSR1
     fi
 }

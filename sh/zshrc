@@ -118,3 +118,10 @@ echo "ZSHRC loaded"
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init --path)"
+
+# Keep TERM_BACKGROUND in sync with the live desktop theme.
+# foot-color-monitor writes the current scheme here on every change,
+# overriding the stale value set at login time by profile.
+_cs_file="${XDG_RUNTIME_DIR:-/run/user/$UID}/color-scheme"
+[[ -f "$_cs_file" ]] && export TERM_BACKGROUND=$(< "$_cs_file")
+unset _cs_file
