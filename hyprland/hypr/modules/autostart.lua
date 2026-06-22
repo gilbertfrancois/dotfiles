@@ -1,4 +1,4 @@
 hl.on("hyprland.start", function()
-	hl.exec_cmd("qs -c noctalia-shell")
-	hl.exec_cmd("protonvpn disconnect && protonvpn connect --country CH")
+	hl.exec_cmd("noctalia")
+	hl.exec_cmd("command -v protonvpn && protonvpn disconnect && protonvpn connect --country CH || true")
 end)
