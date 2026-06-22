@@ -11,6 +11,7 @@ end = [
     "session"
 ]
 margin_ends = 0
+shadow = false
 start = [ "launcher", "workspaces" ]
 
 [location]
@@ -56,4 +57,4 @@ mode = "dark"
 source = "community"
 
     [theme.templates]
-    builtin_ids = [ "gtk3", "gtk4" ]
+    builtin_ids = [ "gtk3", "gtk4", "qt" ]
