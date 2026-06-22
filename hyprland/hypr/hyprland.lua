@@ -4,7 +4,7 @@ TERMINAL = "~/.local/bin/foot-launch"
 BROWSER = "brave-browser --incognito"
 FILE_MANAGER = "nautilus"
 -- MENU = "rofi -show drun -modes drun,run -theme ~/.config/rofi/config.rasi"
-MENU = "qs -c noctalia-shell ipc call launcher toggle"
+MENU = "noctalia msg toggle launcher"
 WINDOW_MENU = "~/.config/rofi/scripts/rofi-window.sh"
 CALC_MENU = "~/.config/rofi/scripts/rofi-calc.sh"
 

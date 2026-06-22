@@ -37,14 +37,20 @@ install_dnf() {
 
 # ─────────────────────────────────────────────────────────────────
 echo ""
+echo "==> Install packages"
+install_dnf
+
+echo ""
 echo "==> Hyprland ecosystem"
 link "$DOTFILES/hypr" "$HOME/.config/hypr"
 link "$DOTFILES/waybar" "$HOME/.config/waybar"
 link "$DOTFILES/rofi" "$HOME/.config/rofi"
 link "$DOTFILES/noctalia" "$HOME/.config/noctalia"
+link "$DOTFILES/noctalia_v5/settings.toml" "$HOME/.local/state/noctalia/settings.toml"
 link "$DOTFILES/btop" "$HOME/.config/btop"
 link "$DOTFILES/xdg-desktop-portal" "$HOME/.config/xdg-desktop-portal"
-cp "$DOTFILES/applications/*" "$HOME/.local/share/applications/"
+mkdir -p "$HOME/.local/share/applications"
+# cp "$DOTFILES/applications/*" "$HOME/.local/share/applications/"
 
 echo ""
 echo "==> Terminals"
