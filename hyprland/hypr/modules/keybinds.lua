@@ -19,8 +19,6 @@ hl.bind(
 )
 hl.bind(MAIN_MOD .. " + V", hl.dsp.window.float())
 hl.bind(MAIN_MOD .. " + Space", hl.dsp.exec_cmd(MENU))
-hl.bind(MAIN_MOD .. " + grave", hl.dsp.exec_cmd(WINDOW_MENU))
-hl.bind(MAIN_MOD .. " + equal", hl.dsp.exec_cmd(CALC_MENU))
 hl.bind(MAIN_MOD .. " + F", hl.dsp.window.fullscreen())
 
 -- Cycle windows

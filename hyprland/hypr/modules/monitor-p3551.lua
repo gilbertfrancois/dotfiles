@@ -7,7 +7,7 @@ hl.monitor({
 hl.monitor({
 	output = "desc:Seiko Epson Corporation EPSON PJ",
 	mode = "1920x1080@60.00000",
-	position = "auto",
+	position = "0x0",
 	scale = 1,
 	mirror = "eDP-1",
 })
