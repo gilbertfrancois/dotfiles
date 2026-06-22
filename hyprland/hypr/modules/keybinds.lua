@@ -2,8 +2,8 @@
 hl.bind("CTRL + ALT + T", hl.dsp.exec_cmd(TERMINAL))
 hl.bind(MAIN_MOD .. " + Return", hl.dsp.exec_cmd(TERMINAL))
 hl.bind(MAIN_MOD .. " + G", hl.dsp.exec_cmd(BROWSER))
-hl.bind(MAIN_MOD .. " + B", hl.dsp.exec_cmd("noctalia msg bar-toggle"))
-hl.bind(MAIN_MOD .. " + X", hl.dsp.exec_cmd("~/.config/hypr/scripts/btop-float.sh"))
+-- hl.bind(MAIN_MOD .. " + B", hl.dsp.exec_cmd("noctalia msg bar-toggle"))
+hl.bind(MAIN_MOD .. " + B", hl.dsp.exec_cmd("qs -c noctalia-shell ipc call bar toggle"))
 
 -- General
 hl.bind(MAIN_MOD .. " + ALT + L", hl.dsp.exec_cmd("hyprlock"))
