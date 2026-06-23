@@ -6,7 +6,7 @@ hl.bind(MAIN_MOD .. " + G", hl.dsp.exec_cmd(BROWSER))
 hl.bind(MAIN_MOD .. " + B", hl.dsp.exec_cmd("qs -c noctalia-shell ipc call bar toggle"))
 
 -- General
-hl.bind(MAIN_MOD .. " + ALT + L", hl.dsp.exec_cmd("hyprlock"))
+hl.bind(MAIN_MOD .. " + ALT + L", hl.dsp.exec_cmd("qs -c noctalia-shell ipc call lockScreen lock"))
 hl.bind(MAIN_MOD .. " + Z", hl.dsp.window.pseudo())
 hl.bind(MAIN_MOD .. " + E", hl.dsp.layout("togglesplit"))
 hl.bind(MAIN_MOD .. " + P", hl.dsp.exec_cmd("~/.config/hypr/scripts/wallcycle.sh"))
