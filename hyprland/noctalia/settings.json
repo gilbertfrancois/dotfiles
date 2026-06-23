@@ -287,7 +287,7 @@
                 "id": "weather-card"
             },
             {
-                "enabled": false,
+                "enabled": true,
                 "id": "media-sysmon-card"
             }
         ],
@@ -377,7 +377,7 @@
         "clockStyle": "custom",
         "compactLockScreen": false,
         "dimmerOpacity": 0.24,
-        "enableBlurBehind": false,
+        "enableBlurBehind": true,
         "enableLockScreenCountdown": true,
         "enableLockScreenMediaControls": false,
         "enableShadows": true,
@@ -410,7 +410,7 @@
         "language": "",
         "lockOnSuspend": true,
         "lockScreenAnimations": false,
-        "lockScreenBlur": 0,
+        "lockScreenBlur": 0.15,
         "lockScreenCountdownDuration": 10000,
         "lockScreenMonitors": [
         ],
@@ -428,7 +428,7 @@
         "showScreenCorners": false,
         "showSessionButtonsOnLockScreen": true,
         "smoothScrollEnabled": true,
-        "telemetryEnabled": false
+        "telemetryEnabled": true
     },
     "hooks": {
         "colorGeneration": "",
@@ -657,12 +657,12 @@
     },
     "wallpaper": {
         "automationEnabled": false,
-        "directory": "/home/gilbert/Pictures/wallpapers",
+        "directory": "/home/gilbert/Pictures/Wallpapers",
         "enableMultiMonitorDirectories": false,
-        "enabled": true,
+        "enabled": false,
         "favorites": [
         ],
-        "fillColor": "#000000",
+        "fillColor": "#191919",
         "fillMode": "crop",
         "hideWallpaperFilenames": false,
         "linkLightAndDarkWallpapers": false,
