@@ -95,9 +95,9 @@ hl.bind(MAIN_MOD .. " + CTRL + Up", hl.dsp.window.resize({ x = 0, y = -80, relat
 hl.bind(MAIN_MOD .. " + CTRL + Down", hl.dsp.window.resize({ x = 0, y = 80, relative = true }))
 
 -- Screenshots (all save to ~/Pictures/Screenshots and copy to clipboard)
-hl.bind("XF86Tools", hl.dsp.exec_cmd("~/.config/hypr/scripts/screenshot.sh"))
-hl.bind("SHIFT + XF86Tools", hl.dsp.exec_cmd("~/.config/hypr/scripts/screenshot.sh window"))
-hl.bind("CTRL + XF86Tools", hl.dsp.exec_cmd("~/.config/hypr/scripts/screenshot.sh region"))
+hl.bind("Print", hl.dsp.exec_cmd("~/.config/hypr/scripts/screenshot.sh"))
+hl.bind("SHIFT + Print", hl.dsp.exec_cmd("~/.config/hypr/scripts/screenshot.sh window"))
+hl.bind("CTRL + Print", hl.dsp.exec_cmd("~/.config/hypr/scripts/screenshot.sh region"))
 
 -- Screen recording
 hl.bind(MAIN_MOD .. " + Print", hl.dsp.exec_cmd("~/.config/hypr/scripts/screenrecord.sh"))
