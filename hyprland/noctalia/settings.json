@@ -657,7 +657,7 @@
     },
     "wallpaper": {
         "automationEnabled": false,
-        "directory": "/home/gilbert/Pictures/Wallpapers",
+        "directory": "/home/gilbert/Pictures/wallpapers",
         "enableMultiMonitorDirectories": false,
         "enabled": true,
         "favorites": [
@@ -690,7 +690,7 @@
         ],
         "useOriginalImages": false,
         "useSolidColor": false,
-        "useWallhaven": true,
+        "useWallhaven": false,
         "viewMode": "single",
         "wallhavenApiKey": "",
         "wallhavenCategories": "111",
