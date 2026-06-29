@@ -122,7 +122,6 @@ hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ to
 hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl set +10%"), { repeating = true, locked = true })
 hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 10%-"), { repeating = true, locked = true })
 
--- Power button → suspend (like GNOME)
-hl.bind("XF86PowerOff", hl.dsp.exec_cmd("systemctl suspend"), { locked = true })
+-- Power button handled by logind (HandlePowerKey=suspend in /etc/systemd/logind.conf.d/power.conf)
 
 -- Lid switch handled by logind (HandleLidSwitch=suspend by default)

@@ -7,6 +7,15 @@ function install_dell_settings() {
     sudo grubby --update-kernel=ALL --args="rd.driver.blacklist=nouveau,nova_core modprobe.blacklist=nouveau,nova_core"
 }
 
+function install_logind_settings() {
+    sudo mkdir -p /etc/systemd/logind.conf.d
+    sudo tee /etc/systemd/logind.conf.d/power.conf > /dev/null << 'EOF'
+[Login]
+HandlePowerKey=suspend
+EOF
+    sudo systemctl restart systemd-logind
+}
+
 function install_nvidia_580xx() {
     sudo dnf remove "*nvidia*" -x nvidia-gpu-firmware
     sudo dnf install -y \
@@ -16,5 +25,6 @@ function install_nvidia_580xx() {
 
 install_generic
 install_dell_settings
+install_logind_settings
 install_nvidia_580xx
 install_x86_nvidia
