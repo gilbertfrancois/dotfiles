@@ -96,6 +96,10 @@ bindsym $mod+6 workspace number 6
 
 bindsym $mod+bracketleft workspace prev
 bindsym $mod+bracketright workspace next
+bindsym ctrl+mod1+h workspace prev
+bindsym ctrl+mod1+l workspace next
+bindsym ctrl+mod1+k workspace prev
+bindsym ctrl+mod1+j workspace next
 bindsym ctrl+mod1+Left workspace prev
 bindsym ctrl+mod1+Right workspace next
 bindsym ctrl+mod1+Up workspace prev
@@ -109,6 +113,8 @@ bindsym $mod+shift+4 move container to workspace number 4
 bindsym $mod+shift+5 move container to workspace number 5
 bindsym $mod+shift+6 move container to workspace number 6
 
+bindsym shift+ctrl+mod1+h move container to workspace prev
+bindsym shift+ctrl+mod1+l move container to workspace next
 bindsym shift+ctrl+mod1+Left move container to workspace prev
 bindsym shift+ctrl+mod1+Right move container to workspace next
 
@@ -122,14 +128,14 @@ bindsym $mod+mod1+Down move down 80
 floating_modifier $mod normal
 
 ## Resize tiled windows
-bindsym $mod+ctrl+h resize shrink width 80
-bindsym $mod+ctrl+l resize grow width 80
-bindsym $mod+ctrl+k resize shrink height 80
-bindsym $mod+ctrl+j resize grow height 80
-bindsym $mod+ctrl+Left resize shrink width 80
-bindsym $mod+ctrl+Right resize grow width 80
-bindsym $mod+ctrl+Up resize shrink height 80
-bindsym $mod+ctrl+Down resize grow height 80
+bindsym $mod+ctrl+h resize shrink width 80px
+bindsym $mod+ctrl+l resize grow width 80px
+bindsym $mod+ctrl+k resize shrink height 80px
+bindsym $mod+ctrl+j resize grow height 80px
+bindsym $mod+ctrl+Left resize shrink width 80px
+bindsym $mod+ctrl+Right resize grow width 80px
+bindsym $mod+ctrl+Up resize shrink height 80px
+bindsym $mod+ctrl+Down resize grow height 80px
 
 ## Screenshots (reuse existing scripts; "window" mode may need swaymsg tree for geometry)
 bindsym Print exec ~/.config/hypr/scripts/screenshot.sh
