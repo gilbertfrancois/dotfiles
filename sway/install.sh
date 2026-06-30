@@ -28,11 +28,9 @@ link() {
 }
 
 install_dnf() {
-    sudo dnf -y copr enable lionheartp/Hyprland
-    sudo dnf install -y hyprland hyprland-guiutils
-    sudo dnf install -y xdg-desktop-portal-hyprland xdg-desktop-portal-gtk \
-        xorg-x11-fonts-misc xorg-x11-fonts-75dpi xorg-x11-fonts-100dpi xorg-x11-fonts-Type1
-
+    sudo dnf install -y \
+        sway sway-systemd swaybg swayidle swaylock \
+        xdg-desktop-portal-wlr wlr-randr brightnessctl wev pipx
 }
 
 # ─────────────────────────────────────────────────────────────────
@@ -41,26 +39,26 @@ echo "==> Install packages"
 install_dnf
 
 echo ""
-echo "==> Hyprland ecosystem"
-link "$DOTFILES/hypr" "$HOME/.config/hypr"
-link "$DOTFILES/waybar" "$HOME/.config/waybar"
-link "$DOTFILES/rofi" "$HOME/.config/rofi"
-link "$DOTFILES/btop" "$HOME/.config/btop"
-link "$DOTFILES/xdg-desktop-portal" "$HOME/.config/xdg-desktop-portal"
-mkdir -p "$HOME/.local/share/applications"
-# cp "$DOTFILES/applications/*" "$HOME/.local/share/applications/"
+echo "==> autotiling (auto-alternating split direction, like Hyprland's dwindle)"
+pipx install --force autotiling
+echo "  installed: autotiling"
+
+echo ""
+echo "==> Sway config"
+link "$DOTFILES" "$HOME/.config/sway"
+
+echo ""
+echo "==> Shared desktop ecosystem (portals, screenshot/recording scripts)"
+link "$DOTFILES_ROOT/hyprland/hypr" "$HOME/.config/hypr"
+link "$DOTFILES_ROOT/hyprland/xdg-desktop-portal" "$HOME/.config/xdg-desktop-portal"
 
 echo ""
 echo "==> Noctalia shell"
 "$DOTFILES_ROOT/noctalia/install.sh"
 
 echo ""
-echo "==> Terminals"
-link "$DOTFILES_ROOT/kitty/kitty_linux" "$HOME/.config/kitty"
+echo "==> Terminal"
 link "$DOTFILES_ROOT/foot" "$HOME/.config/foot"
-
-echo ""
-echo "==> foot-launch wrapper"
 mkdir -p "$HOME/.local/bin"
 cp -f "$DOTFILES_ROOT/foot/foot-launch.sh" "$HOME/.local/bin/foot-launch"
 chmod +x "$HOME/.local/bin/foot-launch"
@@ -83,4 +81,4 @@ systemctl --user enable --now foot-color-monitor.service
 echo "  foot-color-monitor.service: enabled and running"
 
 echo ""
-echo "Done. Log out and back in (or restart Hyprland) for all changes to take effect."
+echo "Done. Log out and back in (or start sway) for all changes to take effect."

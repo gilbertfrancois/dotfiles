@@ -8,8 +8,6 @@ set $menu qs -c noctalia-shell ipc call launcher toggle
 ### Outputs
 # Laptop panel
 output eDP-1 mode 1920x1080@60Hz pos 0 0 scale 1
-# Epson projector — mirrors the laptop panel
-output "Seiko Epson Corporation EPSON PJ" mirror eDP-1
 # Dell 4K external (logical size 2560x1440, placed to the left)
 output "Dell Inc. DELL P2415Q D8VXF994054B" mode 3840x2160@60Hz pos -2560 0 scale 1.5
 # Fallback for any other output
@@ -38,7 +36,11 @@ gaps outer 10
 default_border pixel 1
 default_floating_border pixel 1
 
+# class                 border  background text    indicator child_border
+client.focused          #d3d3d3 #d3d3d3    #000000 #d3d3d3   #d3d3d3
+
 ### Startup
+exec autotiling
 exec qs -c noctalia-shell
 exec sh -c 'command -v protonvpn && protonvpn disconnect && protonvpn connect --country CH || true'
 

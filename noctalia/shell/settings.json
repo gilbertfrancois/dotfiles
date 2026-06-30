@@ -73,7 +73,7 @@
         ],
         "showCapsule": true,
         "showOnWorkspaceSwitch": true,
-        "showOutline": true,
+        "showOutline": false,
         "useSeparateOpacity": true,
         "widgetSpacing": 4,
         "widgets": {
