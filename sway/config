@@ -13,6 +13,13 @@ output "Dell Inc. DELL P2415Q D8VXF994054B" mode 3840x2160@60Hz pos -2560 0 scal
 # Fallback for any other output
 output * adaptive_sync on
 
+### Lid switch
+# Lid closed + external monitor connected: turn off the laptop panel so the
+# external is the sole/primary output (same behaviour as GNOME's docked mode).
+# Lid closed with no external monitor: leave eDP-1 alone and let logind suspend.
+bindswitch --reload --locked lid:on exec ~/.config/sway/scripts/lid-switch.sh
+bindswitch --reload --locked lid:off output eDP-1 enable
+
 ### Input
 input type:keyboard {
     xkb_layout us
@@ -31,8 +38,8 @@ input type:pointer {
 }
 
 ### Appearance
-gaps inner 5
-gaps outer 10
+gaps inner 10
+gaps outer 15
 default_border pixel 1
 default_floating_border pixel 1
 
@@ -40,7 +47,7 @@ default_floating_border pixel 1
 client.focused          #d3d3d3 #d3d3d3    #000000 #d3d3d3   #d3d3d3
 
 ### Startup
-exec autotiling
+exec /home/gilbert/.local/bin/autotiling
 exec qs -c noctalia-shell
 exec sh -c 'command -v protonvpn && protonvpn disconnect && protonvpn connect --country CH || true'
 
