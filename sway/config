@@ -1,0 +1,152 @@
+### Variables
+set $mod Mod4
+set $terminal ~/.local/bin/foot-launch
+set $browser brave-browser --incognito
+set $filemanager nautilus
+set $menu qs -c noctalia-shell ipc call launcher toggle
+
+### Outputs
+# Laptop panel
+output eDP-1 mode 1920x1080@60Hz pos 0 0 scale 1
+# Epson projector — mirrors the laptop panel
+output "Seiko Epson Corporation EPSON PJ" mirror eDP-1
+# Dell 4K external (logical size 2560x1440, placed to the left)
+output "Dell Inc. DELL P2415Q D8VXF994054B" mode 3840x2160@60Hz pos -2560 0 scale 1.5
+# Fallback for any other output
+output * adaptive_sync on
+
+### Input
+input type:keyboard {
+    xkb_layout us
+    xkb_options caps:ctrl
+    repeat_delay 700
+    repeat_rate 20
+}
+
+input type:touchpad {
+    natural_scroll enabled
+    tap enabled
+}
+
+input type:pointer {
+    natural_scroll enabled
+}
+
+### Appearance
+gaps inner 5
+gaps outer 10
+default_border pixel 1
+default_floating_border pixel 1
+
+### Startup
+exec qs -c noctalia-shell
+exec sh -c 'command -v protonvpn && protonvpn disconnect && protonvpn connect --country CH || true'
+
+### Key bindings
+
+## Apps
+bindsym ctrl+mod1+t exec $terminal
+bindsym $mod+Return exec $terminal
+bindsym $mod+g exec $browser
+bindsym $mod+b exec qs -c noctalia-shell ipc call bar toggle
+
+## General
+bindsym $mod+mod1+l exec qs -c noctalia-shell ipc call lockScreen lock
+bindsym $mod+e layout toggle split
+bindsym ctrl+w kill
+bindsym mod1+F4 kill
+bindsym $mod+v floating toggle
+bindsym $mod+space exec $menu
+bindsym $mod+f fullscreen toggle
+bindsym $mod+m exit
+
+## Cycle windows
+bindsym $mod+Tab focus next
+bindsym $mod+shift+Tab focus prev
+
+## Focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+## Move windows
+bindsym $mod+shift+h move left
+bindsym $mod+shift+j move down
+bindsym $mod+shift+k move up
+bindsym $mod+shift+l move right
+bindsym $mod+shift+Left move left
+bindsym $mod+shift+Down move down
+bindsym $mod+shift+Up move up
+bindsym $mod+shift+Right move right
+
+## Workspaces
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+
+bindsym $mod+bracketleft workspace prev
+bindsym $mod+bracketright workspace next
+bindsym ctrl+mod1+Left workspace prev
+bindsym ctrl+mod1+Right workspace next
+bindsym ctrl+mod1+Up workspace prev
+bindsym ctrl+mod1+Down workspace next
+
+## Move window to workspace
+bindsym $mod+shift+1 move container to workspace number 1
+bindsym $mod+shift+2 move container to workspace number 2
+bindsym $mod+shift+3 move container to workspace number 3
+bindsym $mod+shift+4 move container to workspace number 4
+bindsym $mod+shift+5 move container to workspace number 5
+bindsym $mod+shift+6 move container to workspace number 6
+
+bindsym shift+ctrl+mod1+Left move container to workspace prev
+bindsym shift+ctrl+mod1+Right move container to workspace next
+
+## Move floating window by pixels
+bindsym $mod+mod1+Left move left 80
+bindsym $mod+mod1+Right move right 80
+bindsym $mod+mod1+Up move up 80
+bindsym $mod+mod1+Down move down 80
+
+## Mouse drag and resize
+floating_modifier $mod normal
+
+## Resize tiled windows
+bindsym $mod+ctrl+h resize shrink width 80
+bindsym $mod+ctrl+l resize grow width 80
+bindsym $mod+ctrl+k resize shrink height 80
+bindsym $mod+ctrl+j resize grow height 80
+bindsym $mod+ctrl+Left resize shrink width 80
+bindsym $mod+ctrl+Right resize grow width 80
+bindsym $mod+ctrl+Up resize shrink height 80
+bindsym $mod+ctrl+Down resize grow height 80
+
+## Screenshots (reuse existing scripts; "window" mode may need swaymsg tree for geometry)
+bindsym Print exec ~/.config/hypr/scripts/screenshot.sh
+bindsym shift+Print exec ~/.config/hypr/scripts/screenshot.sh window
+bindsym ctrl+Print exec ~/.config/hypr/scripts/screenshot.sh region
+
+## Screen recording
+bindsym $mod+Print exec ~/.config/hypr/scripts/screenrecord.sh
+bindsym $mod+shift+Print exec ~/.config/hypr/scripts/screenrecord.sh area
+bindsym $mod+r exec ~/.config/hypr/scripts/screenrecord.sh
+bindsym $mod+shift+r exec ~/.config/hypr/scripts/screenrecord.sh area
+
+## Volume
+bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindsym --locked XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+
+## Brightness
+bindsym --locked XF86MonBrightnessUp exec brightnessctl set +10%
+bindsym --locked XF86MonBrightnessDown exec brightnessctl set 10%-
+
+include /etc/sway/config.d/*
