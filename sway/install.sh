@@ -48,6 +48,12 @@ echo "==> Sway config"
 link "$DOTFILES" "$HOME/.config/sway"
 
 echo ""
+echo "==> Power key handling (let sway bind it instead of logind suspending directly)"
+sudo install -Dm644 "$DOTFILES/etc_systemd_logind.conf.d_power.conf" /etc/systemd/logind.conf.d/power.conf
+sudo systemctl restart systemd-logind
+echo "  installed: /etc/systemd/logind.conf.d/power.conf"
+
+echo ""
 echo "==> Shared desktop ecosystem (portals, screenshot/recording scripts)"
 link "$DOTFILES_ROOT/hyprland/hypr" "$HOME/.config/hypr"
 link "$DOTFILES_ROOT/hyprland/xdg-desktop-portal" "$HOME/.config/xdg-desktop-portal"
