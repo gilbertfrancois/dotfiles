@@ -69,10 +69,6 @@ bindsym $mod+space exec $menu
 bindsym $mod+f fullscreen toggle
 bindsym $mod+m exit
 
-## Power button (HandlePowerKey=ignore in logind so sway gets the keypress)
-bindsym --locked XF86PowerOff exec systemctl suspend
-bindsym --locked shift+XF86PowerOff exec systemctl poweroff
-
 ## Cycle windows
 bindsym $mod+Tab focus next
 bindsym $mod+shift+Tab focus prev

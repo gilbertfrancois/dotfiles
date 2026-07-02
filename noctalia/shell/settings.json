@@ -435,12 +435,12 @@
         "suspendTimeout": 1800
     },
     "location": {
-        "analogClockInCalendar": false,
-        "autoLocate": true,
+        "analogClockInCalendar": true,
+        "autoLocate": false,
         "firstDayOfWeek": -1,
         "hideWeatherCityName": false,
         "hideWeatherTimezone": false,
-        "name": "St. Gallen",
+        "name": "Pfungen, Switzerland",
         "showCalendarEvents": true,
         "showCalendarWeather": true,
         "showWeekNumberInCalendar": false,
