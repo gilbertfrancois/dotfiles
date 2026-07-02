@@ -21,8 +21,11 @@ output * adaptive_sync on
 # Lid closed + external monitor connected: turn off the laptop panel so the
 # external is the sole/primary output (same behaviour as GNOME's docked mode).
 # Lid closed with no external monitor: leave eDP-1 alone and let logind suspend.
+# On lid open we deliberately do NOT re-enable eDP-1 ourselves: sway's own
+# resume-time output hotplug re-probes the same DRM/CRTC and racing our own
+# `output eDP-1 enable` against that caused repeated atomic-commit failures
+# (and, on one occasion, a full suspend/resume hang) in the logs.
 bindswitch --reload --locked lid:on exec ~/.config/sway/scripts/lid-switch.sh
-bindswitch --reload --locked lid:off output eDP-1 enable
 
 ### Input
 input type:keyboard {
