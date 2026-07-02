@@ -31,8 +31,8 @@ bindswitch --reload --locked lid:off exec ~/.config/sway/scripts/lid-open.sh
 
 ### Input
 input type:keyboard {
-    xkb_layout us
-    xkb_options caps:ctrl
+    xkb_layout us,ru
+    xkb_options ctrl:nocaps,grp:ctrl_space_toggle
     repeat_delay 700
     repeat_rate 20
 }

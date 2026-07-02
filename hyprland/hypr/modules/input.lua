@@ -1,7 +1,7 @@
 hl.config({
 	input = {
-		kb_layout = "us",
-		kb_options = "caps:ctrl",
+		kb_layout = "us,ru",
+		kb_options = "ctrl:nocaps,grp:ctrl_space_toggle",
 		repeat_delay = 700,
 		repeat_rate = 20,
 		natural_scroll = true,
