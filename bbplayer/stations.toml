@@ -1,0 +1,55 @@
+[[station]]
+label = "SomaFM - Groove Salad"
+url = "https://ice1.somafm.com/groovesalad-128-mp3"
+
+[[station]]
+label = "SomaFM - Lush"
+url = "https://ice1.somafm.com/lush-128-mp3"
+
+[[station]]
+label = "SomaFM - Secret Agent"
+url = "https://ice1.somafm.com/secretagent-128-mp3"
+
+[[station]]
+label = "Радио Маяк"
+url = "https://icecast-vgtrk.cdnvideo.ru/mayakfm_mp3_128kbps"
+
+[[station]]
+label = "Вести ФМ"
+url = "http://icecast.vgtrk.cdnvideo.ru/vestifm_mp3_128kbps"
+
+[[station]]
+label = "Радио Эрмитаж"
+url = "https://hermitage.hostingradio.ru/hermitage128.mp3"
+
+[[station]]
+label = "Авторадио"
+url = "http://ic7.101.ru:8000/avto_128"
+
+[[station]]
+label = "Серебряный дождь"
+url = "https://silverrain.hostingradio.ru/silver128.mp3"
+
+[[station]]
+label = "Джаz"
+url = "https://jfm1.hostingradio.ru:14536/ijstream.mp3"
+
+[[station]]
+label = "Радио Спутник"
+url = "http://icecast.rian.cdnvideo.ru/rian.voicerus"
+
+[[station]]
+label = "Говорит Москва"
+url = "http://media.govoritmoskva.ru:8880/ru64.mp3"
+
+[[station]]
+label = "Deep House Moscow"
+url = "https://soundcloud.com/deephousemsk/tracks"
+
+[[station]]
+label = "Gentleman Tracks"
+url = "https://soundcloud.com/gentlemantracks/tracks"
+
+[[station]]
+label = "Loscil"
+url = "https://soundcloud.com/loscil/tracks"
