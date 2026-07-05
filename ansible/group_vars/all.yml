@@ -1,0 +1,5 @@
+---
+# Repo root, resolved relative to this playbook so it works no matter where
+# the repo is checked out (e.g. via ansible-pull).
+dotfiles_dir: "{{ playbook_dir | dirname }}"
+home_dir: "{{ lookup('env', 'HOME') }}"

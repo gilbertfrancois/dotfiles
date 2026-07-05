@@ -1,0 +1,6 @@
+---
+- name: Set up dotfiles
+  hosts: localhost
+  connection: local
+  roles:
+    - tmux
