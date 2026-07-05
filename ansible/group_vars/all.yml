@@ -3,3 +3,4 @@
 # the repo is checked out (e.g. via ansible-pull).
 dotfiles_dir: "{{ playbook_dir | dirname }}"
 home_dir: "{{ lookup('env', 'HOME') }}"
+xdg_config_home: "{{ lookup('env', 'XDG_CONFIG_HOME') | default(home_dir + '/.config', true) }}"

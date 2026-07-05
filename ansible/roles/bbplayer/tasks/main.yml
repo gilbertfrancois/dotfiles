@@ -1,0 +1,7 @@
+---
+- name: Symlink bbplayer config directory into XDG config home
+  ansible.builtin.file:
+    src: "{{ dotfiles_dir }}/bbplayer"
+    dest: "{{ xdg_config_home }}/bbplayer"
+    state: link
+    force: true
