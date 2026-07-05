@@ -122,6 +122,10 @@ hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ to
 hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl set +10%"), { repeating = true, locked = true })
 hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 10%-"), { repeating = true, locked = true })
 
--- Power button handled by logind (HandlePowerKey=suspend in /etc/systemd/logind.conf.d/power.conf)
+-- Power button handled by logind (HandlePowerKey=suspend in /etc/systemd/logind.conf.d/power.conf).
+-- hypridle (hypridle.conf) locks the session via before_sleep_cmd before any suspend fires,
+-- regardless of what triggered it (power button, lid, or a manual `systemctl suspend`).
 
--- Lid switch handled by logind (HandleLidSwitch=suspend by default)
+-- Lid switch: logind's own handling is blocked by an inhibitor (modules/autostart.lua) so
+-- modules/lid.lua owns it directly -- disables eDP-1 and migrates workspaces when an external
+-- monitor is connected, otherwise suspends (see modules/lid.lua for details).

@@ -4,7 +4,7 @@ hl.config({
 		gaps_out = 10,
 	},
 	decoration = {
-		rounding = 10,
+		rounding = 0,
 		rounding_power = 2,
 		shadow = {
 			enabled = true,
@@ -13,7 +13,7 @@ hl.config({
 			-- color = rgba('1a1a1aee'),
 		},
 		blur = {
-			enabled = true,
+			enabled = false,
 			size = 3,
 			passes = 2,
 			vibrancy = 0.1696,
@@ -24,8 +24,8 @@ hl.config({
 hl.layer_rule({
 	name = "noctalia",
 	match = { namespace = "^noctalia-background-.*$" },
-	blur = true,
-	blur_popups = true,
+	blur = false,
+	blur_popups = false,
 	ignore_alpha = 0.5,
 })
 
