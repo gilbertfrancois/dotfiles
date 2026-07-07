@@ -1,5 +1,11 @@
 hl.monitor({
-	output = "eDP-1",
+	output = "desc:Apple Computer Inc iMac 58C231771DD27",
+	mode = "3840x2160@60.0",
+	position = "0x0",
+	scale = 1.5,
+})
+hl.monitor({
+	output = "desc:AU Optronics 0x26ED Unknown",
 	mode = "1920x1080@60.06",
 	position = "0x0",
 	scale = 1,
