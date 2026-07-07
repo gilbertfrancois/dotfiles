@@ -1,0 +1,37 @@
+---
+- name: Update all packages
+  ansible.builtin.dnf:
+    name: "*"
+    state: latest
+    update_cache: true
+
+- name: Install misc packages
+  ansible.builtin.dnf:
+    name:
+      - awscli2
+      - fastfetch
+      - foot
+      - gnome-extensions-app
+      - gnome-shell-extension-appindicator
+      - htop
+      - libappindicator-gtk3
+      - lm_sensors
+      - nvtop
+      - oathtool
+      - openssh
+      - texlive-scheme-medium
+    state: present
+
+- name: Enable copr repos for yazi and lazygit
+  ansible.builtin.command: "dnf copr enable -y {{ item }}"
+  loop:
+    - lihaohong/yazi
+    - dejan/lazygit
+  changed_when: false
+
+- name: Install packages from copr repos
+  ansible.builtin.dnf:
+    name:
+      - yazi
+      - lazygit
+    state: present

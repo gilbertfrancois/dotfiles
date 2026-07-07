@@ -1,0 +1,5 @@
+---
+- name: Swap ffmpeg-free for full ffmpeg
+  ansible.builtin.command: dnf swap -y ffmpeg-free ffmpeg --allowerasing
+  register: ffmpeg_swap
+  changed_when: "'Nothing to do' not in ffmpeg_swap.stdout"

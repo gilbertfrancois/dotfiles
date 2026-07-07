@@ -1,0 +1,38 @@
+---
+- name: Install GStreamer plugins
+  ansible.builtin.dnf:
+    name:
+      - gstreamer1
+      - gstreamer1-devel
+      - gstreamer1-plugins-base
+      - gstreamer1-plugins-base-devel
+      - gstreamer1-plugins-base-tools
+      - gstreamer1-plugins-good
+      - gstreamer1-plugins-good-extras
+      - gstreamer1-plugins-bad-free
+      - gstreamer1-plugins-bad-free-devel
+      - gstreamer1-plugins-bad-free-extras
+      - gstreamer1-plugins-bad-freeworld
+      - gstreamer1-plugins-ugly
+      - gstreamer1-plugins-ugly-free
+      - gstreamer1-plugins-ugly-free-extras
+      - gstreamer1-plugin-libav
+      - gstreamer1-plugin-openh264
+      - gstreamer1-plugins-entrans
+      - gstreamer1-vaapi
+      - gstreamer1-libcamera
+    state: present
+
+- name: Upgrade multimedia package group
+  ansible.builtin.command: >
+    dnf group upgrade -y multimedia
+    --setopt="install_weak_deps=False"
+    --exclude=PackageKit-gstreamer-plugin
+  register: multimedia_group_upgrade
+  changed_when: "'Nothing to do' not in multimedia_group_upgrade.stdout"
+
+- name: Clear GStreamer plugin cache
+  ansible.builtin.file:
+    path: "{{ home_dir }}/.cache/gstreamer-1.0"
+    state: absent
+  become: false

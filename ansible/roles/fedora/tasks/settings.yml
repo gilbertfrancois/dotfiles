@@ -1,0 +1,30 @@
+---
+- name: Set keyboard compose/caps xkb options
+  ansible.builtin.command: >
+    gsettings set org.gnome.desktop.input-sources xkb-options
+    "['compose:ralt', 'ctrl:nocaps']"
+  become: false
+  changed_when: false
+
+- name: Enable sub-pixel RGB font rendering
+  ansible.builtin.file:
+    src: /usr/share/fontconfig/conf.avail/10-sub-pixel-rgb.conf
+    dest: /etc/fonts/conf.d/10-sub-pixel-rgb.conf
+    state: link
+
+- name: Clone clipboard-indicator GNOME extension
+  ansible.builtin.git:
+    repo: https://github.com/Tudmotu/gnome-shell-extension-clipboard-indicator.git
+    dest: "{{ home_dir }}/.local/share/gnome-shell/extensions/clipboard-indicator@tudmotu.com"
+  become: false
+
+- name: Enable clipboard-indicator extension
+  ansible.builtin.command: gnome-extensions enable clipboard-indicator@tudmotu.com
+  become: false
+  changed_when: false
+
+- name: Install bluetooth main.conf
+  ansible.builtin.copy:
+    src: "{{ dotfiles_dir }}/linux/common/etc_bluetooth_main.conf"
+    dest: /etc/bluetooth/main.conf
+    mode: "0644"

@@ -1,0 +1,27 @@
+---
+- name: Remove proprietary/non-free VA-API packages
+  ansible.builtin.dnf:
+    name:
+      - libva-intel-driver
+      - libva-intel-hybrid-driver
+      - mesa-va-drivers
+      - mesa-vdpau-drivers
+    state: absent
+
+- name: Swap in freeworld VA-API mesa driver
+  ansible.builtin.command: dnf swap -y mesa-va-drivers mesa-va-drivers-freeworld
+  register: va_swap
+  changed_when: "'Nothing to do' not in va_swap.stdout"
+
+- name: Swap in freeworld VDPAU mesa driver
+  ansible.builtin.command: dnf swap -y mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
+  register: vdpau_swap
+  changed_when: "'Nothing to do' not in vdpau_swap.stdout"
+
+- name: Install Intel media driver and VA-API utils
+  ansible.builtin.dnf:
+    name:
+      - intel-media-driver
+      - libva-utils
+      - vdpauinfo
+    state: present

@@ -5,3 +5,11 @@
   roles:
     - tmux
     - bbplayer
+
+- name: Fedora system packages and tweaks
+  hosts: localhost
+  connection: local
+  become: true
+  roles:
+    - role: fedora
+      when: ansible_facts['distribution'] == "Fedora"

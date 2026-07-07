@@ -1,0 +1,9 @@
+---
+- name: Install full TeX Live scheme and Zathura
+  ansible.builtin.dnf:
+    name:
+      - texlive-scheme-tetex
+      - texlive-tabularray
+      - zathura
+      - zathura-plugins-all
+    state: present

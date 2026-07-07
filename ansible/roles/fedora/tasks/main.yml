@@ -1,0 +1,29 @@
+---
+- name: Add RPM Fusion repos
+  ansible.builtin.import_tasks: repos.yml
+
+- name: Apply GNOME/system settings
+  ansible.builtin.import_tasks: settings.yml
+
+- name: Install common packages
+  ansible.builtin.import_tasks: packages.yml
+
+- name: Install Docker
+  ansible.builtin.import_tasks: docker.yml
+
+- name: Swap in full ffmpeg
+  ansible.builtin.import_tasks: ffmpeg.yml
+
+- name: Install GStreamer plugins
+  ansible.builtin.import_tasks: gstreamer.yml
+
+- name: Install TeX Live and Zathura
+  ansible.builtin.import_tasks: tex.yml
+
+- name: Install AMD/Intel VA-API drivers
+  ansible.builtin.import_tasks: gpu_amd.yml
+  when: fedora_gpu == "amd"
+
+- name: Install NVIDIA/Intel VA-API drivers and container toolkit
+  ansible.builtin.import_tasks: gpu_nvidia.yml
+  when: fedora_gpu == "nvidia"
