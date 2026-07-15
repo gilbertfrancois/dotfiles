@@ -4,3 +4,4 @@ packer_compiled.lua
 tags
 *.log
 hyprland/hypr/modules/monitor.lua
+hyprland/hypr/modules/input.lua
