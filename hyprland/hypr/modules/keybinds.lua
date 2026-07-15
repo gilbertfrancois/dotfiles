@@ -11,7 +11,7 @@ hl.bind(MAIN_MOD .. " + Z", hl.dsp.window.pseudo())
 hl.bind(MAIN_MOD .. " + E", hl.dsp.layout("togglesplit"))
 hl.bind(MAIN_MOD .. " + P", hl.dsp.exec_cmd("~/.config/hypr/scripts/wallcycle.sh"))
 hl.bind(MAIN_MOD .. " + SHIFT + P", hl.dsp.exec_cmd("~/.config/hypr/scripts/wallselect.sh"))
-hl.bind("CTRL + W", hl.dsp.window.close())
+hl.bind(MAIN_MOD .. " + W", hl.dsp.window.close())
 hl.bind("ALT + F4", hl.dsp.window.close())
 hl.bind(
 	MAIN_MOD .. " + M",
