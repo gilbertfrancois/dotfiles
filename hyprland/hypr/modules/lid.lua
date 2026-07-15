@@ -18,6 +18,12 @@
 --     reapply its static hl.monitor() config. hl.monitor() on an
 --     already-enabled output is a harmless no-op, so there's no need for
 --     a guard at all.)
+--   - re-enable with the *same* mode/scale as the static config, not a bare
+--     disabled=false. hl.monitor() calls aren't merged: a rule matched by
+--     exact connector name ("eDP-1") outranks the desc:-matched static rule,
+--     so a bare {output=INTERNAL, disabled=false} silently resets mode/scale
+--     to preferred/auto on every lid reopen -- this is what caused the
+--     wrong-resolution/too-large-scaling symptom after sleep.
 --
 -- External monitor unplugged while the lid stays closed (e.g. undocking a
 -- Thunderbolt hub without reopening the lid first): if that was the last
@@ -25,6 +31,7 @@
 -- machine with zero active outputs until the lid is next opened.
 
 local INTERNAL = "eDP-1"
+local INTERNAL_MONITORS = require("modules.monitor").internals
 
 local function external_monitor_connected()
 	for _, m in ipairs(hl.get_monitors()) do
@@ -33,6 +40,37 @@ local function external_monitor_connected()
 		end
 	end
 	return false
+end
+
+-- modules/monitor lists one candidate spec per laptop this config runs on;
+-- find the one matching the panel actually plugged in as eDP-1 (this still
+-- works while eDP-1 is disabled -- disabling doesn't drop it from
+-- hl.get_monitors(), only makes it inactive).
+local function internal_spec()
+	for _, m in ipairs(hl.get_monitors()) do
+		if m.name == INTERNAL then
+			for _, spec in ipairs(INTERNAL_MONITORS) do
+				if spec.output == "desc:" .. m.description then
+					return spec
+				end
+			end
+		end
+	end
+	return nil
+end
+
+local function enable_internal()
+	local spec = internal_spec()
+	if not spec then
+		hl.monitor({ output = INTERNAL, disabled = false })
+		return
+	end
+	local cfg = {}
+	for k, v in pairs(spec) do
+		cfg[k] = v
+	end
+	cfg.disabled = false
+	hl.monitor(cfg)
 end
 
 hl.bind("switch:on:Lid Switch", function()
@@ -44,11 +82,11 @@ hl.bind("switch:on:Lid Switch", function()
 end, { locked = true })
 
 hl.bind("switch:off:Lid Switch", function()
-	hl.monitor({ output = INTERNAL, disabled = false })
+	enable_internal()
 end, { locked = true })
 
 hl.on("monitor.removed", function()
 	if not external_monitor_connected() then
-		hl.monitor({ output = INTERNAL, disabled = false })
+		enable_internal()
 	end
 end)

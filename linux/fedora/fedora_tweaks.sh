@@ -110,6 +110,37 @@ function install_docker() {
     sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 }
 
+function install_nvidia_proprietary_driver() {
+    sudo dnf install -y akmod-nvidia xorg-x11-drv-nvidia-cuda
+
+    sudo tee /etc/modprobe.d/blacklist-nouveau.conf >/dev/null <<'EOF'
+blacklist nouveau
+options nouveau modeset=0
+EOF
+
+    sudo tee /etc/dracut.conf.d/nvidia.conf >/dev/null <<'EOF'
+omit_drivers+=" nouveau "
+EOF
+
+    sudo tee /etc/modprobe.d/nvidia-drm.conf >/dev/null <<'EOF'
+options nvidia-drm modeset=1
+EOF
+
+    sudo akmods --force
+    sudo dracut --force --regenerate-all
+
+    echo ""
+    echo "==> nvidia driver installed, nouveau blacklisted and dropped from the initramfs."
+    echo "    akmods signs the nvidia kmod with a MOK key, auto-generated on first run and"
+    echo "    named after this machine's hostname. It should have prompted you to set an"
+    echo "    enrollment password just now (if it didn't, run:"
+    echo "    sudo mokutil --import /etc/pki/akmods/certs/public_key.der)."
+    echo "    That enrollment only matters once Secure Boot is turned on in the BIOS:"
+    echo "    reboot, and at the blue 'MOK Management' screen pick Enroll MOK -> Continue"
+    echo "    -> enter that password -> reboot again."
+    echo "    After that, verify with: nvidia-smi && lsmod | grep -i nvidia"
+}
+
 function install_nvidia_container_toolkit() {
     curl -s -L https://nvidia.github.io/libnvidia-container/stable/rpm/nvidia-container-toolkit.repo | sudo tee /etc/yum.repos.d/nvidia-container-toolkit.repo
     export NVIDIA_CONTAINER_TOOLKIT_VERSION=1.19.0-1
@@ -128,6 +159,26 @@ function install_tex() {
         zathura-plugins-all
 }
 
+function install_brave() {
+    sudo dnf install dnf-plugins-core
+    sudo dnf config-manager addrepo --from-repofile=https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
+    sudo dnf install brave-browser
+}
+
+function install_proton() {
+    pushd $HOME/Downloads/
+    # wget https://proton.me/download/mail/linux/1.13.3/ProtonMail-desktop-beta.rpm
+    # wget https://proton.me/download/pass/linux/proton-pass-1.38.1-1.x86_64.rpm
+
+    wget "https://repo.protonvpn.com/fedora-$(cat /etc/fedora-release | cut -d' ' -f 3)-stable/protonvpn-stable-release/protonvpn-stable-release-1.0.4-1.noarch.rpm"
+    sudo dnf install ./protonvpn-stable-release-1.0.4-1.noarch.rpm && sudo dnf check-update --refresh
+    sudo dnf install proton-vpn-gnome-desktop
+    sudo dnf install libappindicator-gtk3 gnome-shell-extension-appindicator gnome-extensions-app
+    sudo dnf install proton-vpn-cli
+    popd
+
+}
+
 function install_generic() {
     pre_install
     make_settings
@@ -136,13 +187,19 @@ function install_generic() {
     install_ffmpeg
     install_gstreamer
     install_tex
+    install_brave
 }
 
-function install_x86_amd() {
+function install_x86_amd_gpu() {
     install_vaapi_amd_intel
 }
 
-function install_x86_nvidia() {
+function install_x86_nvidia_gpu() {
     install_vaapi_nvidia_intel
     install_nvidia_container_toolkit
 }
+
+install_generic
+# install_x86_amd_gpu
+install_x86_nvidia_gpu
+#install_nvidia_proprietary_driver

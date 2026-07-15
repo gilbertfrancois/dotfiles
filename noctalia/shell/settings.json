@@ -406,7 +406,7 @@
         "showScreenCorners": false,
         "showSessionButtonsOnLockScreen": true,
         "smoothScrollEnabled": true,
-        "telemetryEnabled": true
+        "telemetryEnabled": false
     },
     "hooks": {
         "colorGeneration": "",
@@ -635,7 +635,7 @@
     },
     "wallpaper": {
         "automationEnabled": false,
-        "directory": "/home/gilbert/Pictures/wallpapers",
+        "directory": "/home/gilbert/Pictures/Wallpapers",
         "enableMultiMonitorDirectories": false,
         "enabled": true,
         "favorites": [
@@ -652,7 +652,7 @@
         "panelPosition": "follow_bar",
         "randomIntervalSec": 300,
         "setWallpaperOnAllMonitors": true,
-        "showHiddenFiles": false,
+        "showHiddenFiles": true,
         "skipStartupTransition": false,
         "solidColor": "#1e1e2e",
         "sortOrder": "name",
@@ -669,7 +669,7 @@
         "useOriginalImages": false,
         "useSolidColor": false,
         "useWallhaven": false,
-        "viewMode": "single",
+        "viewMode": "browse",
         "wallhavenApiKey": "",
         "wallhavenCategories": "111",
         "wallhavenOrder": "desc",

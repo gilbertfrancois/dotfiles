@@ -1,0 +1,24 @@
+# Compositor-specific env for uwsm (HYPR*/AQ_* vars belong here, not in
+# hyprland.lua's hl.env() -- Hyprland's own process env is fixed before it
+# ever reads its config, so hl.env() can't influence which GPU Aquamarine
+# picks).
+#
+# Put the Intel iGPU first so Hyprland renders/composites on it (lower power
+# draw, best Wayland compatibility). The NVIDIA dGPU stays second -- still
+# available for PRIME render offload (see scripts/nvidia-offload.sh) and
+# unaffected for CUDA/TensorRT, which talk to it directly regardless of this
+# ordering. Detected by PCI vendor ID rather than hardcoded /dev/dri/cardN
+# paths, since card numbering can shift with driver load order; falls back
+# to whatever is present if a machine only has one of the two.
+intel_card=""
+nvidia_card=""
+for dev in /sys/class/drm/card*; do
+	[ -e "$dev/device/vendor" ] || continue
+	vendor=$(cat "$dev/device/vendor")
+	card="/dev/dri/$(basename "$dev")"
+	case "$vendor" in
+	0x8086) intel_card="${intel_card:-$card}" ;;
+	0x10de) nvidia_card="${nvidia_card:-$card}" ;;
+	esac
+done
+export AQ_DRM_DEVICES="${intel_card}${intel_card:+:}${nvidia_card}"

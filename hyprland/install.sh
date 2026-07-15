@@ -29,7 +29,7 @@ link() {
 
 install_dnf() {
     sudo dnf -y copr enable lionheartp/Hyprland
-    sudo dnf install -y hyprland hyprland-guiutils
+    sudo dnf install -y hyprland hyprland-guiutils hypridle
     sudo dnf install -y xdg-desktop-portal-hyprland xdg-desktop-portal-gtk \
         xorg-x11-fonts-misc xorg-x11-fonts-75dpi xorg-x11-fonts-100dpi xorg-x11-fonts-Type1
 
@@ -43,6 +43,8 @@ install_dnf
 echo ""
 echo "==> Hyprland ecosystem"
 link "$DOTFILES/hypr" "$HOME/.config/hypr"
+mkdir -p "$HOME/.config/uwsm"
+link "$DOTFILES/uwsm/env-hyprland" "$HOME/.config/uwsm/env-hyprland"
 link "$DOTFILES/waybar" "$HOME/.config/waybar"
 link "$DOTFILES/rofi" "$HOME/.config/rofi"
 link "$DOTFILES/btop" "$HOME/.config/btop"
