@@ -155,6 +155,7 @@ function install_tex() {
     sudo dnf install -y \
         texlive-scheme-tetex \
         texlive-tabularray \
+        latexmk \
         zathura \
         zathura-plugins-all
 }
