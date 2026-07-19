@@ -20,8 +20,7 @@ function install_misc() {
         lm_sensors \
         nvtop \
         oathtool \
-        openssh \
-        texlive-scheme-medium
+        openssh
     sudo dnf copr enable lihaohong/yazi
     sudo dnf install -y yazi
     sudo dnf copr enable dejan/lazygit
@@ -154,6 +153,8 @@ function install_nvidia_container_toolkit() {
 function install_tex() {
     sudo dnf install -y \
         texlive-scheme-tetex \
+        texlive-scheme-medium \
+        texlive-collection-latexextra \
         texlive-tabularray \
         latexmk \
         zathura \

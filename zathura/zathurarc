@@ -1,0 +1,5 @@
+# Start in dark mode by default (inverts page colors)
+set recolor true
+
+# Toggle light/dark mode on the fly
+map <C-r> recolor
