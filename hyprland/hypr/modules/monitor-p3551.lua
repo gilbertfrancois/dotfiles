@@ -34,9 +34,9 @@ end
 hl.monitor({
 	output = "desc:Seiko Epson Corporation EPSON PJ",
 	mode = "1920x1080@60",
-	position = "0x0",
+	position = "-1920x0",
 	scale = 1,
-	mirror = "eDP-1",
+	-- mirror = "eDP-1",
 })
 hl.monitor({
 	output = "desc:Dell Inc. DELL P2415Q D8VXF994054B",
