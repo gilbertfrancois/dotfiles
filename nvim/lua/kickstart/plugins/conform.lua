@@ -7,7 +7,7 @@ return {
             {
                 '<leader>ff',
                 function()
-                    require('conform').format { async = true, lsp_format = 'fallback' }
+                    require('conform').format { async = true, timeout_ms = 10000, lsp_format = 'fallback' }
                 end,
                 mode = '',
                 desc = '[F]ormat buffer',
@@ -24,7 +24,7 @@ return {
                     return nil
                 else
                     return {
-                        timeout_ms = 3000,
+                        timeout_ms = 10000,
                         lsp_format = 'fallback',
                     }
                 end

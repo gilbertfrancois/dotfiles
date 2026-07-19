@@ -184,20 +184,39 @@ return {
             },
         }
         -- Python debugging setup
-        -- local mason_registry = require 'mason-registry'
-        -- local debugpy = mason_registry.get_package 'debugpy'
-        -- local debugpy_python = debugpy:get_install_path() .. '/venv/bin/python'
-        -- require('dap-python').setup(debugpy_python)
-        local debugpy_path = vim.fn.exepath 'debugpy'
-        require('dap-python').setup(debugpy_path .. '/venv/bin/python')
-        dap.adapters.python = {
-            type = 'server',
-            host = 'localhost',
-            port = 5678,
-            options = {
-                source_filetype = 'python',
-            },
-        }
+        -- debugpy is installed via Mason (not a standalone `debugpy` executable on $PATH --
+        -- vim.fn.exepath 'debugpy' resolves to '' here, which silently broke the launch path).
+        local mason_registry = require 'mason-registry'
+        local debugpy = mason_registry.get_package 'debugpy'
+        local debugpy_python = debugpy:get_install_path() .. '/venv/bin/python'
+        require('dap-python').setup(debugpy_python)
+        -- A single dap.adapters.python table can't serve both "launch" and "attach" configs at
+        -- once (request is a per-config field, not per-adapter) -- the previous static
+        -- server-only table silently overrode dap-python's launch adapter, so "Launch current
+        -- file" tried to connect to localhost:5678 instead of spawning a local debugpy. Branch
+        -- on config.request instead, and read host/port from the config so it's not hardcoded.
+        dap.adapters.python = function(cb, config)
+            if config.request == 'attach' then
+                local connect = config.connect or config
+                cb {
+                    type = 'server',
+                    host = connect.host or '127.0.0.1',
+                    port = assert(connect.port, '`connect.port` is required for a python `attach` configuration'),
+                    options = {
+                        source_filetype = 'python',
+                    },
+                }
+            else
+                cb {
+                    type = 'executable',
+                    command = debugpy_python,
+                    args = { '-m', 'debugpy.adapter' },
+                    options = {
+                        source_filetype = 'python',
+                    },
+                }
+            end
+        end
         dap.configurations.python = {
             {
                 type = 'python',

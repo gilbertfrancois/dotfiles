@@ -20,22 +20,7 @@ return {
         init = function()
             local border = 'rounded'
 
-            -- Neovim ≥ 0.11: default border for most floats
-            -- if vim.fn.has 'nvim-0.11' == 1 then
-            --     vim.o.winborder = border
-            -- end
-
-            -- Handler keys for 0.11+ (prevents “deprecated” warning)
-            local M = vim.lsp.protocol.Methods
-            local hover = vim.lsp.handlers.hover
-            local sig = vim.lsp.handlers.signature_help
-            if vim.fn.has 'nvim-0.11' == 1 then
-                vim.lsp.handlers[M.textDocument_hover] = vim.lsp.with(hover, { border = border })
-                vim.lsp.handlers[M.textDocument_signatureHelp] = vim.lsp.with(sig, { border = border })
-            else
-                vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(hover, { border = border })
-                vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(sig, { border = border })
-            end
+            vim.o.winborder = border
 
             -- Fallback: force a border for any LSP float opened via open_floating_preview
             local orig = vim.lsp.util.open_floating_preview
@@ -60,8 +45,8 @@ return {
             -- Automatically install LSPs and related tools to stdpath for Neovim
             -- Mason must be loaded before its dependents so we need to set it up here.
             -- NOTE: `opts = {}` is the same as calling `require('mason').setup({})`
-            { 'williamboman/mason.nvim', opts = { ui = { border = 'rounded' } } },
-            'williamboman/mason-lspconfig.nvim',
+            { 'mason-org/mason.nvim', opts = { ui = { border = 'rounded' } } },
+            'mason-org/mason-lspconfig.nvim',
             'WhoIsSethDaniel/mason-tool-installer.nvim',
 
             -- Useful status updates for LSP.
@@ -293,38 +278,37 @@ return {
             -- for you, so that they are available from within Neovim.
             local ensure_installed = vim.tbl_keys(servers or {})
             vim.list_extend(ensure_installed, {
-                'stylua', -- Used to format Lua code
-                'isort',
                 'black',
                 'clang-format',
-                'shfmt',
-                'latexindent',
-                'prettier',
-                'pyright',
                 'clangd',
                 'codelldb',
                 'debugpy',
-                'tree-sitter-cli',
-                'typescript-language-server',
                 'docker-compose-language-service',
                 'dockerfile-language-server',
-                'sql-formatter',
+                'isort',
+                'latexindent',
+                'pgformatter',
+                'prettier',
+                'pyright',
+                'shfmt',
+                'stylua',
+                'tree-sitter-cli',
+                'typescript-language-server',
             })
             require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
+            -- mason-lspconfig v2 (mason-org/mason-lspconfig.nvim) dropped the `handlers`/
+            -- `automatic_installation` setup options in favor of `vim.lsp.enable()` +
+            -- `vim.lsp.config()`. Register our capabilities and per-server overrides directly,
+            -- then let mason-lspconfig auto-enable whatever Mason has installed.
+            vim.lsp.config('*', { capabilities = capabilities })
+            for server_name, server_opts in pairs(servers) do
+                vim.lsp.config(server_name, server_opts)
+            end
+
             require('mason-lspconfig').setup {
                 ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
-                automatic_installation = false,
-                handlers = {
-                    function(server_name)
-                        local server = servers[server_name] or {}
-                        -- This handles overriding only values explicitly passed
-                        -- by the server configuration above. Useful when disabling
-                        -- certain features of an LSP (for example, turning off formatting for ts_ls)
-                        server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-                        require('lspconfig')[server_name].setup(server)
-                    end,
-                },
+                automatic_enable = true,
             }
         end,
     },
