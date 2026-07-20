@@ -9,6 +9,7 @@ return {
                 'c',
                 'diff',
                 'html',
+                'latex',
                 'lua',
                 'luadoc',
                 'markdown',
@@ -23,7 +24,7 @@ return {
                 install_dir = vim.fn.stdpath 'data' .. '/site',
             }
 
-            -- require('nvim-treesitter').install(parsers)
+            require('nvim-treesitter').install(parsers)
 
             vim.api.nvim_create_autocmd('FileType', {
                 pattern = {
@@ -31,6 +32,7 @@ return {
                     'c',
                     'diff',
                     'html',
+                    'tex',
                     'lua',
                     'markdown',
                     'python',

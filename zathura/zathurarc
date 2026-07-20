@@ -1,5 +1,10 @@
 # Start in dark mode by default (inverts page colors)
 set recolor true
 
+# Match foot's dark theme colors instead of pure black/white
+set default-bg "#1d1d1d"
+set recolor-lightcolor "#1d1d1d"
+set recolor-darkcolor "#dddddd"
+
 # Toggle light/dark mode on the fly
 map <C-r> recolor

@@ -50,6 +50,12 @@ return {
                 sql = { 'pg_format' },
                 pgsql = { 'pg_format' },
             },
+            formatters = {
+                -- Mason's latexindent binary is a PAR-packed build linked
+                -- against libcrypt.so.1, which Fedora no longer ships by
+                -- default; use the working texlive binary instead.
+                latexindent = { command = '/usr/bin/latexindent' },
+            },
         },
     },
 }
