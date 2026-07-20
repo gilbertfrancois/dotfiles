@@ -34,6 +34,11 @@ function make_settings() {
     sudo cp "$(dirname "$0")/etc_bluetooth_main.conf" /etc/bluetooth/main.conf
 }
 
+function fix_bluetooth() {
+    mkdir -p ~/.config/wireplumber/wireplumber.conf.d
+    cp $(dirname $0)/50-bluetooth-no-idle-suspend.conf ~/.config/wireplumber/wireplumber.conf.d/
+}
+
 function install_ffmpeg() {
     sudo dnf swap -y ffmpeg-free ffmpeg --allowerasing
 }
