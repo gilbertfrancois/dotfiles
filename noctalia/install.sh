@@ -42,4 +42,4 @@ link "$DOTFILES/shell" "$HOME/.config/noctalia"
 link "$DOTFILES/v5_settings/settings.toml" "$HOME/.local/state/noctalia/settings.toml"
 
 echo ""
-echo "Done. Noctalia shell (qs -c noctalia-shell) is ready for Hyprland or sway."
+echo "Done. Noctalia shell (qs -c noctalia-shell) is ready for Hyprland."

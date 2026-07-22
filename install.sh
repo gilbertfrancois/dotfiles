@@ -27,6 +27,11 @@ echo "--- Dev tooling."
 "$DOTFILES/skuld/install.sh"
 "$DOTFILES/fonts/install_iosevka.sh"
 
+echo "--- ghca."
+mkdir -p "$HOME/.local/bin"
+cp -f "$DOTFILES/ghca/ghca_linux_x86_64" "$HOME/.local/bin/ghca"
+chmod +x "$HOME/.local/bin/ghca"
+
 echo "--- Done."
 echo "Note: known per-machine hardware quirks (grub/kernel args, pinned drivers)"
 echo "      live in linux/machine_specific/*.sh - check if this machine needs one."

@@ -4,19 +4,37 @@
     name:
       - libva-intel-driver
       - libva-intel-hybrid-driver
-      - mesa-va-drivers
-      - mesa-vdpau-drivers
     state: absent
 
 - name: Swap in freeworld VA-API mesa driver
   ansible.builtin.command: dnf swap -y mesa-va-drivers mesa-va-drivers-freeworld
   register: va_swap
   changed_when: "'Nothing to do' not in va_swap.stdout"
+  failed_when: false
+
+- name: Warn if freeworld VA-API swap failed
+  ansible.builtin.debug:
+    msg: >-
+      mesa-va-drivers-freeworld swap failed - likely a temporary version skew
+      between RPM Fusion and Fedora's own mesa package (RPM Fusion ships
+      ahead of Fedora's mesa-filesystem release). Re-run this playbook in a
+      few days once Fedora's mesa update catches up: {{ va_swap.stderr | default('') }}
+  when: va_swap.rc != 0
 
 - name: Swap in freeworld VDPAU mesa driver
   ansible.builtin.command: dnf swap -y mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
   register: vdpau_swap
   changed_when: "'Nothing to do' not in vdpau_swap.stdout"
+  failed_when: false
+
+- name: Warn if freeworld VDPAU swap failed
+  ansible.builtin.debug:
+    msg: >-
+      mesa-vdpau-drivers-freeworld swap failed - this package no longer
+      exists in RPM Fusion for Fedora 44 (VDPAU freeworld support appears
+      discontinued in favour of VA-API). Consider removing this task if it
+      keeps failing: {{ vdpau_swap.stderr | default('') }}
+  when: vdpau_swap.rc != 0
 
 - name: Install Intel media driver and VA-API utils
   ansible.builtin.dnf:

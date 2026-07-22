@@ -66,6 +66,21 @@ function init_config_dir {
     mkdir -p "${NVIM_LIB_DIR}"
 }
 
+function link_config {
+    local dotfiles_nvim
+    dotfiles_nvim="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    local dst="${HOME}/.config/nvim"
+    if [[ -L "${dst}" ]]; then
+        [[ "$(readlink "${dst}")" == "${dotfiles_nvim}" ]] && return
+        rm "${dst}"
+    elif [[ -e "${dst}" ]]; then
+        echo "  backup: ${dst} → ${dst}.bak"
+        mv "${dst}" "${dst}.bak"
+    fi
+    ln -s "${dotfiles_nvim}" "${dst}"
+    echo "  linked: ${dst}"
+}
+
 function compile_neovim {
     echo "--- Compiling Neovim."
     if [[ "$PKGAPP" == "apt-get" ]]; then
@@ -235,6 +250,7 @@ function install_fzf {
 
 reset_config_dir
 init_config_dir
+link_config
 install_fzf
 install_neovim
 install_python

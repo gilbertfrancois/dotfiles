@@ -37,6 +37,7 @@ function install_oh_my_zsh {
 
 install_oh_my_zsh
 link sh/zshrc .zshrc
+link sh/profile .profile
 
 echo "--- Adding stuff to the shell profile."
 add_env bash_profile

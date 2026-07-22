@@ -8,6 +8,9 @@
 - name: Install common packages
   ansible.builtin.import_tasks: packages.yml
 
+- name: Install Brave browser
+  ansible.builtin.import_tasks: brave.yml
+
 - name: Install Docker
   ansible.builtin.import_tasks: docker.yml
 
