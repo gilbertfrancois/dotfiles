@@ -13,6 +13,16 @@
       - docker-engine-selinux
       - docker-engine
     state: absent
+  register: remove_distro_docker
+  failed_when: false
+
+- name: Warn if distro Docker package removal hit a depsolve conflict
+  ansible.builtin.debug:
+    msg: >-
+      Removing distro Docker packages failed (likely none were installed and
+      dnf5's depsolver tripped over an unrelated package conflict resolving
+      the transaction): {{ remove_distro_docker.failures | default(remove_distro_docker.msg) }}
+  when: remove_distro_docker is failed
 
 - name: Add Docker CE repo
   ansible.builtin.get_url:

@@ -1,29 +1,32 @@
 #!/usr/bin/env bash
 set -e
 
-function link {
-    # param: src 
-    #    src file or folder inside this repo
-    # param: dst
-    #    dst location inside the $HOME folder
-    rm -rf ${HOME}/$2
-    ln -s ${HOME}/.dotfiles/$1 ${HOME}/$2
-}
+DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-echo "--- Setting symlinks to the dotfiles."
-link tmux/tmux.conf .tmux.conf
-
-echo "--- Installing packages."
 if [[ `uname -s` == "Darwin" ]]; then
-    ./macos/install_packages.sh
+    echo "--- Installing packages (macOS)."
+    "$DOTFILES/macos/install_packages.sh"
 elif [[ `uname -s` == "Linux" ]]; then
-    ./linux/install_packages.sh
+    echo "--- Installing packages and system settings (ansible)."
+    echo "    Requires ~/.dotfile_vault_pass.txt with your sudo password (see ansible/ansible.cfg)."
+    echo "    Set fedora_gpu=amd|nvidia via -e if this machine needs VA-API drivers,"
+    echo "    e.g.: ansible-playbook -i ansible/inventory/hosts.yml ansible/site.yml -e fedora_gpu=nvidia"
+    ansible-playbook -i "$DOTFILES/ansible/inventory/hosts.yml" "$DOTFILES/ansible/site.yml"
+
+    echo "--- Hyprland desktop stack."
+    "$DOTFILES/hyprland/install.sh"
+
+    echo "--- GNOME settings."
+    "$DOTFILES/hyprland/gnome/install.sh"
 fi
 
-./sh/install.sh
-./python/install.sh
-./nvim/install_nvim.sh
-./skuld/install.sh
-./fonts/install.sh
+echo "--- Dev tooling."
+"$DOTFILES/sh/install.sh"
+"$DOTFILES/python/install.sh"
+"$DOTFILES/nvim/install.sh"
+"$DOTFILES/skuld/install.sh"
+"$DOTFILES/fonts/install_iosevka.sh"
 
 echo "--- Done."
+echo "Note: known per-machine hardware quirks (grub/kernel args, pinned drivers)"
+echo "      live in linux/machine_specific/*.sh - check if this machine needs one."

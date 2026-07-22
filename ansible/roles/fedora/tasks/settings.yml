@@ -22,6 +22,16 @@
   ansible.builtin.command: gnome-extensions enable clipboard-indicator@tudmotu.com
   become: false
   changed_when: false
+  register: clipboard_indicator_enable
+  failed_when: false
+
+- name: Warn if clipboard-indicator needs a session restart
+  ansible.builtin.debug:
+    msg: >-
+      clipboard-indicator not yet enabled (GNOME Shell only discovers newly
+      installed extensions at session start) - log out/in, then run
+      `gnome-extensions enable clipboard-indicator@tudmotu.com`.
+  when: clipboard_indicator_enable.rc != 0
 
 - name: Install bluetooth main.conf
   ansible.builtin.copy:
