@@ -1,0 +1,16 @@
+---
+# Proton Pass has no dnf repo; it ships as a direct RPM download whose URL can
+# change. Override protonpass_rpm_url (defaults/main.yml) if this 404s -- get
+# the current link from https://proton.me/support/set-up-proton-pass-linux
+- name: Check whether Proton Pass is already installed
+  ansible.builtin.command: rpm -q proton-pass
+  register: protonpass_installed
+  changed_when: false
+  failed_when: false
+
+- name: Install Proton Pass desktop (direct RPM)
+  ansible.builtin.dnf:
+    name: "{{ protonpass_rpm_url }}"
+    state: present
+    disable_gpg_check: true
+  when: protonpass_installed.rc != 0

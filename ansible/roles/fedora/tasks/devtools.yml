@@ -1,0 +1,87 @@
+---
+# System packages that the dev-tooling scripts would otherwise sudo-install.
+- name: Install dev tooling system packages
+  ansible.builtin.dnf:
+    name:
+      - zsh
+      - curl
+      - unzip
+      - git
+      - neovim
+      - python3-neovim
+      - fzf
+    state: present
+
+- name: Set login shell to zsh
+  ansible.builtin.user:
+    name: "{{ ansible_user_id }}"
+    shell: /bin/zsh
+
+- name: Install skuld binary (x86_64)
+  ansible.builtin.copy:
+    src: "{{ dotfiles_dir }}/skuld/skuld_linux_amd64"
+    dest: /usr/local/bin/skuld
+    mode: "0755"
+    remote_src: true
+  when: ansible_architecture == "x86_64"
+
+- name: Install skuld binary (aarch64)
+  ansible.builtin.copy:
+    src: "{{ dotfiles_dir }}/skuld/skuld_linux_aarch64"
+    dest: /usr/local/bin/skuld
+    mode: "0755"
+    remote_src: true
+  when: ansible_architecture == "aarch64"
+
+- name: Install ghca binary
+  ansible.builtin.copy:
+    src: "{{ dotfiles_dir }}/ghca/ghca_linux_x86_64"
+    dest: "{{ home_dir }}/.local/bin/ghca"
+    mode: "0755"
+    remote_src: true
+  become: false
+
+- name: Run shell (zsh / oh-my-zsh) setup
+  ansible.builtin.command: "{{ dotfiles_dir }}/sh/install.sh"
+  become: false
+  environment:
+    DOTFILES_ANSIBLE: "1"
+  changed_when: true
+
+- name: Run Python environment setup
+  ansible.builtin.command: "{{ dotfiles_dir }}/python/install.sh"
+  become: false
+  environment:
+    DOTFILES_ANSIBLE: "1"
+  changed_when: true
+
+- name: Run Neovim setup
+  ansible.builtin.command: "{{ dotfiles_dir }}/nvim/install.sh"
+  become: false
+  environment:
+    DOTFILES_ANSIBLE: "1"
+  changed_when: true
+
+- name: Install Iosevka Nerd Font
+  ansible.builtin.command: "{{ dotfiles_dir }}/fonts/install_iosevka.sh"
+  become: false
+  environment:
+    DOTFILES_ANSIBLE: "1"
+  changed_when: true
+
+# Private secrets live in a separate repo (~/.dotfiles_secret). If the user
+# has cloned it, wire it in; otherwise skip (it holds the keys needed to clone
+# itself, so it can't be bootstrapped from here).
+- name: Check for private secrets repo
+  ansible.builtin.stat:
+    path: "{{ home_dir }}/.dotfiles_secret/install.sh"
+  register: secret_install
+  become: false
+
+- name: Wire in private secrets (~/.dotfiles_secret)
+  ansible.builtin.command: "{{ home_dir }}/.dotfiles_secret/install.sh"
+  become: false
+  environment:
+    DOTFILES_ANSIBLE: "1"
+  changed_when: true
+  when: secret_install.stat.exists

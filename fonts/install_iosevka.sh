@@ -7,9 +7,11 @@ INSTALL_DIR="$HOME/.local/share/fonts/${FONT_NAME}-Nerd-Font"
 
 echo "📥 Installing ${FONT_NAME} Nerd Font..."
 
-# Dependencies
-sudo dnf update
-sudo dnf install -y curl unzip
+# Dependencies (skipped under Ansible, which pre-installs curl/unzip)
+if [ -z "${DOTFILES_ANSIBLE:-}" ]; then
+    sudo dnf update
+    sudo dnf install -y curl unzip
+fi
 
 # Create font directory
 mkdir -p "$INSTALL_DIR"

@@ -40,7 +40,11 @@ fi
 
 echo "Detected: OS=$OS, DISTRO=$DISTRO, ARCH=$ARCH, PKGAPP=$PKGAPP"
 
-if ! type "sudo" >/dev/null 2>&1; then
+if [ -n "${DOTFILES_ANSIBLE:-}" ]; then
+    # Invoked from Ansible: privileged package installs are handled there, so
+    # neutralise sudo (`true <cmd>` is a no-op). User-level steps still run.
+    SUDO=true
+elif ! type "sudo" >/dev/null 2>&1; then
     echo "No sudo command found."
     SUDO=""
 else

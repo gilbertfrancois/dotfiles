@@ -3,3 +3,7 @@
 # GPU-specific VA-API drivers. Leave as "none" to skip both.
 fedora_gpu: none
 nvidia_container_toolkit_version: "1.19.0-1"
+
+# Proton Pass desktop RPM (no dnf repo exists). If this 404s, grab the current
+# link from https://proton.me/support/set-up-proton-pass-linux and update here.
+protonpass_rpm_url: "https://proton.me/download/pass/linux/ProtonPass.rpm"

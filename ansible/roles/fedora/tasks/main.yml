@@ -11,6 +11,15 @@
 - name: Install Brave browser
   ansible.builtin.import_tasks: brave.yml
 
+- name: Install Firefox
+  ansible.builtin.import_tasks: firefox.yml
+
+- name: Install 1Password
+  ansible.builtin.import_tasks: onepassword.yml
+
+- name: Install Proton Pass
+  ansible.builtin.import_tasks: protonpass.yml
+
 - name: Install Docker
   ansible.builtin.import_tasks: docker.yml
 
@@ -22,6 +31,12 @@
 
 - name: Install TeX Live and Zathura
   ansible.builtin.import_tasks: tex.yml
+
+- name: Install Hyprland desktop stack and GNOME settings
+  ansible.builtin.import_tasks: desktop.yml
+
+- name: Install dev tooling
+  ansible.builtin.import_tasks: devtools.yml
 
 - name: Install AMD/Intel VA-API drivers
   ansible.builtin.import_tasks: gpu_amd.yml

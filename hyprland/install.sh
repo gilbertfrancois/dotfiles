@@ -38,7 +38,9 @@ install_dnf() {
 # ─────────────────────────────────────────────────────────────────
 echo ""
 echo "==> Install packages"
-install_dnf
+if [ -z "${DOTFILES_ANSIBLE:-}" ]; then
+    install_dnf
+fi
 
 echo ""
 echo "==> Hyprland ecosystem"
