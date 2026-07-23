@@ -207,6 +207,6 @@ function install_x86_nvidia_gpu() {
 }
 
 install_generic
-# install_x86_amd_gpu
-install_x86_nvidia_gpu
-#install_nvidia_proprietary_driver
+install_x86_amd_gpu
+# install_x86_nvidia_gpu
+# install_nvidia_proprietary_driver
