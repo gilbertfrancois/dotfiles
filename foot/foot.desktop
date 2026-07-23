@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Exec=$HOME/.local/bin/foot-launch %U
+Exec=/home/gilbert/.local/bin/foot-launch %U
 Icon=foot
 Terminal=false
 Categories=System;TerminalEmulator;
