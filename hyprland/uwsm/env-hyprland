@@ -21,4 +21,12 @@ for dev in /sys/class/drm/card*; do
 	0x10de) nvidia_card="${nvidia_card:-$card}" ;;
 	esac
 done
-export AQ_DRM_DEVICES="${intel_card}${intel_card:+:}${nvidia_card}"
+aq_drm_devices="${intel_card}${intel_card:+:}${nvidia_card}"
+# Only export when we actually found an Intel and/or NVIDIA card to order.
+# On AMD-only machines both are empty. Exporting an *empty* AQ_DRM_DEVICES
+# tells Aquamarine 0.13+ "use exactly this (empty) device list" -> it finds
+# no GPU and crashes at startup ("drm: Found no gpus to use, cannot
+# continue" -> CBackend::create() failed). Leaving it unset lets Aquamarine
+# autodetect the GPU. (Aquamarine <=0.12 silently ignored an empty value,
+# which is why the old unconditional export only broke on newer installs.)
+[ -n "$aq_drm_devices" ] && export AQ_DRM_DEVICES="$aq_drm_devices"
