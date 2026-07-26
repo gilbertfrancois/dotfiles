@@ -17,8 +17,8 @@ local INTERNAL_MONITORS = {
 		output = "desc:AU Optronics 0x7AA7",
 		mode = "2560x1600@90",
 		position = "0x0",
-		-- scale = 1.33,
-		scale = 1.6,
+		scale = 1.33,
+		-- scale = 1.6,
 	},
 	{
 		output = "desc:AU Optronics 0x26ED",
