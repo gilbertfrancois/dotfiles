@@ -85,5 +85,15 @@ systemctl --user daemon-reload
 systemctl --user enable --now foot-color-monitor.service
 echo "  foot-color-monitor.service: enabled and running"
 
+# hypridle only makes sense under Hyprland, but the packaged unit's
+# WAYLAND_DISPLAY condition also matches GNOME's Wayland session -- gate
+# it on the compositor so it doesn't start (and error) under GNOME.
+mkdir -p "$HOME/.config/systemd/user/hypridle.service.d"
+link "$DOTFILES/systemd/hypridle.service.d/override.conf" \
+    "$HOME/.config/systemd/user/hypridle.service.d/override.conf"
+systemctl --user daemon-reload
+systemctl --user enable hypridle.service
+echo "  hypridle.service: gated to Hyprland sessions only"
+
 echo ""
 echo "Done. Log out and back in (or restart Hyprland) for all changes to take effect."
