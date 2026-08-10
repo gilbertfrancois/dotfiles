@@ -54,6 +54,10 @@ return {
         vim.keymap.set('n', '<leader>?', function()
             dapui.eval(nil, { enter = true })
         end, { desc = 'Debug: Evaluate expression' })
+        vim.keymap.set('n', '<leader>w', function()
+            local expr = vim.fn.expand '<cexpr>'
+            require('dapui').elements.watches.add(expr)
+        end, { desc = 'Debug: Add expression under cursor to watch' })
 
         dap.listeners.before.attach.dapui_config = dapui.open
         dap.listeners.before.launch.dapui_config = dapui.open
