@@ -7,6 +7,9 @@ echo "--- Installing packages..."
 brew update
 brew install mosh tmux htop bear clang-format llvm oath-toolkit
 
+echo "--- Installing iTerm2"
+brew install --cask iterm2
+
 echo "--- Setting up skuld"
 sudo git config --system --unset credential.helper
 # brew tap DEEP-IMPACT-AG/hyperdrive
