@@ -26,12 +26,26 @@ local function is_ssh()
     return os.getenv 'SSH_CLIENT' ~= nil or os.getenv 'SSH_TTY' ~= nil or os.getenv 'SSH_CONNECTION' ~= nil
 end
 
+local function is_macos()
+    return vim.fn.has 'mac' == 1
+end
+
 local function is_light()
     -- Over SSH: no desktop session, so skip all D-Bus/gsettings calls.
     -- Instead rely on Neovim's own OSC 11 terminal query (vim.o.background),
     -- which travels transparently through the SSH connection to the local terminal.
     if is_ssh() then
         return vim.o.background == 'light'
+    end
+
+    -- macOS: none of the Linux probes below apply (gdbus/gsettings don't exist),
+    -- and a missing gsettings binary makes the last probe misreport "light" via
+    -- its shell error text. Use the system appearance instead: AppleInterfaceStyle
+    -- is only set (to "Dark") when Dark Mode is on. iTerm follows this when its
+    -- profile is left on the default "follow system appearance" setting.
+    if is_macos() then
+        local style = vim.fn.system 'defaults read -g AppleInterfaceStyle 2>/dev/null'
+        return not style:lower():match 'dark'
     end
 
     -- 1. XDG Desktop Portal (works on both GNOME and Hyprland with xdg-desktop-portal)
