@@ -1,3 +1,5 @@
+# Add deno completions to search path
+if [[ ":$FPATH:" != *":/home/gilbert/.zsh/completions:"* ]]; then export FPATH="/home/gilbert/.zsh/completions:$FPATH"; fi
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -125,3 +127,4 @@ eval "$(pyenv init --path)"
 _cs_file="${XDG_RUNTIME_DIR:-/run/user/$UID}/color-scheme"
 [[ -f "$_cs_file" ]] && export TERM_BACKGROUND=$(< "$_cs_file")
 unset _cs_file
+. "/home/gilbert/.deno/env"
