@@ -36,4 +36,12 @@ hl.config({
 		force_default_wallpaper = 0, -- 0 completely disables the built-in wallpaper engine
 		vrr = 2, -- Variable refresh rate: 0=off, 1=always, 2=fullscreen only
 	},
+	render = {
+		-- Direct scanout hands a client's buffer straight to the display
+		-- plane instead of compositing it every frame. After an S0ix/s2idle
+		-- resume that buffer can be stale, which is what caused the "lock
+		-- screen flashes, then black, then garbled colors" symptom on wake
+		-- -- disabling it costs a bit of power savings but avoids the bug.
+		direct_scanout = false,
+	},
 })
