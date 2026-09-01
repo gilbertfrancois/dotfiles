@@ -197,6 +197,10 @@ function av() {
     fi
 }
 
+function show_font_size() {
+    printf '\e[16t'; IFS= read -r -d t -t 1 reply; printf '%s\n' "$reply"
+}
+
 export_term_kitty() {
   if [ -z "$1" ]; then
     echo "Usage: xterm-kitty-settings user@host"
