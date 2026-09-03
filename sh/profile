@@ -232,4 +232,3 @@ if [ -z "$TERM_BACKGROUND" ]; then
 fi
 
 echo "PROFILE loaded"
-. "/home/gilbert/.deno/env"
