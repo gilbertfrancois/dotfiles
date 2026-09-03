@@ -1,0 +1,12 @@
+[Unit]
+Description=Disable internal BCM4364 Bluetooth controller
+After=bluetooth.target
+
+[Service]
+Type=oneshot
+ExecStartPre=/usr/sbin/rfkill block 0
+ExecStart=/bin/sh -c 'DEVID=$(basename $(readlink /sys/class/bluetooth/hci0/device)); echo "$DEVID" > /sys/class/bluetooth/hci0/device/driver/unbind'
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
