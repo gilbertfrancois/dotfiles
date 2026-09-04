@@ -30,3 +30,20 @@ aq_drm_devices="${intel_card}${intel_card:+:}${nvidia_card}"
 # autodetect the GPU. (Aquamarine <=0.12 silently ignored an empty value,
 # which is why the old unconditional export only broke on newer installs.)
 [ -n "$aq_drm_devices" ] && export AQ_DRM_DEVICES="$aq_drm_devices"
+
+# P14s only: works around green/purple vertical stripe corruption on eDP-1
+# after an s2idle lid-close/open cycle (see
+# linux/machine_specific/lenovo_p14s_aquamarine_atomic.sh for the full
+# writeup). AQ_NO_ATOMIC=1 forces Aquamarine's legacy (non-atomic) DRM
+# interface, bypassing whatever regressed in aquamarine 0.15.0's atomic-commit
+# path. Gated to this machine because it disables VRR (appearance.lua's
+# misc.vrr needs atomic commits to negotiate per-frame timing) and buys
+# nothing on machines that don't hit this bug -- p3551 in particular is
+# already immune (it suspends via real S3/deep, which fully re-inits the
+# display engine; this bug is s2idle-specific) and drives 4 external
+# monitors through the same Intel iGPU, where forcing legacy DRM is an
+# unforced risk, not a safety net (a similar multi-monitor Intel wedge in
+# aquamarine#308 was NOT fixed by this same flag for another reporter).
+if [ "$(cat /sys/class/dmi/id/product_version 2>/dev/null)" = "ThinkPad P14s Gen 5" ]; then
+	export AQ_NO_ATOMIC=1
+fi
