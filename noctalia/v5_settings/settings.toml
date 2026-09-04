@@ -1,8 +1,9 @@
-config_version = 14
+config_version = 13
 
 [bar.default]
 end = [ "tray", "notifications", "clipboard", "network", "bluetooth", "volume", "brightness", "battery", "control-center" ]
 margin_ends = 0
+shadow = false
 
 [lockscreen_widgets]
 enabled = false
@@ -17,11 +18,11 @@ widget_order = [ "lockscreen-login-box@eDP-1" ]
     [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
     box_height = 196.0
     box_width = 720.0
-    cx = 1280.0
-    cy = 1080.0
+    cx = 1706.666748046875
+    cy = 1440.0
     output = "eDP-1"
-    placement_height = 1080.0
-    placement_width = 1920.0
+    placement_height = 1440.0
+    placement_width = 2560.0
     rotation = 0.0
     type = "login_box"
 
@@ -45,11 +46,14 @@ widget_order = [ "lockscreen-login-box@eDP-1" ]
 community_palette = "Monochrome"
 source = "community"
 
+    [theme.templates]
+    builtin_ids = [ "btop", "foot", "gtk3", "gtk4", "qt" ]
+
 [wallpaper.default]
-path = "/home/gilbert/Pictures/wallpapers/adwaita_solid_dark.png"
+path = "/home/gilbert/Pictures/wallpaper/adwaita_solid_dark.png"
 
 [wallpaper.last]
-path = "/home/gilbert/Pictures/wallpapers/adwaita_solid_dark.png"
+path = "/home/gilbert/Pictures/wallpaper/adwaita_solid_dark.png"
 
 [wallpaper.monitors.eDP-1]
-path = "/home/gilbert/Pictures/wallpapers/adwaita_solid_dark.png"
+path = "/home/gilbert/Pictures/wallpaper/adwaita_solid_dark.png"

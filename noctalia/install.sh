@@ -28,7 +28,7 @@ link() {
 
 install_dnf() {
     sudo dnf -y copr enable lionheartp/Hyprland
-    sudo dnf install -y noctalia-qs-legacy noctalia-shell-legacy
+    sudo dnf install -y noctalia noctalia-hyprland-meta
 }
 
 # ─────────────────────────────────────────────────────────────────
@@ -44,4 +44,4 @@ link "$DOTFILES/shell" "$HOME/.config/noctalia"
 link "$DOTFILES/v5_settings/settings.toml" "$HOME/.local/state/noctalia/settings.toml"
 
 echo ""
-echo "Done. Noctalia shell (qs -c noctalia-shell) is ready for Hyprland."
+echo "Done. Noctalia (noctalia -d) is ready for Hyprland."

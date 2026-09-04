@@ -17,8 +17,8 @@
       - xorg-x11-fonts-75dpi
       - xorg-x11-fonts-100dpi
       - xorg-x11-fonts-Type1
-      - noctalia-qs-legacy
-      - noctalia-shell-legacy
+      - noctalia
+      - noctalia-hyprland-meta
     state: present
 
 - name: Deploy Hyprland + Noctalia configs (symlinks, foot wrapper, systemd)
