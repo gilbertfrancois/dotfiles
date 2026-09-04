@@ -1,11 +1,12 @@
 -- Apps
 hl.bind("CTRL + ALT + T", hl.dsp.exec_cmd(TERMINAL))
 hl.bind(MAIN_MOD .. " + Return", hl.dsp.exec_cmd(TERMINAL))
-hl.bind(MAIN_MOD .. " + G", hl.dsp.exec_cmd(BROWSER))
+hl.bind(MAIN_MOD .. " + SHIFT + Return", hl.dsp.exec_cmd(BROWSER))
 hl.bind(MAIN_MOD .. " + B", hl.dsp.exec_cmd("noctalia msg bar-toggle"))
 
 -- General
 hl.bind(MAIN_MOD .. " + ALT + L", hl.dsp.exec_cmd("noctalia msg session lock"))
+hl.bind(MAIN_MOD .. " + Escape", hl.dsp.exec_cmd("noctalia msg panel-toggle session"))
 hl.bind(MAIN_MOD .. " + Z", hl.dsp.window.pseudo())
 hl.bind(MAIN_MOD .. " + E", hl.dsp.layout("togglesplit"))
 hl.bind(MAIN_MOD .. " + P", hl.dsp.exec_cmd("~/.config/hypr/scripts/wallcycle.sh"))
