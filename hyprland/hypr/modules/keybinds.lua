@@ -17,7 +17,6 @@ hl.bind(
 	MAIN_MOD .. " + M",
 	hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'")
 )
-hl.bind(MAIN_MOD .. " + V", hl.dsp.window.float())
 hl.bind(MAIN_MOD .. " + T", hl.dsp.window.float())
 hl.bind(MAIN_MOD .. " + O", function()
 	hl.dispatch(hl.dsp.window.float())
