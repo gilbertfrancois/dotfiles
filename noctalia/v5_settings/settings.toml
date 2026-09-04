@@ -47,7 +47,7 @@ community_palette = "Monochrome"
 source = "community"
 
     [theme.templates]
-    builtin_ids = [ "btop", "foot", "gtk3", "gtk4", "qt" ]
+    builtin_ids = [ "gtk3", "gtk4", "qt" ]
 
 [wallpaper.default]
 path = "/home/gilbert/Pictures/wallpaper/adwaita_solid_dark.png"
