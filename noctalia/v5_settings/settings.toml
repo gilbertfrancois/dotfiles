@@ -42,6 +42,11 @@ widget_order = [ "lockscreen-login-box@eDP-1" ]
         show_unlock_hint = true
         show_weather = true
 
+[shell.launcher]
+app_grid = true
+categories = false
+fetch_exchange_rates = false
+
 [theme]
 community_palette = "Monochrome"
 source = "community"
