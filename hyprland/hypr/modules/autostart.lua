@@ -1,6 +1,8 @@
 hl.on("hyprland.start", function()
-	-- hl.exec_cmd("noctalia")
-	hl.exec_cmd("qs -c noctalia-shell")
+	-- noctalia-qs-legacy's `qs -c noctalia-shell` links against Qt's private
+	-- API, which breaks on every Qt point release until the copr rebuilds it.
+	-- The standalone noctalia-git binary avoids that fragility.
+	hl.exec_cmd("noctalia -d")
 	hl.exec_cmd("command -v protonvpn && protonvpn disconnect && protonvpn connect --country CH || true")
 
 	-- hypridle only exists to lock the session before suspend (see

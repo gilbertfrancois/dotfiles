@@ -3,8 +3,7 @@ MAIN_MOD = "SUPER"
 TERMINAL = "~/.local/bin/foot-launch"
 BROWSER = "brave-browser --incognito"
 FILE_MANAGER = "nautilus"
--- MENU = "noctalia msg panel-toggle launcher"
-MENU = "qs -c noctalia-shell ipc call launcher toggle"
+MENU = "noctalia msg panel-toggle launcher"
 
 require("modules.autostart")
 require("modules.monitor")
