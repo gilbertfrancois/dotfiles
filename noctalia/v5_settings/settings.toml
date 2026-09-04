@@ -1,5 +1,9 @@
 config_version = 14
 
+[bar.default]
+end = [ "tray", "notifications", "clipboard", "network", "bluetooth", "volume", "brightness", "battery", "control-center" ]
+margin_ends = 0
+
 [lockscreen_widgets]
 enabled = false
 schema_version = 2
@@ -12,9 +16,9 @@ widget_order = [ "lockscreen-login-box@eDP-1" ]
 
     [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
     box_height = 196.0
-    box_width = 810.0
-    cx = 960.0
-    cy = 898.0
+    box_width = 720.0
+    cx = 1280.0
+    cy = 1080.0
     output = "eDP-1"
     placement_height = 1080.0
     placement_width = 1920.0
@@ -36,3 +40,16 @@ widget_order = [ "lockscreen-login-box@eDP-1" ]
         show_session_buttons = true
         show_unlock_hint = true
         show_weather = true
+
+[theme]
+community_palette = "Monochrome"
+source = "community"
+
+[wallpaper.default]
+path = "/home/gilbert/Pictures/wallpapers/adwaita_solid_dark.png"
+
+[wallpaper.last]
+path = "/home/gilbert/Pictures/wallpapers/adwaita_solid_dark.png"
+
+[wallpaper.monitors.eDP-1]
+path = "/home/gilbert/Pictures/wallpapers/adwaita_solid_dark.png"
