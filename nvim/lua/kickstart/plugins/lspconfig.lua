@@ -234,7 +234,19 @@ return {
             --  - settings (table): Override the default settings passed when initializing the server.
             --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
             local servers = {
-                -- clangd = {},
+                clangd = {
+                    cmd = {
+                        'docker',
+                        'exec',
+                        '-w',
+                        '/ava-x/genesis/components/sentinel_rt/src/cpp_nv',
+                        '-i',
+                        'sentinel_rt-cpp_nv-1',
+                        'clangd',
+                        '--path-mappings=/home/gilbert/ava-x=/ava-x',
+                        '--compile-commands-dir=/ava-x/genesis/components/sentinel_rt/src/cpp_nv/build/',
+                    },
+                },
                 -- gopls = {},
                 -- pyright = {},
                 -- rust_analyzer = {},
