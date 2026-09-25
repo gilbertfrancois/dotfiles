@@ -10,18 +10,35 @@
 # ordering. Detected by PCI vendor ID rather than hardcoded /dev/dri/cardN
 # paths, since card numbering can shift with driver load order; falls back
 # to whatever is present if a machine only has one of the two.
+#
+# evdi cards (DisplayLink docks, e.g. the ThinkPad Hybrid USB-C dock, Type
+# 40AF) are appended too: they're USB platform devices with no PCI vendor
+# id, so the vendor-id loop below can't see them, and AQ_DRM_DEVICES is an
+# *allowlist* -- once set, any card missing from it is invisible to
+# Aquamarine even though evdi+DisplayLinkManager have it working fine (they
+# don't render, they just receive the already-composited frame from the
+# Intel/NVIDIA GPU to ship over USB, so adding them here is safe).
 intel_card=""
 nvidia_card=""
+evdi_cards=""
 for dev in /sys/class/drm/card*; do
-	[ -e "$dev/device/vendor" ] || continue
-	vendor=$(cat "$dev/device/vendor")
-	card="/dev/dri/$(basename "$dev")"
-	case "$vendor" in
-	0x8086) intel_card="${intel_card:-$card}" ;;
-	0x10de) nvidia_card="${nvidia_card:-$card}" ;;
-	esac
+	if [ -e "$dev/device/vendor" ]; then
+		vendor=$(cat "$dev/device/vendor")
+		card="/dev/dri/$(basename "$dev")"
+		case "$vendor" in
+		0x8086) intel_card="${intel_card:-$card}" ;;
+		0x10de) nvidia_card="${nvidia_card:-$card}" ;;
+		esac
+	elif [ "$(basename "$(readlink -f "$dev/device/driver" 2>/dev/null)")" = "evdi" ]; then
+		card="/dev/dri/$(basename "$dev")"
+		evdi_cards="${evdi_cards}${evdi_cards:+:}${card}"
+	fi
 done
-aq_drm_devices="${intel_card}${intel_card:+:}${nvidia_card}"
+aq_drm_devices=""
+for part in "$intel_card" "$nvidia_card" "$evdi_cards"; do
+	[ -n "$part" ] || continue
+	aq_drm_devices="${aq_drm_devices}${aq_drm_devices:+:}${part}"
+done
 # Only export when we actually found an Intel and/or NVIDIA card to order.
 # On AMD-only machines both are empty. Exporting an *empty* AQ_DRM_DEVICES
 # tells Aquamarine 0.13+ "use exactly this (empty) device list" -> it finds
@@ -44,6 +61,16 @@ aq_drm_devices="${intel_card}${intel_card:+:}${nvidia_card}"
 # monitors through the same Intel iGPU, where forcing legacy DRM is an
 # unforced risk, not a safety net (a similar multi-monitor Intel wedge in
 # aquamarine#308 was NOT fixed by this same flag for another reporter).
+#
+# 2026-09-25: briefly disabled to test whether aquamarine 0.15.1 (up from
+# 0.15.0) had independently fixed the atomic-commit regression -- it had not
+# (panel still garbled on eDP-1 after an s2idle lid cycle, confirmed with an
+# external monitor attached showing clean while eDP-1 stayed corrupted, so
+# it's specifically the internal panel's atomic modeset path). Re-enabled.
+# The legacy DRM path this flag forces also causes a hardware-cursor
+# disappearing-at-certain-pixels bug (see
+# hyprland/hypr/modules/appearance.lua's cursor.no_hardware_cursors, added
+# as a separate, targeted fix for that rather than reverting this flag).
 if [ "$(cat /sys/class/dmi/id/product_version 2>/dev/null)" = "ThinkPad P14s Gen 5" ]; then
 	export AQ_NO_ATOMIC=1
 fi
