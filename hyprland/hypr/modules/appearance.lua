@@ -44,4 +44,14 @@ hl.config({
 		-- -- disabling it costs a bit of power savings but avoids the bug.
 		direct_scanout = false,
 	},
+	cursor = {
+		-- P14s only really, but harmless elsewhere: AQ_NO_ATOMIC=1
+		-- (env-hyprland, works around eDP-1 panel corruption on resume)
+		-- forces Aquamarine's legacy DRM cursor-plane path, which makes the
+		-- hardware cursor blank out at certain pixel positions while
+		-- moving. Software cursor rendering sidesteps that plane-commit bug;
+		-- Hyprland still damage-tracks so this only costs compositing the
+		-- cursor's own dirty rect each frame, not a full redraw.
+		no_hardware_cursors = true,
+	},
 })
