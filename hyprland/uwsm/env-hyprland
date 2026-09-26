@@ -67,10 +67,16 @@ done
 # (panel still garbled on eDP-1 after an s2idle lid cycle, confirmed with an
 # external monitor attached showing clean while eDP-1 stayed corrupted, so
 # it's specifically the internal panel's atomic modeset path). Re-enabled.
-# The legacy DRM path this flag forces also causes a hardware-cursor
-# disappearing-at-certain-pixels bug (see
-# hyprland/hypr/modules/appearance.lua's cursor.no_hardware_cursors, added
-# as a separate, targeted fix for that rather than reverting this flag).
+# The legacy DRM path this flag forces also caused a hardware-cursor
+# disappearing-at-certain-pixels bug (since fixed by switching the iGPU from
+# i915 to the xe kernel driver -- see /etc/kernel cmdline: i915.force_probe=!7d55
+# xe.force_probe=7d55 -- xe tolerates this flag's legacy DRM path fine).
+#
+# 2026-09-26: also briefly disabled again after that xe switch, to test
+# whether xe (a from-scratch atomic-KMS driver) avoided i915's atomic-commit
+# regression too. It did not -- panel still garbled on eDP-1 after an s2idle
+# lid cycle under xe with this flag off. So this flag is needed regardless of
+# i915 vs xe; re-enabled, do not retest this again without a real upstream fix.
 if [ "$(cat /sys/class/dmi/id/product_version 2>/dev/null)" = "ThinkPad P14s Gen 5" ]; then
 	export AQ_NO_ATOMIC=1
 fi
