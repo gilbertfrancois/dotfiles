@@ -51,6 +51,25 @@ hl.monitor({
 	scale = 1.0,
 })
 
+-- P14s + Lenovo ThinkPad Hybrid USB-C dock (Type 40AF): two Dell P2720DC
+-- monitors over the dock's DisplayLink/native outputs. Pinned by serial
+-- (not DVI-I-1/2) since evdi's connector numbering depends on USB attach
+-- order and isn't stable across replugs/reboots. Positions matched to the
+-- physical left/right desk layout (auto-placement had them backwards).
+-- Placed left of the internal panel (eDP-1 at 0x0) so nothing overlaps.
+hl.monitor({
+	output = "desc:Dell Inc. DELL P2720DC 14KVL93",
+	mode = "2560x1440@60",
+	position = "-5120x0",
+	scale = 1,
+})
+hl.monitor({
+	output = "desc:Dell Inc. DELL P2720DC 3GKVL93",
+	mode = "2560x1440@60",
+	position = "-2560x0",
+	scale = 1,
+})
+
 hl.monitor({
 	output = "",
 	mode = "preferred",
