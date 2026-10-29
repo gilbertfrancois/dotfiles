@@ -3,6 +3,9 @@ hl.config({
 		gaps_in = 5,
 		gaps_out = 10,
 	},
+	cursor = {
+		inactive_timeout = 5,
+	},
 	decoration = {
 		rounding = 10,
 		rounding_power = 2,
@@ -35,6 +38,9 @@ hl.config({
 		disable_splash_rendering = true, -- Disables the splash text sentences at the bottom
 		force_default_wallpaper = 0, -- 0 completely disables the built-in wallpaper engine
 		vrr = 2, -- Variable refresh rate: 0=off, 1=always, 2=fullscreen only
+	},
+	xwayland = {
+		use_nearest_neighbor = false,
 	},
 	render = {
 		-- Direct scanout hands a client's buffer straight to the display
