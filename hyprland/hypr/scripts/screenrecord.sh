@@ -13,7 +13,7 @@ if pgrep -x wf-recorder >/dev/null; then
 fi
 
 if ! command -v wf-recorder >/dev/null 2>&1; then
-  notify "wf-recorder is not installed. Install it with: sudo apt install wf-recorder"
+  notify "wf-recorder is not installed. Install it with: sudo dnf install wf-recorder"
   exit 1
 fi
 
@@ -24,7 +24,8 @@ if [[ "${1:-}" == "area" ]]; then
   GEOMETRY=$(slurp)
   wf-recorder -g "$GEOMETRY" -f "$OUT" >/tmp/wf-recorder.log 2>&1 &
 else
-  wf-recorder -f "$OUT" >/tmp/wf-recorder.log 2>&1 &
+  OUTPUT=$(hyprctl monitors -j | python3 -c "import sys,json; print(next(m['name'] for m in json.load(sys.stdin) if m['focused']))")
+  wf-recorder -o "$OUTPUT" -f "$OUT" >/tmp/wf-recorder.log 2>&1 &
 fi
 
 notify "Recording started: $OUT"
