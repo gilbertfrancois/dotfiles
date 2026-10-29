@@ -1,3 +1,8 @@
+hl.env("XCURSOR_THEME", "Adwaita")
+hl.env("XCURSOR_SIZE", "24")
+hl.env("HYPRCURSOR_THEME", "Adwaita")
+hl.env("HYPRCURSOR_SIZE", "24")
+
 hl.config({
 	general = {
 		gaps_in = 5,
@@ -5,6 +10,8 @@ hl.config({
 	},
 	cursor = {
 		inactive_timeout = 5,
+		-- hardware cursor plane misplaces the hotspot (I-beam offset) on the P14s
+		no_hardware_cursors = 1,
 	},
 	decoration = {
 		rounding = 10,
