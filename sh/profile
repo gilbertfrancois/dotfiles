@@ -233,7 +233,11 @@ export_term_foot() {
 # eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
 alias pgsrt='docker exec -it sentinel_rt_server-postgres-1 psql -U sentinel -d sentinel'
 
-export XCURSOR_THEME=Yaru
+if [ -d /usr/share/icons/Yaru/cursors ]; then
+  export XCURSOR_THEME=Yaru
+else
+  export XCURSOR_THEME=Adwaita
+fi
 export XCURSOR_SIZE=24
 
 if [ -z "$TERM_BACKGROUND" ]; then
