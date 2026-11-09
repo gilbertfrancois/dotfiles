@@ -86,6 +86,10 @@ hl.bind(MAIN_MOD .. " + SHIFT + 0", hl.dsp.window.move({ workspace = 10 }))
 hl.bind("SHIFT + CTRL + ALT + Left", hl.dsp.window.move({ workspace = "-1" }))
 hl.bind("SHIFT + CTRL + ALT + Right", hl.dsp.window.move({ workspace = "+1" }))
 
+-- Move window to the monitor left/right of the current one
+hl.bind(MAIN_MOD .. " + CTRL + ALT + Left", hl.dsp.window.move({ monitor = "l" }))
+hl.bind(MAIN_MOD .. " + CTRL + ALT + Right", hl.dsp.window.move({ monitor = "r" }))
+
 -- Move floating window by pixels
 hl.bind(MAIN_MOD .. " + ALT + Left", hl.dsp.window.move({ x = -80, y = 0, relative = true }))
 hl.bind(MAIN_MOD .. " + ALT + Right", hl.dsp.window.move({ x = 80, y = 0, relative = true }))
