@@ -39,8 +39,6 @@ function configure_keyd_swap() {
 [main]
 leftalt = leftmeta
 leftmeta = leftalt
-rightalt = rightmeta
-rightmeta = rightalt
 CONF
 
     sudo systemctl enable --now keyd
