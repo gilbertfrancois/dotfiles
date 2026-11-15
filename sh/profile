@@ -229,6 +229,17 @@ export_term_foot() {
       || echo "   FAILED."
 }
 
+mount_enc_all() {
+  sudo cryptsetup open UUID=d92e8e28-80c0-4036-8481-85c79660a31c data-gilbert
+  sudo mount /dev/mapper/data-gilbert /mnt/data-gilbert
+
+  sudo cryptsetup open UUID=f183bebe-8e37-478b-b0a8-fb5d790506aa data-gilbert-2
+  sudo mount /dev/mapper/data-gilbert-2 /mnt/data-gilbert-2
+
+  sudo cryptsetup open UUID=00724dd8-e3e7-4174-98de-c12a1e04488f data-3
+  sudo mount /dev/mapper/data-3 /mnt/data-3
+}
+
 
 # eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
 alias pgsrt='docker exec -it sentinel_rt_server-postgres-1 psql -U sentinel -d sentinel'
