@@ -82,11 +82,15 @@ hl.bind(MAIN_MOD .. " + SHIFT + 8", hl.dsp.window.move({ workspace = 8 }))
 hl.bind(MAIN_MOD .. " + SHIFT + 9", hl.dsp.window.move({ workspace = 9 }))
 hl.bind(MAIN_MOD .. " + SHIFT + 0", hl.dsp.window.move({ workspace = 10 }))
 
--- Move window to adjacent workspace (GNOME-style: Shift+Ctrl+Alt+Arrow)
-hl.bind("SHIFT + CTRL + ALT + Left", hl.dsp.window.move({ workspace = "-1" }))
-hl.bind("SHIFT + CTRL + ALT + Right", hl.dsp.window.move({ workspace = "+1" }))
+-- Move current workspace to the monitor left/right of the current one
+hl.bind("SHIFT + CTRL + ALT + H", hl.dsp.workspace.move({ monitor = "l" }))
+hl.bind("SHIFT + CTRL + ALT + L", hl.dsp.workspace.move({ monitor = "r" }))
+hl.bind("SHIFT + CTRL + ALT + Left", hl.dsp.workspace.move({ monitor = "l" }))
+hl.bind("SHIFT + CTRL + ALT + Right", hl.dsp.workspace.move({ monitor = "r" }))
 
 -- Move window to the monitor left/right of the current one
+hl.bind(MAIN_MOD .. " + CTRL + ALT + H", hl.dsp.window.move({ monitor = "l" }))
+hl.bind(MAIN_MOD .. " + CTRL + ALT + L", hl.dsp.window.move({ monitor = "r" }))
 hl.bind(MAIN_MOD .. " + CTRL + ALT + Left", hl.dsp.window.move({ monitor = "l" }))
 hl.bind(MAIN_MOD .. " + CTRL + ALT + Right", hl.dsp.window.move({ monitor = "r" }))
 
