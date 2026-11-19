@@ -8,10 +8,10 @@ hl.monitor({
 -- Exposed so modules/lid.lua can reapply the exact same mode/scale on lid
 -- reopen instead of a bare disabled=false (which resolves as a new,
 -- higher-priority rule matched by connector name and resets mode/scale to
--- preferred/auto). This file is shared between two laptops -- the Lenovo
--- P14s (AU Optronics 0x7AA7 panel) and the Dell Precision 3551 (AU
--- Optronics 0x26ED panel) -- so both candidates are listed; lid.lua picks
--- whichever one is actually connected at runtime.
+-- preferred/auto). This file is shared by all machines, so every laptop
+-- panel is listed by description; lid.lua picks whichever one is actually
+-- connected at runtime. Panels not listed here (e.g. the MacBook Air until
+-- its desc: is added) fall through to the catch-all rule at the bottom.
 local INTERNAL_MONITORS = {
 	{
 		output = "desc:AU Optronics 0x7AA7",

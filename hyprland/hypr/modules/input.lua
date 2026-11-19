@@ -12,8 +12,11 @@ hl.config({
 	},
 })
 
--- Swap Super<->Alt_L only on the built-in keyboard (at-translated-set-2-keyboard).
--- External keyboards register under a different device name and are unaffected.
+-- Swap Super<->Alt_L on the built-in keyboard of PC laptops so the modifier
+-- row matches a MacBook (Cmd next to the space bar). PC laptop keyboards
+-- (P14s, Dell P3551, ...) register as at-translated-set-2-keyboard; Apple
+-- keyboards and external USB keyboards use other device names and are
+-- unaffected, so this file is safe on every machine.
 hl.device({
 	name = "at-translated-set-2-keyboard",
 	kb_layout = "us,ru",
