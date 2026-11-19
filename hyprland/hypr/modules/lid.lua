@@ -89,15 +89,25 @@ end, { locked = true })
 -- real fix is the libinput quirk in hyprland/libinput/; this guard makes
 -- us trust the ACPI lid state over libinput regardless. If the state can't
 -- be read (no ACPI lid, io unavailable), fall through and enable as before.
+-- The ACPI node name varies per vendor (Lenovo: LID, Dell: LID0), so try
+-- the common ones.
+local LID_STATE_PATHS = {
+	"/proc/acpi/button/lid/LID/state",
+	"/proc/acpi/button/lid/LID0/state",
+	"/proc/acpi/button/lid/LID1/state",
+}
+
 local function lid_really_closed()
 	local ok, closed = pcall(function()
-		local f = io.open("/proc/acpi/button/lid/LID/state", "r")
-		if not f then
-			return false
+		for _, path in ipairs(LID_STATE_PATHS) do
+			local f = io.open(path, "r")
+			if f then
+				local s = f:read("*a") or ""
+				f:close()
+				return s:find("closed") ~= nil
+			end
 		end
-		local s = f:read("*a") or ""
-		f:close()
-		return s:find("closed") ~= nil
+		return false
 	end)
 	return ok and closed
 end
