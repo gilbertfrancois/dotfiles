@@ -40,8 +40,23 @@ fi
 
 echo ""
 echo "==> Noctalia shell config"
+# Shared settings live in shell/config.toml (loaded from ~/.config/noctalia).
 link "$DOTFILES/shell" "$HOME/.config/noctalia"
-link "$DOTFILES/v5_settings/settings.toml" "$HOME/.local/state/noctalia/settings.toml"
+
+# ~/.local/state/noctalia/settings.toml is noctalia's per-machine override
+# file (written by the settings GUI) and is intentionally not tracked.
+# Migrate machines that still have it symlinked into the dotfiles: turn it
+# into a local copy, or drop it if the tracked target is already gone.
+state_settings="$HOME/.local/state/noctalia/settings.toml"
+if [[ -L "$state_settings" ]]; then
+    if [[ -e "$state_settings" ]]; then
+        cp --remove-destination "$(readlink -f "$state_settings")" "$state_settings"
+        echo "  unlinked (kept local copy): $state_settings"
+    else
+        rm "$state_settings"
+        echo "  removed dangling link: $state_settings"
+    fi
+fi
 
 echo ""
 echo "Done. Noctalia (noctalia -d) is ready for Hyprland."

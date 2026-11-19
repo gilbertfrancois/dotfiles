@@ -1,0 +1,33 @@
+# Shared noctalia settings for all machines (tracked in dotfiles).
+#
+# noctalia loads every *.toml in ~/.config/noctalia/ first, then applies
+# ~/.local/state/noctalia/settings.toml on top. That state file is written by
+# the settings GUI and holds per-machine values (connector-specific lockscreen
+# boxes, last wallpaper, config_version migrations), so it is NOT tracked.
+#
+# A key set in the local settings.toml overrides the same key here. To make a
+# GUI change global: copy the key into this file, then delete it from the
+# local settings.toml (compare with `noctalia config export`).
+
+[bar.default]
+end = [ "tray", "notifications", "clipboard", "network", "bluetooth", "volume", "brightness", "battery", "control-center" ]
+margin_ends = 0
+shadow = false
+
+[lockscreen_widgets]
+enabled = false
+
+[shell.launcher]
+app_grid = true
+categories = false
+fetch_exchange_rates = false
+
+[theme]
+community_palette = "Monochrome"
+source = "community"
+
+    [theme.templates]
+    builtin_ids = [ "gtk3", "gtk4", "qt" ]
+
+[wallpaper.default]
+path = "/home/gilbert/Pictures/wallpaper/adwaita_solid_dark.png"
