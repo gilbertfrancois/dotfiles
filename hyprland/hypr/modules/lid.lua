@@ -124,3 +124,13 @@ hl.on("monitor.removed", function()
 		enable_internal()
 	end
 end)
+
+-- Config (re)load: modules/monitor applies the static rule for the internal
+-- panel, which re-enables eDP-1 even when the lid is closed and it was
+-- disabled by the lid-close bind above. Hyprland reloads the config on every
+-- save of a file in it, so editing monitor.lua with the lid closed pulled
+-- workspaces back onto the (invisible) internal panel. Re-apply the
+-- lid-closed state after the static rules.
+if lid_really_closed() and external_monitor_connected() then
+	hl.monitor({ output = INTERNAL, disabled = true })
+end
