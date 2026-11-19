@@ -81,7 +81,31 @@ hl.bind("switch:on:Lid Switch", function()
 	end
 end, { locked = true })
 
+-- libinput can emit a *synthetic* lid-open: when it pairs a keyboard with
+-- the lid switch (meant for the built-in keyboard) and sees a keypress
+-- while the lid is closed, it assumes the switch is unreliable and reports
+-- "open". After the Fedora 45 upgrade it paired the docked USB Ergodox,
+-- so typing on it re-enabled eDP-1 a second after closing the lid. The
+-- real fix is the libinput quirk in hyprland/libinput/; this guard makes
+-- us trust the ACPI lid state over libinput regardless. If the state can't
+-- be read (no ACPI lid, io unavailable), fall through and enable as before.
+local function lid_really_closed()
+	local ok, closed = pcall(function()
+		local f = io.open("/proc/acpi/button/lid/LID/state", "r")
+		if not f then
+			return false
+		end
+		local s = f:read("*a") or ""
+		f:close()
+		return s:find("closed") ~= nil
+	end)
+	return ok and closed
+end
+
 hl.bind("switch:off:Lid Switch", function()
+	if lid_really_closed() and external_monitor_connected() then
+		return
+	end
 	enable_internal()
 end, { locked = true })
 

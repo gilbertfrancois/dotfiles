@@ -54,6 +54,11 @@ mkdir -p "$HOME/.local/share/applications"
 # cp "$DOTFILES/applications/*" "$HOME/.local/share/applications/"
 
 echo ""
+echo "==> libinput quirks (docked USB keyboards are external, see file)"
+sudo install -Dm644 "$DOTFILES/libinput/local-overrides.quirks" /etc/libinput/local-overrides.quirks
+echo "  installed: /etc/libinput/local-overrides.quirks"
+
+echo ""
 echo "==> Noctalia shell"
 "$DOTFILES_ROOT/noctalia/install.sh"
 

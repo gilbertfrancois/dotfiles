@@ -1,0 +1,18 @@
+# Installed to /etc/libinput/local-overrides.quirks by hyprland/install.sh.
+#
+# Since Fedora 45 (libinput 1.32), USB keyboards attached through the Dell
+# WD22TB4 / Lenovo docks are classified as *internal* keyboards (the dock's
+# downstream ports report removable=fixed). libinput then pairs them with
+# the laptop's Lid Switch, and any keypress while the lid is closed is
+# taken as proof that the lid switch is lying: libinput emits a synthetic
+# "lid open" event. Hyprland's switch:off:Lid Switch bind (modules/lid.lua)
+# then re-enables eDP-1 a second or two after closing the lid, pulling the
+# workspaces back off the external monitor. It also wrongly enables
+# disable-while-typing on the touchpad for external keyboards.
+#
+# A laptop's built-in keyboard is never on USB (it's i8042/serio), so mark
+# every USB keyboard as external.
+[USB keyboards are external]
+MatchUdevType=keyboard
+MatchBus=usb
+AttrKeyboardIntegration=external
