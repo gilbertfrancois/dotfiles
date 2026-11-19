@@ -52,9 +52,14 @@ hl.monitor({
 })
 -- Lenovo T27p-10 (27" 4K). Scale 1.5 -> 2560x1440 logical, so it sits
 -- directly left of the internal panel (eDP-1 at 0x0).
+-- Mode is 59.996 Hz, not 60: the EDID offers both its native CVT-RB timing
+-- (DTD, 59.996 Hz) and the CEA/HDMI timing VIC 97 (exactly 60 Hz). "@60"
+-- picks VIC 97, and Intel's i915 sends CEA modes as *limited* RGB range
+-- (Broadcast RGB = Automatic), which the monitor shows washed out/brighter.
+-- The native DTD isn't a CEA mode, so i915 sends full range.
 hl.monitor({
 	output = "desc:Lenovo Group Limited LEN T27p-10 0x434E5937",
-	mode = "3840x2160@60",
+	mode = "3840x2160@59.996",
 	position = "-2560x0",
 	scale = 1.5,
 })
