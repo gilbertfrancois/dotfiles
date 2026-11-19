@@ -50,6 +50,14 @@ hl.monitor({
 	position = "-1920x0",
 	scale = 1.0,
 })
+-- Lenovo T27p-10 (27" 4K). Scale 1.5 -> 2560x1440 logical, so it sits
+-- directly left of the internal panel (eDP-1 at 0x0).
+hl.monitor({
+	output = "desc:Lenovo Group Limited LEN T27p-10 0x434E5937",
+	mode = "3840x2160@60",
+	position = "-2560x0",
+	scale = 1.5,
+})
 
 -- P14s + Lenovo ThinkPad Hybrid USB-C dock (Type 40AF): two Dell P2720DC
 -- monitors over the dock's DisplayLink/native outputs. Pinned by serial
