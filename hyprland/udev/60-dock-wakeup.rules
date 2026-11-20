@@ -8,3 +8,11 @@
 # only opening the lid woke the machine.
 SUBSYSTEM=="usb", ATTR{bDeviceClass}=="09", ATTR{power/wakeup}="enabled"
 SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{class}=="0x060400", ATTR{power/wakeup}="enabled"
+
+# The Thunderbolt dock loses power in deep sleep (S3, forced by
+# mem_sleep_default=deep on the kernel command line), so a key on its USB
+# keyboard can't wake the machine. s2idle keeps it alive and works, but
+# drains the battery much faster. So: s2idle while on AC, deep on battery.
+# The "add" event at boot sets the initial state, "change" follows plug/unplug.
+SUBSYSTEM=="power_supply", KERNEL=="AC", ATTR{online}=="1", RUN+="/bin/sh -c 'echo s2idle > /sys/power/mem_sleep'"
+SUBSYSTEM=="power_supply", KERNEL=="AC", ATTR{online}=="0", RUN+="/bin/sh -c 'echo deep > /sys/power/mem_sleep'"
