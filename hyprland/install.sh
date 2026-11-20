@@ -58,6 +58,12 @@ echo "==> libinput quirks (docked USB keyboards are external, see file)"
 sudo install -Dm644 "$DOTFILES/libinput/local-overrides.quirks" /etc/libinput/local-overrides.quirks
 echo "  installed: /etc/libinput/local-overrides.quirks"
 
+echo "==> udev: USB hubs/PCIe bridges may wake the system (dock keyboard wake)"
+sudo install -Dm644 "$DOTFILES/udev/60-dock-wakeup.rules" /etc/udev/rules.d/60-dock-wakeup.rules
+sudo udevadm control --reload
+sudo udevadm trigger --subsystem-match=usb --subsystem-match=pci --action=add
+echo "  installed: /etc/udev/rules.d/60-dock-wakeup.rules"
+
 echo ""
 echo "==> Noctalia shell"
 "$DOTFILES_ROOT/noctalia/install.sh"

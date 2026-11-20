@@ -1,0 +1,10 @@
+# Installed to /etc/udev/rules.d/ by hyprland/install.sh.
+#
+# Docked (lid closed) the machine must wake from suspend on a key press on
+# the USB keyboard plugged into the Dell WD22TB4 dock. The keyboard itself
+# already has power/wakeup=enabled, but its wake request has to travel up
+# through the dock's USB hubs and the Thunderbolt/PCIe bridges, and those
+# default to wakeup=disabled -- so the key press never reached the CPU and
+# only opening the lid woke the machine.
+SUBSYSTEM=="usb", ATTR{bDeviceClass}=="09", ATTR{power/wakeup}="enabled"
+SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{class}=="0x060400", ATTR{power/wakeup}="enabled"
